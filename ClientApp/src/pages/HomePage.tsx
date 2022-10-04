@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export function HomePage() {
   const root = document.getElementsByTagName("html")[0];
   const toggleDarkMode = () => {
