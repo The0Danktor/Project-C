@@ -1,4 +1,4 @@
-namespace back_end;
+namespace Project_C;
 
 public class WeatherForecast
 {
