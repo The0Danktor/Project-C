@@ -10,12 +10,14 @@ export function HomePage() {
   const toggleLightMode = () => {
     root.removeAttribute("class");
     localStorage.theme = "light";
-  };
+  };    
   return (
+    <div>
     <div className="flex">
       <div className="bg-white border rounded-md border-gray-300 flex text-gray-700 text-sm font-medium py-0.5 px-2 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700">
         homePage
       </div>
+    </div>
       <button onClick={toggleLightMode}>light</button>
       <button onClick={toggleDarkMode}>dark</button>
     </div>
