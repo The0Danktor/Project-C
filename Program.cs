@@ -1,3 +1,10 @@
+
+// dotnet tool install --global dotnet-ef
+// dotnet add package Microsoft.EntityFrameworkCore.Design
+// dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.5
+// dotnet ef Migrations add _MigrationName
+// dotnet ef Database update 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
