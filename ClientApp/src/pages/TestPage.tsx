@@ -1,7 +1,12 @@
+import { NavSide } from "../components/Customer/NavSide";
 import React from 'react'
+import { DarkmodeSwitch } from "../components/Shared/DarkmodeSwitch";
 
-export default function TestPage() {
+export function TestPage() {
   return (
-    <div>TestPage</div>
+    <div className="bg-white dark:bg-gray-900 w-screen h-screen">
+      {/* <NavSide /> */}
+      <DarkmodeSwitch />
+    </div>
   )
 }

@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
 export function Admin() {
-    return (
-        <div>
-            <h1>Admin</h1>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Admin</h1>
+    </div>
+  );
 }
