@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-
+// https://youtu.be/d3KBGmXrx2M?t=162
+// https://www.youtube.com/watch?v=MhEPd1HoVH8&ab_channel=ConorBailey
 export function DarkmodeSwitch() {
   const sun = (
     <svg
@@ -55,7 +56,7 @@ export function DarkmodeSwitch() {
       toggleLightMode();
       console.log(`new theme: ${localStorage.theme}`);
     }
-    if (localStorage.theme === "light") {
+    else if (localStorage.theme === "light") {
       toggleDarkMode();
       console.log(`new theme: ${localStorage.theme}`);
     }
@@ -64,7 +65,7 @@ export function DarkmodeSwitch() {
   return (
     <div>
       <button
-        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-white flex items-center transition duration-300 focus:outline-none shadow"
+        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800 flex items-center transition duration-300 focus:outline-none shadow"
         onClick={onChange}
       >
         <div
@@ -74,8 +75,6 @@ export function DarkmodeSwitch() {
           {logo.svg}
         </div>
       </button>
-      <button onClick={toggleDarkMode}>light</button>
-      <button onClick={toggleLightMode}>dark</button>
     </div>
   );
 }
