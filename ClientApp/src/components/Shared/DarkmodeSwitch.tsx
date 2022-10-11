@@ -37,7 +37,7 @@ export function DarkmodeSwitch() {
     </svg>
   );
 
-  let [logo, setLogo] = useState({ svg: moon, name: "moon" });
+  let [logo, setLogo] = useState( localStorage.theme === "dark"? {svg: moon, name: "moon" } : {svg: sun, name: "sun" } );
 
   const root = document.getElementsByTagName("html")[0];
   const toggleDarkMode = () => {
@@ -70,7 +70,7 @@ export function DarkmodeSwitch() {
       >
         <div
           id="switch-toggle"
-          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 dark:translate-x-full dark:bg-gray-700 p-1 text-white flex items-center justify-center"
+          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-blue-500 -translate-x-2 dark:translate-x-full dark:bg-gray-700 p-1 text-white flex items-center justify-center"
         >
           {logo.svg}
         </div>
