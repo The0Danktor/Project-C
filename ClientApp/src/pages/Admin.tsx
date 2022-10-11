@@ -29,8 +29,8 @@ export function Admin() {
         <div className="flex gap-x-4 items-center">
           <img
             src={viscon}
-            className={`${open ? "w-30" : "w-20"}cursor-pointer duration-500 ${
-              open && "rotate-[360deg]"
+            className={`cursor-pointer duration-500 ${
+              open && "rotate-[360deg] w-32"
             }`}
           />
           <h1
@@ -41,8 +41,7 @@ export function Admin() {
             Admin
           </h1>
         </div>
-      </div>
-      <ul className="pt-6">
+        <ul className="pt-6">
         {Menus.map((Menu, index) => (
           <li
             key={index}
@@ -55,6 +54,7 @@ export function Admin() {
           </li>
         ))}
       </ul>
+      </div>
       <div className="p-7 text-2x1 font-semibold flex-1 h-screen">
         <h1>Admin</h1>
       </div>
