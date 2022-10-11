@@ -65,12 +65,12 @@ export function DarkmodeSwitch() {
   return (
     <div>
       <button
-        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800 flex items-center transition duration-300 focus:outline-none shadow"
+        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800  flex items-center  transition duration-300 focus:outline-none shadow"
         onClick={onChange}
       >
         <div
           id="switch-toggle"
-          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 p-1 text-white flex items-center justify-center"
+          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 dark:translate-x-full dark:bg-gray-700 p-1 text-white flex items-center justify-center"
         >
           {logo.svg}
         </div>

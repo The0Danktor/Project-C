@@ -9,6 +9,13 @@ export function NavSide() {
         <p className="text-black dark:text-white transition duration-300">Viscon</p>
         <DarkmodeSwitch />
       </div>
+      <div className="flex flex-col item">
+        <p className="dark:text-white mx-4 my-2">Home</p>
+        <p className="dark:text-white mx-4 my-2">Tickets</p>
+        <p className="dark:text-white mx-4 my-2">KnowledgeBase</p>
+        <p className="dark:text-white mx-4 my-2">Admin</p>
+        <p className="dark:text-white mx-4 my-2">Settings</p>
+      </div>
     </div>
   );
 }
