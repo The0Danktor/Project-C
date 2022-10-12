@@ -1,5 +1,5 @@
 import React from "react";
-import { NavSide } from "../components/NavSide";
+import { NavSide } from "../components/Shared/NavSide";
 
 
 export function HomePage() {
