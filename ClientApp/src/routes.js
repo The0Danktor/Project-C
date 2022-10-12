@@ -11,5 +11,5 @@ export const routes = [
   { path: "/knowledge", name: "knowledgePage", component: <Knowledge /> },
   { path: "/admin", name: "adminPage", component: <Admin /> },
   { path: "/*", name: "notFound", component: <NotFound /> },
-  { path: "/Machine", name: "Machine", component: <Machine /> },
+  { path: "/machine", name: "machine", component: <Machine /> },
 ];
