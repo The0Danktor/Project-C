@@ -5,7 +5,7 @@ import { NavSide } from "../components/NavSide";
 export function HomePage() {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="bg-white dark:bg-gray-900 transition flex duration-300">
         <NavSide />
       </div>
     </div>
