@@ -5,7 +5,6 @@ import { Knowledge } from "./pages/Knowledge";
 import { Admin } from "./pages/Admin";
 import { Ticket } from "./pages/Ticket";
 import { TestPage } from "./pages/TestPage";
-import { Machine } from "./pages/Machine";
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
@@ -15,5 +14,4 @@ export const routes = [
   { path: "/ticket", name: "ticketPage", component: <Ticket />},
   { path: "/test", name: "testPage", component: <TestPage /> },
   { path: "/*", name: "notFound", component: <NotFound /> },
-  { path: "/machine", name: "machine", component: <Machine /> },
 ];
