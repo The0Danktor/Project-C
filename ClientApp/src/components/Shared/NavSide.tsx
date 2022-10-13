@@ -14,7 +14,7 @@ import {
 
 export function NavSide() {
   return (
-    <div className="absolute left-0 h-screen w-80 flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
+    <div className="h-screen w-80 flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
       <div className="flex justify-between w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
         <p className="text-black dark:text-gray-400 transition duration-300">
           Viscon
