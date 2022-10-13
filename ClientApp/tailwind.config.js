@@ -4,8 +4,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      height: {
-        '128': '90',
+      colors: {
+        "light-blue": "#E5F2FF",
+        "dark-blue": "#1E3A8A",
       }
     },
   },
