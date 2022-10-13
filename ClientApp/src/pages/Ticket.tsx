@@ -1,8 +1,8 @@
-import { current } from "@reduxjs/toolkit";
 import React from "react";
 import logo from "../assets/logo.png";
 
 export function Ticket() {
+<<<<<<< HEAD
   var reports = [];
   var status = ["New", "In progress", "Finished"]; // a list of all statuses
   var color;
@@ -27,6 +27,10 @@ export function Ticket() {
   return (
     <div className="flex flex-row">
       {/* sidebar */}
+=======
+  return (
+    <div className="flex flex-row overflow-scroll">
+>>>>>>> parent of af8b236 (gave every status a color)
       <div className="flex flex-col border-r w-fit h-screen pr-4 px-4 leading-7">
         <a href="#"> {/* logo */}
           <img className="h-36 w-auto" src={logo} />
@@ -139,8 +143,18 @@ export function Ticket() {
           Log out
         </a>
       </div>
+<<<<<<< HEAD
        {/* ticket */}
       <div className="grow flex flex-col">{reports}</div>
+=======
+      <div className="border h-1/4 grow m-2 p-4">
+        <span className="text-slate-400 float-right text-sm">17 December, 2022</span>
+        <strong>Title</strong>
+        <p>Owner</p>
+        <p>Description</p>
+        <button className="bg-green-400 rounded px-14 float-right -my-12">New</button>
+      </div>
+>>>>>>> parent of af8b236 (gave every status a color)
     </div>
   );
 }
