@@ -8,25 +8,25 @@ export function Ticket() {
   var color;
   for (var i = 0; i < 10; i++) {
     var currentStatus = status[Math.floor(Math.random()*status.length)]
-    if (currentStatus == "New") color = "bg-red-600"
-    else if (currentStatus == "In progress") color = "bg-orange-400"
+    if (currentStatus == "New") color = "bg-cyan-500"
+    else if (currentStatus == "In progress") color = "bg-yellow-300"
     else color = "bg-green-500"
 
     reports.push(
-      <a href="#" className="border rounded-lg grow m-2 p-4">
+      <a href="#" className="border border-slate-300 rounded-lg grow m-2 p-4">
         <span className="text-slate-400 float-right text-sm">
           17 December, 2022
         </span>
         <strong>Title</strong>
         <p>Owner</p>
         <p>Description</p>
-        <button className={color+" rounded px-14 float-right -my-12"}>{currentStatus}</button>
+        <button className={color+" rounded w-40 float-right -my-12"}>{currentStatus}</button>
       </a>
     );
   }
   return (
     <div className="flex flex-row">
-      <div className="flex flex-col border-r w-fit h-screen pr-4 px-4 leading-7">
+      <div className="flex flex-col border-r w-fit pr-4 px-4 leading-7">
         <a href="#">
           <img className="h-36 w-auto" src={logo} />
         </a>
@@ -138,7 +138,9 @@ export function Ticket() {
           Log out
         </a>
       </div>
-      <div className="grow flex flex-col">{reports}</div>
+      <div className="grow flex flex-col bg-slate-100 h-[42rem] m-10 rounded-xl overflow-auto">
+        {reports}
+      </div>
     </div>
   );
 }
