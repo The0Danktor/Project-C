@@ -3,7 +3,7 @@ import { NavSide } from "../components/Shared/NavSide";
 
 export function Knowledge() {
   return (
-    <div className="bg-white dark:bg-gray-900 transition duration-300 w-screen h-screen flex flex-row">
+    <div className="bg-white dark:bg-gray-900 transition flex duration-300">
       <NavSide />
       <div>
         <h1>Knowledge</h1>
