@@ -8,8 +8,10 @@ export function Layout() {
     <div className="flex">
       <AdminSidebar />
       <div>
-      <Header />
-      hlkjhlkljhlk
+        <Header />
+        <div className="flex flex-col mt-10 mx-10 w-40 h-40 bg-neutral hover:bg-slate-100 shadow-lg rounded-lg">
+            
+        </div>
       </div>
     </div>
   );
