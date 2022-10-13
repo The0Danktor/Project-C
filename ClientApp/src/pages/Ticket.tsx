@@ -4,30 +4,31 @@ import logo from "../assets/logo.png";
 
 export function Ticket() {
   var reports = [];
-  var status = ["New", "In progress", "Finished"];
+  var status = ["New", "In progress", "Finished"]; // a list of all statuses
   var color;
   for (var i = 0; i < 10; i++) {
-    var currentStatus = status[Math.floor(Math.random()*status.length)]
+    var currentStatus = status[Math.floor(Math.random()*status.length)] // picks a random status
     if (currentStatus == "New") color = "bg-red-600"
     else if (currentStatus == "In progress") color = "bg-orange-400"
     else color = "bg-green-500"
 
-    reports.push(
+    reports.push( // makes a ticket
       <a href="#" className="border rounded-lg grow m-2 p-4">
         <span className="text-slate-400 float-right text-sm">
           17 December, 2022
         </span>
-        <strong>Title</strong>
+        <strong>Title</strong> {/* makes text bold */}
         <p>Owner</p>
         <p>Description</p>
-        <button className={color+" rounded px-14 float-right -my-12"}>{currentStatus}</button>
+        <button className={color + " rounded px-14 float-right -my-12"}>{currentStatus}</button> {/* diplsyas button with their own color */}
       </a>
     );
   }
   return (
     <div className="flex flex-row">
+      {/* sidebar */}
       <div className="flex flex-col border-r w-fit h-screen pr-4 px-4 leading-7">
-        <a href="#">
+        <a href="#"> {/* logo */}
           <img className="h-36 w-auto" src={logo} />
         </a>
         <a href="#" className="flex">
@@ -138,6 +139,7 @@ export function Ticket() {
           Log out
         </a>
       </div>
+       {/* ticket */}
       <div className="grow flex flex-col">{reports}</div>
     </div>
   );
