@@ -1,7 +1,11 @@
+import { NavSide } from "../components/Shared/NavSide";
 import React from 'react'
 
-export default function TestPage() {
+
+export function TestPage() {
   return (
-    <div>TestPage</div>
+    <div className="bg-white dark:bg-gray-900 transition duration-300 w-screen h-screen">
+      <NavSide />
+    </div>
   )
 }
