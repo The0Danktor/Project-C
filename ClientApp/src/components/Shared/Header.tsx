@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-export function Header() {
+export default function Header() {
   return (
-    <div className="flex flex-row static px-20 w-screen h-20 bg-dark-blue">
-        <div className="text-2xl font-semibold">Dashboard</div>
+    <div className="flex flex-col w-full">
+      <div className="flex justify-between w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
+        <p>Welcome User</p>
+      </div>
     </div>
-  )
+  );
 }

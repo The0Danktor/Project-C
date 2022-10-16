@@ -9,7 +9,7 @@ import {
   PencilSquareIcon,
   UsersIcon,
   UserIcon,
-  ArrowLeftOnRectangleIcon,
+  ArrowRightOnRectangleIcon,
   Cog8ToothIcon,
   SwatchIcon,
 } from "@heroicons/react/24/outline";
@@ -46,7 +46,7 @@ export function NavSide() {
           <NavSideButton
             title="Testing Ground"
             svg={<SwatchIcon className="w-6 h-6 m-2" />}
-            page="../test"
+            page="../test" 
           />
         </div>
         <div className="flex flex-col items-center my-4">
@@ -62,7 +62,7 @@ export function NavSide() {
           />
           <NavSideButton
             title="Logout"
-            svg={<ArrowLeftOnRectangleIcon className="w-6 h-6 m-2" />}
+            svg={<ArrowRightOnRectangleIcon className="w-6 h-6 m-2" />}
             page="../logout"
           />
         </div>
