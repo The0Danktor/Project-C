@@ -1,4 +1,4 @@
-import { NavSide } from "../components/Customer/NavSide";
+import { NavSide } from "../components/Shared/NavSide";
 import React from 'react'
 
 

@@ -18,6 +18,13 @@ code {
     monospace;
 }
 
+img.logo {
+  object-fit:cover;
+  width: 200px;
+  height:90px;
+  margin-bottom: -20px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

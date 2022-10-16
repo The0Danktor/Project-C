@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { NavSide } from "../components/Shared/NavSide";
 
 export function Knowledge() {
   return (

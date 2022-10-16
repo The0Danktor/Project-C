@@ -1,6 +1,8 @@
 import React from "react";
 import { DarkmodeSwitch } from "./DarkmodeSwitch";
-import NavSideButton from "./NavSideButton";
+import { NavSideButton } from "./NavSideButton";
+import { NavSideButtonLogo } from "./NavSideButton";
+import logo from "../../assets/logo.png";
 import {
   BookOpenIcon,
   HomeIcon,
@@ -16,9 +18,7 @@ export function NavSide() {
   return (
     <div className="h-screen w-80 flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
       <div className="flex justify-between w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
-        <p className="text-black dark:text-gray-400 transition duration-300">
-          Viscon
-        </p>
+        <NavSideButtonLogo img={logo} page="../" />
         <DarkmodeSwitch />
       </div>
       <div className="flex flex-col h-full justify-between">
@@ -31,7 +31,7 @@ export function NavSide() {
           <NavSideButton
             title="Tickets"
             svg={<PencilSquareIcon className="w-6 h-6 m-2" />}
-            page="../tickets"
+            page="../ticket"
           />
           <NavSideButton
             title="Knowledge Base"
