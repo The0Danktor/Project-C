@@ -27,9 +27,9 @@ export function Layout() {
 function renderMenuItems() {
   let items = state.items.map((item : any , index : any) => {
      return ( 
-       <div className="flex flex-col" key={item.id}>
-        <div className="flex flex-col mx-10 first:pt-0 last:pb-0 border-4 border-gray-100 flex hover:bg-slate-100 dark:hover:bg-gray-800 dark:border-gray-800 shadow-lg rounded-full mt-3 dark:shadow-gray-800 items-center font-semibold transition duration-300">
-          {item.id} {item.name} {item.date}
+       <div className="flex flex-col w-96" key={item.id}>
+        <div className="flex flex-col mx-10  items-center border-4 border-gray-100 flex hover:bg-slate-100 dark:hover:bg-gray-800 dark:border-gray-800 shadow-lg rounded-full mt-5 dark:shadow-gray-800 justify-center font-semibold transition duration-300">
+          {item.id} | {item.name} | {item.date}
           </div>
       </div>
      );
@@ -63,11 +63,11 @@ function renderMenuItems() {
           </div>
         </div>
         <div className="flex w-screen h-screen  font-semibold text-black dark:text-gray-400 transition duration-300">
-          <div className="flex flex-col mt-40 mx-10 w-1/3 h-1/2 border-4 border-gray-100 dark:border-gray-800 dark:shadow-gray-800 shadow-lg rounded-3xl">
-            <div className="flex flex-col justify-center items-center text-2xl w-60 mt-10 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
+          <div className="flex flex-col items-center mt-40 mx-10 w-1/3 h-1/2 border-4 border-gray-100 dark:border-gray-800 dark:shadow-gray-800 shadow-lg rounded-3xl">
+            <div className="flex flex-col justify-center items-center w-60 text-2xl mt-6 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
               <p>Recent Activity</p>
             </div>
-            <div className=" flex-col items-center font-semibold text-2xl ">
+            <div className="flex flex-col justify-center font-semibold text-2xl ">
               {renderMenuItems()}
             </div>
           </div>
