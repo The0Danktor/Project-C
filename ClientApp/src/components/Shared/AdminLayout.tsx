@@ -71,7 +71,14 @@ function renderMenuItems() {
               {renderMenuItems()}
             </div>
           </div>
-          <div className="flex flex-col mt-40 mx-10 w-1/3 h-1/2 border-4 border-gray-100 dark:border-gray-800 dark:shadow-gray-800 shadow-lg rounded-3xl"></div>
+          <div className="flex flex-col mt-40 mx-10 w-1/3 h-1/2 border-4 border-gray-100 dark:border-gray-800 dark:shadow-gray-800 shadow-lg rounded-3xl">
+          <div className="flex flex-col justify-center items-center w-60 text-2xl mt-6 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
+              <p>Recent Activity</p>
+            </div>
+            <div className="flex flex-col justify-center font-semibold text-2xl ">
+              {renderMenuItems()}
+            </div>
+          </div>
         </div>
     </div>
     </div>
