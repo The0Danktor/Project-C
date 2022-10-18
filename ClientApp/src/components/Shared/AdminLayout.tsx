@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { NavSide } from "./NavSide";
-import { Header } from "./Header";
+import Header from "./Header";
 import { Link } from "react-router-dom";
 import {
   Chart as ChartJS,
