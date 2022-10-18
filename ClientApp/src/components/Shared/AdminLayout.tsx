@@ -14,9 +14,9 @@ import {
   Tooltip,
   LineController,
   BarController,
-} from 'chart.js';
-import { Chart } from 'react-chartjs-2';
-import {faker} from '@faker-js/faker';
+} from "chart.js";
+import { Chart } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
 
 ChartJS.register(
   LinearScale,
@@ -30,32 +30,32 @@ ChartJS.register(
   BarController
 );
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 export const data = {
   labels,
   datasets: [
     {
-      type: 'line' as const,
-      label: 'Dataset 1',
-      borderColor: 'rgb(255, 99, 132)',
+      type: "line" as const,
+      label: "Dataset 1",
+      borderColor: "rgb(255, 99, 132)",
       borderWidth: 2,
       fill: false,
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: -100, max: 100 })),
     },
     {
-      type: 'bar' as const,
-      label: 'Dataset 2',
-      backgroundColor: 'rgb(75, 192, 192)',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'white',
+      type: "bar" as const,
+      label: "Dataset 2",
+      backgroundColor: "rgb(75, 192, 192)",
+      data: labels.map(() => faker.datatype.number({ min: -100, max: 100 })),
+      borderColor: "white",
       borderWidth: 2,
     },
     {
-      type: 'bar' as const,
-      label: 'Dataset 3',
-      backgroundColor: 'rgb(53, 162, 235)',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+      type: "bar" as const,
+      label: "Dataset 3",
+      backgroundColor: "rgb(53, 162, 235)",
+      data: labels.map(() => faker.datatype.number({ min: -100, max: 100 })),
     },
   ],
 };
@@ -183,8 +183,15 @@ export function Layout() {
             </div>
           </div>
         </div>
-        <div className="flex flex-row w-screen mt-14 mx-10 items-start font-semibold text-2xl">Uptime</div>
-        <div><Chart type="bar" data={data}/></div>
+        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl">
+          Uptime
+          <div className="flex flex-col mt-0 w-3/4 h-3/4 items-start"><Chart type="bar" data={data}/></div>
+        </div>
+        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl">
+          Uptime
+          <div className="flex flex-col mt-0 w-3/4 h-3/4 items-start"><Chart type="bar" data={data}/></div>
+        </div>
+        
       </div>
     </div>
   );
