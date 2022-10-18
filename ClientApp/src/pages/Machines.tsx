@@ -9,8 +9,8 @@ export function Machines() {
         <NavSide/>
       </div>
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col gap-14 h-screen p-32">
-          <input type="string" placeholder="Search" className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-200 dark:hover:bg-white text-black caret-black py-4 px-60 rounded-full text-center"/>
+        <div className="flex flex-col gap-14 h-screen p-20">
+          <input type="string" placeholder="Search" className="bg-gray-200 hover:bg-gray-300 dark:bg-gray-200 dark:hover:bg-white text-black caret-black py-5 px-96 rounded-full text-center"/>
           <ul className="flex flex-col gap-6 overflow-y-auto items-center">
             <Machine machineName="Machine 1" />
             <Machine machineName="Machine 2" />
