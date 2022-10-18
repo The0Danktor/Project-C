@@ -1,7 +1,7 @@
 import { NavSide } from "../components/Shared/NavSide";
 import React from "react";
 import { ProblemMenu } from "../components/Customer/ProblemMenu";
-import Header from "../components/Shared/Header";
+import { Header } from "../components/Shared/Header";
 
 export function TestPage() {
   return (
