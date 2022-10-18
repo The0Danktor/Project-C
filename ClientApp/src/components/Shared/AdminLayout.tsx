@@ -183,15 +183,14 @@ export function Layout() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl">
+        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl transition duration-300">
           Uptime
-          <div className="flex flex-col mt-0 w-3/4 h-3/4 items-start"><Chart type="bar" data={data}/></div>
+          <div className="flex flex-col mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
         </div>
         <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl">
           Uptime
-          <div className="flex flex-col mt-0 w-3/4 h-3/4 items-start"><Chart type="bar" data={data}/></div>
+          <div className="flex flex-col mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
         </div>
-        
       </div>
     </div>
   );
