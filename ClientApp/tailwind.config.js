@@ -9,6 +9,9 @@ module.exports = {
         "dark-blue": "#1E3A8A",
       }
     },
+    screens: {
+      'phone': {'min': '0px', 'max': '1000px'}
+    }
   },
   plugins: [],
 };

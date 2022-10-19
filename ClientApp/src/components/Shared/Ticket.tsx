@@ -3,6 +3,7 @@ import React from "react";
 export function Ticket() {
   var status = ["New", "In progress", "Finished"];
   var color;
+  var date = new Date();
   var currentStatus = status[Math.floor(Math.random() * status.length)];
   {
     /* picks random item im status list */
@@ -14,10 +15,13 @@ export function Ticket() {
     <a
       href="#"
       // className="border border-slate-300 dark:border-gray-700 dark:hover:bg-gray-800  hover:bg-slate-200 dark:text-gray-400 rounded-lg m-2 p-4"
-      className="w-[48.5%] border border-slate-300 dark:border-gray-700 dark:hover:bg-gray-800  hover:bg-slate-200 dark:text-gray-400 rounded-lg m-2 p-4"
+      className="w-[48.5%] border border-slate-300 dark:border-gray-700 dark:hover:bg-gray-800  hover:bg-slate-200 dark:text-gray-400 rounded-lg m-2 p-4
+      phone:w-screen"
     >
       <span className="text-slate-400 float-right text-sm">
-        17 December, 2022
+        {date.getDate().toString().padStart(2, "0")}/
+        {date.getMonth().toString().padStart(2, "0")}/
+        {date.getFullYear().toString()}
       </span>
       <strong>Title</strong>
       <p>Owner</p>
