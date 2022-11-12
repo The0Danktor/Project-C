@@ -37,11 +37,17 @@ export function DarkmodeSwitch() {
     </svg>
   );
 
-  let [logo, setLogo] = useState( localStorage.theme === "dark"? {svg: moon, name: "moon" } : {svg: sun, name: "sun" } );
+  let [logo, setLogo] = useState(
+    localStorage.theme === "dark"
+      ? { svg: moon, name: "moon" }
+      : { svg: sun, name: "sun" }
+  );
 
   const root = document.getElementsByTagName("html")[0];
   const toggleDarkMode = () => {
     root.setAttribute("class", "dark");
+    root.classList.add("dark");
+    root.classList.add("dark-scrollbar");
     localStorage.theme = "dark";
     setLogo({ svg: moon, name: "moon" });
   };
@@ -54,11 +60,8 @@ export function DarkmodeSwitch() {
     console.log(localStorage.theme);
     if (localStorage.theme === "dark") {
       toggleLightMode();
-      console.log(`new theme: ${localStorage.theme}`);
-    }
-    else if (localStorage.theme === "light") {
+    } else if (localStorage.theme === "light") {
       toggleDarkMode();
-      console.log(`new theme: ${localStorage.theme}`);
     }
   };
 
