@@ -3,6 +3,8 @@ import { useState } from "react";
 import placeholder from "../../assets/add_picture.png";
 import ja from "../../assets/logo.png";
 import { Dropdown } from "./Dropdown";
+import {ImageGallery} from "./ImageGallery"
+import {Button} from "./Button"
 interface information {
   display: boolean;
   status: string;
@@ -16,8 +18,7 @@ export function PopUp(props: information) {
       <div
         className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] overflow-y-auto
       md:min-h-[50%] md:w-1/2 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2
-      "
-      >
+      ">
         {/* close button */}
         <button onClick={props.close} className="float-right m-3">
           <svg
@@ -35,7 +36,8 @@ export function PopUp(props: information) {
             />
           </svg>
         </button>
-        {/* dipslaying information */}
+
+        {/* dipslays information */}
         <div className="p-3">
           <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
             {/* dislays date: dd/mm/yyyy */}
@@ -57,6 +59,8 @@ export function PopUp(props: information) {
           />
           <span>Priority: </span>
           <Dropdown selected="High" info={["High", "Middle", "Low"]} />
+
+          {/* displays user information */}
           <div className="md:absolute md:top-11 md:right-28 my-3">
             <strong className="text-xl block">User information</strong>
             <strong>User: </strong>
@@ -66,6 +70,8 @@ export function PopUp(props: information) {
             <br />
             <strong>Phone Number: </strong> 06123456778
           </div>
+
+          {/* dipslays the problem */}
           <strong className="text-xl block">Problem</strong>
           <strong>Problem type: </strong>
           <span>Lorem ipsum</span>
@@ -92,34 +98,16 @@ export function PopUp(props: information) {
               commodo ligula eget dolor. Aenean massa. Cum sociis natoque
               penatibus et magnis dis parturient montes, nascetur ridiculus mus.
             </li>
-
           </ul>
+          
           {/* image gallery */}
-          <div className="flex flex-row flex-wrap justify-center md:justify-start">
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={ja} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-            <img src={placeholder} alt="" className="h-32 w-auto" />
-          </div>
+          <ImageGallery src={[placeholder, placeholder, placeholder, placeholder, ja, placeholder, placeholder, ja, placeholder, placeholder]} />
+
           {/* save buttons */}
           <div className="flex flex-row justify-center flex-wrap pt-4">
-            <button
-              className=" dark:bg-gray-800 bg-gray-200 hover:bg-gray-300 md:w-40 block m-auto rounded dark:hover:bg-gray-900 w-full mb-2 md:mb-[unset] py-2"
-              onClick={props.close}
-            >
-              Save
-            </button>
-            <button
-              className=" dark:bg-gray-800 bg-gray-200 hover:bg-gray-300 md:w-40 block m-auto rounded dark:hover:bg-gray-900 w-full py-2"
-              onClick={props.close}
-            >
-              Delete
-            </button>
+            <Button value="Save" fun={props.close}/>
+            <Button value="Delete" fun={props.close}/>
+            <Button value="Add comment" fun={props.close}/>
           </div>
         </div>
       </div>

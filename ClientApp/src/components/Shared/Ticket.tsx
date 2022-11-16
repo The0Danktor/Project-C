@@ -22,8 +22,9 @@ export function Ticket() {
 
   const [active, setActive] = useState(false);
   function Popup() {
-    setActive(!active); // displays popup if button is clicked\
+    setActive(!active); // displays popup if button is clicked
     if (active) {
+      // will make everything unscrollable except the popup itself
       document.body.style.position = "inherit";
     } else {
       document.body.style.position = "fixed";
@@ -31,6 +32,7 @@ export function Ticket() {
   }
   return (
     <div className="text-left w-full lg:w-[48.5%] border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2">
+      {/* displays ticket itself */}
       <button
         className="w-full text-left p-4"
         onClick={Popup} /* calls toggle function */
@@ -53,7 +55,7 @@ export function Ticket() {
           {currentStatus}
         </button>
       </button>
-      {/* displaying pop up message */}
+      {/* displays pop up message */}
       {active && (
         <PopUp
           close={Popup}
