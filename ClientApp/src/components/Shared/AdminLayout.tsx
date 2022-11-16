@@ -109,7 +109,7 @@ export function Layout() {
         <Header />
         <div className="flex font-semibold text-black dark:text-gray-400 transition duration-300">
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
-            <Link to="admin/accounts">
+            <Link to="accounts">
               <p className="mt-2">Our Accounts</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
@@ -117,7 +117,7 @@ export function Layout() {
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
-            <Link to="admin/machines">
+            <Link to="machines">
               <p className="mt-2">Our Machines</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
@@ -125,7 +125,7 @@ export function Layout() {
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
-            <Link to="admin/problems">
+            <Link to="problems">
               <p className="mt-2 mx-4">History</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
@@ -133,7 +133,7 @@ export function Layout() {
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
-            <Link to="admin/dev">
+            <Link to="dev">
               <p>kut tailwind</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
@@ -141,7 +141,7 @@ export function Layout() {
             </Link>
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
-            <Link to="admin/dev">
+            <Link to="dev">
               <p>waarom centered die niet gvd</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
@@ -185,11 +185,9 @@ export function Layout() {
         </div>
         <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl transition duration-300">
           Uptime
-          <div className="flex flex-col mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
-        </div>
-        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl">
+          <div className="mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
           Uptime
-          <div className="flex flex-col mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
+          <div className="mt-2 w-3/4 h-3/4 items-end border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
         </div>
       </div>
     </div>
