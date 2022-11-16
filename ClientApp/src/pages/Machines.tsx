@@ -146,10 +146,12 @@ export const Machines = () => {
             <div className="flex flex-col w-full dark:bg-gray-900 transition duration-300 dark:text-gray-500">
                 <Header />
                 <div className="flex flex-col w-full p-5">
-                    <div className="flex flex-row justify-between">
-                        <h1 className="text-3xl font-bold">Machines</h1>
+                    <div className="flex flex-col w-2/3 text-3xl dark:bg-gray-900 transition duration-300 dark:text-gray-500 my-2 items-center">
+                        <h1>Machines</h1>
+                    </div>
+                    <div className="flex flex-row justify-start">
                         <button
-                            className="flex flex-row items-center justify-center px-5 py-2 text-white bg-blue-500 rounded-md"
+                            className="flex flex-row justify-center px-5 py-2 text-white bg-green-500 rounded-md"
                             //onclick show form
                             onClick={handleClick}
                         >
@@ -170,8 +172,8 @@ export const Machines = () => {
                             <span>Add Machine</span>
                         </button>
                     </div>
-                    <div className="flex flex-col w-full mt-5">
-                        <div className="flex flex-row justify-between px-5 py-2 bg-gray-100 rounded-md">
+                    <div className="flex flex-col  w-2/3 mt-5">
+                        <div className="flex flex-row justify-between px-5 py-2 dark:bg-gray-800 dark:text-gray-400 bg-gray-100 rounded-md">
                             <span className="font-bold">Name</span>
                             <span className="font-bold">Location</span>
                             <span className="font-bold">Status</span>
@@ -180,7 +182,7 @@ export const Machines = () => {
                         </div>
                         {machine.map((machine) => (
                             <div
-                                className="flex flex-row justify-between px-5 py-2 mt-2 bg-white rounded-md"
+                                className="flex flex-row justify-between px-5 py-2 mt-2 dark:bg-gray-800 dark:text-gray-400 bg-white rounded-md"
                                 key={machine.id}
                             >
                                 <span>{machine.name}</span>
@@ -191,7 +193,7 @@ export const Machines = () => {
                                 <span>{machine.date}</span>
                                 <span className="flex flex-row items-center">
                                     <button
-                                        className="flex flex-row items-center justify-center px-2 py-1 mr-2 text-white bg-green-500 rounded-md"
+                                        className="flex flex-row items-center justify-center px-2 py-1 mr-2 text-white bg-red-500 rounded-md"
                                         onClick={() =>
                                             deleteMachine(machine.id)
                                         }
@@ -228,7 +230,7 @@ export const Machines = () => {
                     
                 </div>
                 {isShown && (
-                <div className="flex flex-col w-full p-5">
+                <div className="flex flex-col w-2/3 p-5">
                     <div className="flex flex-row justify-between">
                         <h1 className="text-3xl font-bold">Add Machine</h1>
                     </div>
