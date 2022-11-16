@@ -104,16 +104,16 @@ export const Accounts = () => {
       <NavSide />
       <div>
         <Header />
-        <div className="flex flex-col p-2 w-screen">
+        <div className="flex flex-col p-2 w-2/3">
           <div className="-my-2 overflow-x-auto mx-2">
             <div className="py-2 align-middle inline-block min-w-full px-2">
-              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+              <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
+                <table className="min-w-full divide-y dark:bg-gray-900 divide-gray-200">
+                  <thead className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800  dark:text-gray-500">
                     <tr>
                       <th
                         scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-2 py-3 text-left text-xs font-medium dark:text-gray-400 uppercase tracking-wider"
                       >
                         Name
                       </th>
@@ -149,49 +149,41 @@ export const Accounts = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
                     {users.map((user) => (
                       <tr key={user.id}>
                         <td className="px-2 py-4 whitespace-nowrap">
                           <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
-                              <img
-                                className="h-10 w-10 rounded-full"
-                                src="https://images.unsplash.com/photo-1579544882976-5a6f5d6f5b6a?ixlib=rb-1.2.1&ixid
-                                =eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-                                alt=""
-                                />
-                            </div>
                             <div className="ml-4">
-                                <div className="text-sm font-medium text-gray-900">
+                                <div className="text-sm font-medium ">
                                     {user.name}
                                 </div>
                             </div>
                             </div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
+                            <div className="text-sm ">
                                 {user.group}
                             </div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
+                            <div className="text-sm ">
                                 {user.email}
                             </div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
+                            <div className="text-sm ">
                                 {user.phone}
                             </div>
                         </td>
-                        <td className="px-2 py-4 whitespace-nowrap">
+                        <td className="">
 
-                            <div className="text-sm text-gray-900">
+                            <div className="text-sm ">
                                 {user.problems}
                             </div>
                         </td>
-                        <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm text-gray-900">
+                        <td className="">
+                            <div className="text-sm ">
                                 {user.solved}
                             </div>
                         </td>
