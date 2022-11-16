@@ -6,6 +6,7 @@ import { Admin } from "./pages/Admin";
 import { TestPage } from "./pages/TestPage";
 import { Accounts } from "./pages/Accounts";
 import { Machines } from "./pages/Machines";
+import {AdminHistory} from "./pages/AdminHistory.tsx";
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
@@ -16,4 +17,5 @@ export const routes = [
   { path: "/*", name: "notFound", component: <NotFound /> },
   { path: "/admin/accounts", name: "accounts", component: <Accounts /> },
   { path: "/admin/machines", name: "machines", component: <Machines /> },
+  { path: "/admin/problems", name: "history", component: <AdminHistory /> },
 ];
