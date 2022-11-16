@@ -78,20 +78,19 @@ export const machines = [
     },
     ];
 
-//function to change color depending on status
-export function statusColor(status : any) {
-    switch (status) {
-        case 'Active':
-            return "green";
-        case 'Inactive':
-            return "red";
-        case 'None':
-            return "yellow";
+//function to change text color depending on status
+function statusColor(status : any) {
+    if (status === "Active") {
+        return "text-green-500";
+    } else if (status === "Inactive") {
+        return "text-red-500";
+    } else {
+        return "text-gray-500";
     }
 }
     
 //form to add machine and update the page
-export const AddMachine = () => {
+export const Machines = () => {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [status, setStatus] = useState("");
@@ -126,6 +125,16 @@ export const AddMachine = () => {
         }
     };
     
+    //function to hide or show add machine form
+    const [isShown, setIsShown] = useState(false);
+
+    const handleClick = () => {
+    // 👇️ toggle shown state
+    setIsShown(current => !current);
+    };
+
+
+
     //function to delete machine
     const deleteMachine = (id : any) => {
         setMachine(machine.filter((machine) => machine.id !== id));
@@ -136,127 +145,157 @@ export const AddMachine = () => {
             <NavSide />
             <div className="flex flex-col w-full dark:bg-gray-900 transition duration-300 dark:text-gray-500">
                 <Header />
-                <div className="flex flex-row justify-between w-full p-5 ">
-                    <div className="flex flex-col">
-                        <h1 className="text-3xl font-bold">Machines</h1>
-                        <h2 className="text-xl font-light">View and manage machines</h2>
-                    </div>
-                </div>
                 <div className="flex flex-col w-full p-5">
-                    <div className="flex flex-row justify-between w-full">
-                        <div className="flex flex-col">
-                            <h1 className="text-2xl font-bold">Add Machine</h1>
-                            <h2 className="text-xl font-light">Add a new machine</h2>
-                        </div>
+                    <div className="flex flex-row justify-between">
+                        <h1 className="text-3xl font-bold">Machines</h1>
+                        <button
+                            className="flex flex-row items-center justify-center px-5 py-2 text-white bg-blue-500 rounded-md"
+                            //onclick show form
+                            onClick={handleClick}
+                        >
+                            <svg
+                                className="w-5 h-5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M12 4v16m8-8H4"
+                                ></path>
+                            </svg>
+                            <span>Add Machine</span>
+                        </button>
                     </div>
-                    <div className="flex flex-row justify-between w-full
-                    p-5">
-                        <div className="flex flex-col">
-                            <label className="text-xl font-bold">Name</label>
+                    <div className="flex flex-col w-full mt-5">
+                        <div className="flex flex-row justify-between px-5 py-2 bg-gray-100 rounded-md">
+                            <span className="font-bold">Name</span>
+                            <span className="font-bold">Location</span>
+                            <span className="font-bold">Status</span>
+                            <span className="font-bold">Date</span>
+                            <span className="font-bold">Actions</span>
+                        </div>
+                        {machine.map((machine) => (
+                            <div
+                                className="flex flex-row justify-between px-5 py-2 mt-2 bg-white rounded-md"
+                                key={machine.id}
+                            >
+                                <span>{machine.name}</span>
+                                <span>{machine.location}</span>
+                                <span className={statusColor(machine.status)}>
+                                    {machine.status}
+                                </span>
+                                <span>{machine.date}</span>
+                                <span className="flex flex-row items-center">
+                                    <button
+                                        className="flex flex-row items-center justify-center px-2 py-1 mr-2 text-white bg-green-500 rounded-md"
+                                        onClick={() =>
+                                            deleteMachine(machine.id)
+                                        }
+                                    >
+                                        <svg
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                    <button
+
+                                        className="flex flex-row items-center justify-center px-2 py-1 text-white bg-blue-500 rounded-md"
+                                    >
+                                        <svg
+
+                                            className="w-5 h-5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                    
+                </div>
+                {isShown && (
+                <div className="flex flex-col w-full p-5">
+                    <div className="flex flex-row justify-between">
+                        <h1 className="text-3xl font-bold">Add Machine</h1>
+                    </div>
+                    <div className="flex flex-col w-full mt-5">
+                        <div className="flex flex-col w-full">
+                            <label className="mb-2 font-bold">Name</label>
                             <input
-                                className="border-2 border-gray-300 p-2 rounded-md"
+                                className="px-4 py-2 border rounded-md"
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                             />
                         </div>
-                        <div className="flex flex-col">
-                            <label className="text-xl font-bold">Location</label>
+                        <div className="flex flex-col w-full mt-5">
+                            <label className="mb-2 font-bold">Location</label>
                             <input
-
-                                className="border-2 border-gray-300 p-2 rounded-md"
+                                className="px-4 py-2 border rounded-md"
                                 type="text"
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
                             />
                         </div>
-                        <div className="flex flex-col">
-                            <label className="text-xl font-bold">Status</label>
+                        <div className="flex flex-col w-full mt-5">
+                            <label className="mb-2 font-bold">Status</label>
                             <select
-                                className="border-2 border-gray-300 p-2 rounded-md"
+                                className="px-4 py-2 border rounded-md"
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value)}
                             >
-                                <option value="">Select Status</option>
                                 <option value="Active">Active</option>
                                 <option value="Inactive">Inactive</option>
-                                <option value="None">None</option>
                             </select>
                         </div>
-                        <div className="flex flex-col">
-                            <label className="text-xl font-bold">Date</label>
+                        <div className="flex flex-col w-full mt-5">
+                            <label className="mb-2 font-bold">Date</label>
                             <input
-                                className="border-2 border-gray-300 p-2 rounded-md"
+                                className="px-4 py-2 border rounded-md"
                                 type="date"
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
                             />
                         </div>
-                    </div>
-                    <div className="flex flex-row justify-between w-full p-5">
-                        <div className="flex flex-col">
+                        <div className="flex flex-row justify-end w-full mt-5">
                             <button
-                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                className="flex flex-row items-center justify-center px-5 py-2 text-white bg-blue-500 rounded-md"
                                 onClick={addMachine}
                             >
-                                Add Machine
+                                <svg
+                                    className="w-5 h-5 mr-2"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        d="M12 4v16m8-8H4"
+                                    ></path>
+                                </svg>
+                                <span>Add Machine</span>
                             </button>
                         </div>
                     </div>
-                    <div className="flex flex-row justify-between w-full p-5">
-                        <div className="flex flex-col">
-                            {showError ? (
-                                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                                    <strong className="font-bold">Error!</strong>
-                                    <span className="block sm:inline">{error}</span>
-                                </div>
-                            ) : null}
-                        </div>
-                    </div>
-                    <div className="flex flex-row justify-between w-full p-5">
-                    </div>
-                    <div className="flex flex-row justify-between w-full p-5">
-                        <div className="flex flex-col">
-                            <table className="table-auto">
-                                <thead>
-                                    <tr>
-                                        <th className="px-8 py-4">Name</th>
-                                        <th className="px-8 py-4">Location</th>
-                                        <th className="px-8 py-4">Status</th>
-                                        <th className="px-8 py-4">Date</th>
-                                        <th className="px-8 py-4">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {machine.map((machine) => (
-                                        <tr key={machine.id}>
-                                            <td className="border px-4 py-2">{machine.name}</td>
-                                            <td className="border px-4 py-2">{machine.location}</td>
-                                            <td className="border px-4 py-2">{machine.status}</td>
-                                            <td className="border px-4 py-2">{machine.date}</td>
-                                            <td className="border px-4 py-2">
-                                                <button
-                                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                                                    onClick={() => deleteMachine(machine.id)}
-                                                >
-                                                    Delete
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                </div>)}
             </div>
         </div>
     );
-};
-
-
-
-    
-  
-  
-
+}
