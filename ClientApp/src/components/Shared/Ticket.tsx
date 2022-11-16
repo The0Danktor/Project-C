@@ -2,14 +2,7 @@ import React from "react";
 import { PopUp } from "./PopUp";
 import { useState } from "react";
 import "../../index.css"
-class Example extends React.Component {
-  // ...
-  render(): React.ReactNode {
-    return (
-      document.body.style.position = "fixed"
-    )
-  }
-}
+
 export function Ticket() {
   const status = ["New", "In progress", "Finished"];
   var color;
