@@ -14,7 +14,7 @@ import {
 
 export function NavSide() {
   return (
-    <div className="h-screen w-80 flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
+    <div className="h-screen hidden  w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
       <div className="flex justify-between w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
         <p className="text-black dark:text-gray-400 transition duration-300">
           Viscon
@@ -46,7 +46,7 @@ export function NavSide() {
           <NavSideButton
             title="Testing Ground"
             svg={<SwatchIcon className="w-6 h-6 m-2" />}
-            page="../test" 
+            page="../test/1" 
           />
         </div>
         <div className="flex flex-col items-center my-4">
