@@ -1,15 +1,15 @@
-import React from "react";
 import { NavSide } from "../components/Shared/NavSide";
+import React from "react";
+import { ProblemMenu } from "../components/Customer/ProblemMenu";
+import { useParams } from "react-router-dom";
 
 export function MachineProblems() {
-    return (
-        <div className="flex dark:bg-gray-900 transition duration-300">
+  const { Problem_Id } = useParams();
 
-          <div>
-            <NavSide/>
-          </div>
-
-            MachineProblems
-        </div>
-    )
+  return (
+    <div className="bg-white dark:bg-gray-900 transition flex duration-300 h-screen">
+      <NavSide />
+      <ProblemMenu />
+    </div>
+  );
 }
