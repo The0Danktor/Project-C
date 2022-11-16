@@ -35,7 +35,7 @@ export function Ticket() {
         className="w-full text-left p-4"
         onClick={Popup} /* calls toggle function */
       >
-        <span className="text-gray-400 text-sm float-left w-full sm:w-[unset] sm:float-right">
+        <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
           {/* dislays date: dd/mm/yyyy */}
           {date.getDate().toString().padStart(2, "0")}/
           {date.getMonth().toString().padStart(2, "0")}/
@@ -47,7 +47,7 @@ export function Ticket() {
         <button
           className={
             color +
-            " rounded text-black w-40 sm:float-right sm:-my-12 float-left my-0"
+            " rounded text-black w-40 md:float-right md:-my-12 float-left my-0"
           }
         >
           {currentStatus}
