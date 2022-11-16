@@ -1,7 +1,15 @@
 import React from "react";
 import { PopUp } from "./PopUp";
 import { useState } from "react";
-
+import "../../index.css"
+class Example extends React.Component {
+  // ...
+  render(): React.ReactNode {
+    return (
+      document.body.style.position = "fixed"
+    )
+  }
+}
 export function Ticket() {
   const status = ["New", "In progress", "Finished"];
   var color;
@@ -13,13 +21,18 @@ export function Ticket() {
   else color = "bg-green-500";
 
   const [active, setActive] = useState(false);
-  function Popup()  {
-    setActive(!active) // displays popup if button is clicked
+  function Popup() {
+    setActive(!active); // displays popup if button is clicked\
+    if (active) {
+      document.body.style.position = "inherit";
+    } else {
+      document.body.style.position = "fixed";
+    }
   }
-
   return (
-    <div className="text-left w-full lg:w-[48.5%] border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2 p-4">
-      <button className="w-full text-left"
+    <div className="text-left w-full lg:w-[48.5%] border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2">
+      <button
+        className="w-full text-left p-4"
         onClick={Popup} /* calls toggle function */
       >
         <span className="text-gray-400 text-sm float-left w-full sm:w-[unset] sm:float-right">
@@ -41,8 +54,14 @@ export function Ticket() {
         </button>
       </button>
       {/* displaying pop up message */}
-      {active && <PopUp close={Popup}
-        display={active} status={currentStatus} date={date} />}
+      {active && (
+        <PopUp
+          close={Popup}
+          display={active}
+          status={currentStatus}
+          date={date}
+        />
+      )}
     </div>
   );
 }
