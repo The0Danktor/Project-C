@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { NavSide } from "../components/Shared/NavSide";
 import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const Accounts = () => {
     //create 10 user accounts with id, name, group, email and phonenumbers
@@ -103,38 +104,107 @@ export const Accounts = () => {
       <NavSide />
       <div>
         <Header />
-        <div className="flex font-semibold text-black dark:text-gray-400 transition duration-300">
-            <table className="table-auto">
-                <thead>
+        <div className="flex flex-col p-2 w-screen">
+          <div className="-my-2 overflow-x-auto mx-2">
+            <div className="py-2 align-middle inline-block min-w-full px-2">
+              <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
                     <tr>
-                        <th className="px-4 py-2">ID</th>
-                        <th className="px-4 py-2">Name</th>
-                        <th className="px-4 py-2">Group</th>
-                        <th className="px-4 py-2">Email</th>
-                        <th className="px-4 py-2">Phone</th>
-                        <th className="px-4 py-2">Problems</th>
-                        <th className="px-4 py-2">Solved</th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Name
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Group
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Email
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Phone
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Problems
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Solved
+                      </th>
                     </tr>
-                </thead>
-                <tbody>
-                    {users.map((account) => (
-                        <tr key={account.id}>
-                            <td className="border px-4 py-2">{account.id}</td>
-                            <td className="border px-4 py-2">{account.name}</td>
-                            <td className="border px-4 py-2">{account.group}</td>
-                            <td className="border px-4 py-2">{account.email}</td>
-                            <td className="border px-4 py-2">{account.phone}</td>
-                            <td className="border px-4 py-2">{account.problems}</td>
-                            <td className="border px-4 py-2">{account.solved}</td>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {users.map((user) => (
+                      <tr key={user.id}>
+                        <td className="px-2 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="flex-shrink-0 h-10 w-10">
+                              <img
+                                className="h-10 w-10 rounded-full"
+                                src="https://images.unsplash.com/photo-1579544882976-5a6f5d6f5b6a?ixlib=rb-1.2.1&ixid
+                                =eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+                                alt=""
+                                />
+                            </div>
+                            <div className="ml-4">
+                                <div className="text-sm font-medium text-gray-900">
+                                    {user.name}
+                                </div>
+                            </div>
+                            </div>
+                        </td>
+                        <td className="px-2 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                                {user.group}
+                            </div>
+                        </td>
+                        <td className="px-2 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                                {user.email}
+                            </div>
+                        </td>
+                        <td className="px-2 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                                {user.phone}
+                            </div>
+                        </td>
+                        <td className="px-2 py-4 whitespace-nowrap">
 
+                            <div className="text-sm text-gray-900">
+                                {user.problems}
+                            </div>
+                        </td>
+                        <td className="px-2 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">
+                                {user.solved}
+                            </div>
+                        </td>
                         </tr>
                     ))}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            </div>
             </div>
         </div>
     </div>
+</div>
     );
-};
+}
 
-        
