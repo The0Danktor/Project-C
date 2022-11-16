@@ -63,7 +63,7 @@ export function NavSide() {
           <NavSideButton
             title="Logout"
             svg={<ArrowRightOnRectangleIcon className="w-6 h-6 m-2" />}
-            page="../logout"
+            page="../login"
           />
         </div>
       </div>

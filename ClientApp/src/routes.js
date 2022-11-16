@@ -8,6 +8,8 @@ import { TestPage } from "./pages/TestPage";
 import { Accounts } from "./pages/Accounts";
 import { Machines } from "./pages/Machines";
 import { TestPageProblems } from "./pages/TestPageProblems";
+import { Settings } from "./pages/Settings"
+import { Account } from "./pages/Account"
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
@@ -20,4 +22,6 @@ export const routes = [
   { path: "/*", name: "notFound", component: <NotFound /> },
   { path: "/admin/accounts", name: "accounts", component: <Accounts /> },
   { path: "/admin/machines", name: "machines", component: <Machines /> },
+  { path: "/settings", name: "settings", component: <Settings /> },
+  { path: "/account", name: "account", component: <Account /> },
 ];
