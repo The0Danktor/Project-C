@@ -4,7 +4,6 @@ global using Project_C.Models;
 global using System.ComponentModel.DataAnnotations;
 
 
-
 // dotnet tool install --global dotnet-ef
 // dotnet add package Microsoft.EntityFrameworkCore.Design
 // dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.5
