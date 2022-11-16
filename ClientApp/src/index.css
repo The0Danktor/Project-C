@@ -58,6 +58,10 @@ img.logo {
   background: #555;
 }
 
+.dark-scrollbar {
+  color-scheme: dark;
+}
+
 input[type=text], input[type=password], button[type=button] {
   @apply p-2 rounded-md;
 }

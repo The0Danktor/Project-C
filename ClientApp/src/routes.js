@@ -7,6 +7,7 @@ import { TicketPage } from "./pages/Ticket";
 import { TestPage } from "./pages/TestPage";
 import { Accounts } from "./pages/Accounts";
 import { Machines } from "./pages/Machines";
+import { TestPageProblems } from "./pages/TestPageProblems";
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
@@ -15,6 +16,7 @@ export const routes = [
   { path: "/admin", name: "adminPage", component: <Admin /> },
   { path: "/ticket", name: "ticketPage", component: <TicketPage />},
   { path: "/test", name: "testPage", component: <TestPage /> },
+  { path: "/test/:Problem_Id", name: "testPage", component: <TestPageProblems/> },
   { path: "/*", name: "notFound", component: <NotFound /> },
   { path: "/admin/accounts", name: "accounts", component: <Accounts /> },
   { path: "/admin/machines", name: "machines", component: <Machines /> },
