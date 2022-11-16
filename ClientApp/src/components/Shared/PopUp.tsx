@@ -69,6 +69,8 @@ export function PopUp(props: information) {
             <strong>Email: </strong> email@gmail.com
             <br />
             <strong>Phone Number: </strong> 06123456778
+            <br />
+            <strong>Group: </strong> Admin
           </div>
 
           {/* dipslays the problem */}
