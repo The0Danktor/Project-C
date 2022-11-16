@@ -4,9 +4,8 @@ import { NavSide } from "../components/Shared/NavSide";
 import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
 
-export function Machines() {
-      //create 10 machines with id, name, location, status and date
-  const machines = [
+
+export const machines = [
     {
       id: 1,
       name: "Machine 1",
@@ -77,92 +76,171 @@ export function Machines() {
       status: "Active",
       date: "01/01/2021",
     },
-  ];
-  //create a funtion to add a machine to the array
-    const addMachine = (machine: any) => {
-        const id = Math.floor(Math.random() * 10000) + 1
-        const newMachine = { id, ...machine }
-        setMachines([...machines, newMachine])
-    }
-    //create a function to delete a machine from the array
-    const deleteMachine = (id: number) => {
-        setMachines(machines.filter((machine) => machine.id !== id))
-    }
-    //create a function to edit a machine from the array
-    const editMachine = (id: number, updatedMachine: any) => {
-        setMachines(machines.map((machine) => machine.id === id ? updatedMachine : machine))
-    }
-    //create a state to hold the machines
-    const [machines1, setMachines] = useState(machines)
+    ];
 
-    //check status of machines and display in different colors
-function Colory (props: any) {
-    if (props.status === "Active") {
-        return <div className="text-sm text-green-800">{props.status}</div>
-    } 
-    else if (props.status === "Inactive") {
-        return <div className="text-sm text-red-800">{props.status}</div>
-    }
-    else
-    {
-        return <div className="text-sm text-gray-900">{props.status}</div>
+//function to change color depending on status
+export function statusColor(status : any) {
+    switch (status) {
+        case 'Active':
+            return "green";
+        case 'Inactive':
+            return "red";
+        case 'None':
+            return "yellow";
     }
 }
-  return (
-    <div className="flex bg-white dark:bg-gray-900 transition duration-300">
-      <NavSide />
-      <div>
-        <Header />
-        <div className="flex flex-col w-full">
-            <div className="flex flex-col">
-                <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+    
+//form to add machine and update the page
+export const AddMachine = () => {
+    const [name, setName] = useState("");
+    const [location, setLocation] = useState("");
+    const [status, setStatus] = useState("");
+    const [date, setDate] = useState("");
+    const [machine, setMachine] = useState(machines);
+    const [id, setId] = useState(11);
+    const [error, setError] = useState("");
+    const [showError, setShowError] = useState(false);
+    
+    //function to add machine
+    const addMachine = () => {
+        if (name === "" || location === "" || status === "" || date === "") {
+            setError("Please fill out all fields");
+            setShowError(true);
+        } else {
+            setMachine([
+                ...machine,
+                {
+                    id: id,
+                    name: name,
+                    location: location,
+                    status: status,
+                    date: date,
+                },
+            ]);
+            setId(id + 1);
+            setName("");
+            setLocation("");
+            setStatus("");
+            setDate("");
+            setShowError(false);
+        }
+    };
+    
+    //function to delete machine
+    const deleteMachine = (id : any) => {
+        setMachine(machine.filter((machine) => machine.id !== id));
+    };
+    
+    return (
+        <div className="flex flex-row">
+            <NavSide />
+            <div className="flex flex-col w-full dark:bg-gray-900 transition duration-300 dark:text-gray-500">
+                <Header />
+                <div className="flex flex-row justify-between w-full p-5 ">
+                    <div className="flex flex-col">
+                        <h1 className="text-3xl font-bold">Machines</h1>
+                        <h2 className="text-xl font-light">View and manage machines</h2>
+                    </div>
+                </div>
+                <div className="flex flex-col w-full p-5">
+                    <div className="flex flex-row justify-between w-full">
+                        <div className="flex flex-col">
+                            <h1 className="text-2xl font-bold">Add Machine</h1>
+                            <h2 className="text-xl font-light">Add a new machine</h2>
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-between w-full
+                    p-5">
+                        <div className="flex flex-col">
+                            <label className="text-xl font-bold">Name</label>
+                            <input
+                                className="border-2 border-gray-300 p-2 rounded-md"
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-xl font-bold">Location</label>
+                            <input
+
+                                className="border-2 border-gray-300 p-2 rounded-md"
+                                type="text"
+                                value={location}
+                                onChange={(e) => setLocation(e.target.value)}
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-xl font-bold">Status</label>
+                            <select
+                                className="border-2 border-gray-300 p-2 rounded-md"
+                                value={status}
+                                onChange={(e) => setStatus(e.target.value)}
+                            >
+                                <option value="">Select Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="text-xl font-bold">Date</label>
+                            <input
+                                className="border-2 border-gray-300 p-2 rounded-md"
+                                type="date"
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-between w-full p-5">
+                        <div className="flex flex-col">
+                            <button
+                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={addMachine}
+                            >
+                                Add Machine
+                            </button>
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-between w-full p-5">
+                        <div className="flex flex-col">
+                            {showError ? (
+                                <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong className="font-bold">Error!</strong>
+                                    <span className="block sm:inline">{error}</span>
+                                </div>
+                            ) : null}
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-between w-full p-5">
+                    </div>
+                    <div className="flex flex-row justify-between w-full p-5">
+                        <div className="flex flex-col">
+                            <table className="table-auto">
+                                <thead>
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            ID
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Name
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Location
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Status
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Date
-                                        </th>
-                                        <th scope="col" className="relative px-6 py-3">
-                                            <span className="sr-only">Edit</span>
-                                        </th>
+                                        <th className="px-8 py-4">Name</th>
+                                        <th className="px-8 py-4">Location</th>
+                                        <th className="px-8 py-4">Status</th>
+                                        <th className="px-8 py-4">Date</th>
+                                        <th className="px-8 py-4">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {machines.map((machine) => (
+                                <tbody>
+                                    {machine.map((machine) => (
                                         <tr key={machine.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">{machine.id}</div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-
-                                                <div className="text-sm text-gray-900">{machine.name}</div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">{machine.location}</div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
-                                                    {Colory(machine.status)}
-                                                </span>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                {machine.date}
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <td className="border px-4 py-2">{machine.name}</td>
+                                            <td className="border px-4 py-2">{machine.location}</td>
+                                            <td className="border px-4 py-2">{machine.status}</td>
+                                            <td className="border px-4 py-2">{machine.date}</td>
+                                            <td className="border px-4 py-2">
+                                                <button
+                                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                                    onClick={() => deleteMachine(machine.id)}
+                                                >
+                                                    Delete
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
@@ -173,9 +251,12 @@ function Colory (props: any) {
                 </div>
             </div>
         </div>
-        </div>
-    </div>
     );
-}
+};
 
+
+
+    
+  
+  
 
