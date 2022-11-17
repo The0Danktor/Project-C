@@ -1,42 +1,69 @@
 import React from "react";
-
+import { PopUp } from "./PopUp";
+import { useState } from "react";
+import "../../index.css"
+class Example extends React.Component {
+  // ...
+  render(): React.ReactNode {
+    return (
+      document.body.style.position = "fixed"
+    )
+  }
+}
 export function Ticket() {
-  var reports = [];
-  var status = ["New", "In progress", "Finished"];
+  const status = ["New", "In progress", "Finished"];
   var color;
-  for (var i = 0; i < 1000; i++) {
-    var currentStatus = status[Math.floor(Math.random() * status.length)];
-    {
-      /* picks random item im status list */
-    }
-    if (currentStatus == "New") color = "bg-cyan-500";
-    else if (currentStatus == "In progress") color = "bg-yellow-300";
-    else color = "bg-green-500";
+  var date = new Date();
+  var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
+  // gives color based on the curent status
+  if (currentStatus == "New") color = "bg-cyan-500";
+  else if (currentStatus == "In progress") color = "bg-yellow-300";
+  else color = "bg-green-500";
 
-    reports.push(
-      <a
-        href="#"
-        className="border border-slate-300 dark:border-gray-700 dark:hover:bg-gray-800  hover:bg-slate-200 dark:text-gray-400 rounded-lg m-2 p-4"
-        // className="w-[48.6%] border border-slate-300 dark:border-gray-700 dark:hover:bg-gray-800  hover:bg-slate-200 dark:text-gray-400 rounded-lg m-2 p-4"
+  const [active, setActive] = useState(false);
+  function Popup() {
+    setActive(!active); // displays popup if button is clicked
+    if (active) {
+      // will make everything unscrollable except the popup itself
+      document.body.style.position = "inherit";
+    } else {
+      document.body.style.position = "fixed";
+    }
+  }
+  return (
+    <div className="text-left w-full lg:w-[48.5%] border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2">
+      {/* displays ticket itself */}
+      <button
+        className="w-full text-left p-4"
+        onClick={Popup} /* calls toggle function */
       >
-        <span className="text-slate-400 float-right text-sm">
-          17 December, 2022
+        <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
+          {/* dislays date: dd/mm/yyyy */}
+          {date.getDate().toString().padStart(2, "0")}/
+          {date.getMonth().toString().padStart(2, "0")}/
+          {date.getFullYear().toString()}
         </span>
         <strong>Title</strong>
         <p>Owner</p>
         <p>Description</p>
         <button
-          className={color + " rounded text-black w-40 float-right -my-12"}
+          className={
+            color +
+            " rounded text-black w-40 md:float-right md:-my-12 float-left my-0"
+          }
         >
           {currentStatus}
         </button>
-      </a>
-    );
-  }
-  return (
-    // <div className="grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-slate-800 bg-slate-100  h-[42rem] m-10 rounded-xl overflow-auto">
-     <div className="grow flex flex-col transition duration-300 dark:bg-slate-800 bg-slate-100  h-[42rem] m-10 rounded-xl overflow-auto">
-      {reports}
+      </button>
+      {/* displays pop up message */}
+      {active && (
+        <PopUp
+          close={Popup}
+          display={active}
+          status={currentStatus}
+          date={date}
+        />
+      )}
     </div>
   );
 }

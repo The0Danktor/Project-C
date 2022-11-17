@@ -1,4 +1,6 @@
-import React from "react";
+import React from 'react'
+import {UserIcon} from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 export function Header() {
   return (
