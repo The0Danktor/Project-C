@@ -8,14 +8,15 @@ import { TestPage } from "./pages/TestPage";
 import { Machines } from "./pages/Machines";
 import { MachineProblems } from "./pages/MachineProblems";
 
+
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
   { path: "/login", name: "loginPage", component: <LoginPage /> },
-  { path: "/knowledge", name: "knowledgePage", component: <Knowledge /> },
+  { path: "/knowledge", name: "knowledgePage", component: <Machines /> /*<Knowledge />*/ },
   { path: "/admin", name: "adminPage", component: <Admin /> },
   { path: "/ticket", name: "ticketPage", component: <TicketPage />},
   { path: "/test", name: "testPage", component: <TestPage /> },
   { path: "/*", name: "notFound", component: <NotFound /> },
   { path: "/machines", name: "machines", component: <Machines /> },
-  { path: "/machineproblems", name: "machineproblems", component: <MachineProblems /> },
+  { path: "/machineproblems/:Problem_Id", name: "machineproblems", component: <MachineProblems /> },
 ];

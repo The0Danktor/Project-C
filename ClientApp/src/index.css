@@ -13,6 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow:hidden;
   @apply dark:bg-gray-900 text-black dark:text-gray-400;
 }
 
@@ -58,6 +59,9 @@ img.logo {
   background: #555;
 }
 
+.dark-scrollbar {
+  color-scheme: dark;
+}
 input[type=text], input[type=password], button[type=button] {
   @apply p-2 rounded-md;
 }
