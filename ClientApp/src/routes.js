@@ -10,7 +10,8 @@ import { Machines } from "./pages/Machines";
 import { TestPageProblems } from "./pages/TestPageProblems";
 import { Settings } from "./pages/Settings"
 import { Account } from "./pages/Account"
-import {AdminHistory} from "./pages/AdminHistory.tsx";
+import { AdminHistory } from "./pages/AdminHistory.tsx";
+import { AddImage } from "./pages/addImage";
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },
@@ -26,4 +27,5 @@ export const routes = [
   { path: "/settings", name: "settings", component: <Settings /> },
   { path: "/account", name: "account", component: <Account /> },
   { path: "/admin/problems", name: "history", component: <AdminHistory /> },
+  { path: "/addimage", name: "addimg", component: <AddImage /> },
 ];
