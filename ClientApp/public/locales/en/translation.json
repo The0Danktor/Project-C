@@ -1,10 +1,1 @@
-{
-  "login": {
-    "title": "Login",
-    "username": "username",
-    "password": "password",
-    "submit": "Login",
-    "success": "Successfully logged in",
-    "failure": "Incorrect username or password"
-  }
-}
+{}
