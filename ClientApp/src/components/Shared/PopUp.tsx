@@ -19,7 +19,7 @@ export function PopUp(props: information) {
   return (
     <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0">
       <div
-        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] overflow-y-auto
+        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-full md:max-h-[90vh] overflow-y-auto
       md:min-h-[50%] md:w-1/2 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2
       ">
         {/* close button */}
