@@ -234,11 +234,11 @@ export const Machines = () => {
                     <div className="flex flex-row justify-between">
                         <h1 className="text-3xl font-bold">Add Machine</h1>
                     </div>
-                    <div className="flex flex-col w-full mt-5">
+                    <div className="flex flex-col  w-full mt-5">
                         <div className="flex flex-col w-full">
                             <label className="mb-2 font-bold">Name</label>
                             <input
-                                className="px-4 py-2 border rounded-md"
+                                className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
@@ -247,7 +247,7 @@ export const Machines = () => {
                         <div className="flex flex-col w-full mt-5">
                             <label className="mb-2 font-bold">Location</label>
                             <input
-                                className="px-4 py-2 border rounded-md"
+                                className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                                 type="text"
                                 value={location}
                                 onChange={(e) => setLocation(e.target.value)}
@@ -256,7 +256,7 @@ export const Machines = () => {
                         <div className="flex flex-col w-full mt-5">
                             <label className="mb-2 font-bold">Status</label>
                             <select
-                                className="px-4 py-2 border rounded-md"
+                                className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                                 value={status}
                                 onChange={(e) => setStatus(e.target.value)}
                             >
@@ -267,7 +267,7 @@ export const Machines = () => {
                         <div className="flex flex-col w-full mt-5">
                             <label className="mb-2 font-bold">Date</label>
                             <input
-                                className="px-4 py-2 border rounded-md"
+                                className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                                 type="date"
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
