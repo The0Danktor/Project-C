@@ -15,7 +15,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 2,
@@ -24,7 +25,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 3,
@@ -33,7 +35,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 4,
@@ -42,7 +45,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 5,
@@ -51,7 +55,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 6,
@@ -60,7 +65,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 7,
@@ -69,7 +75,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 8,
@@ -78,7 +85,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 9,
@@ -87,7 +95,8 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
         {
             id: 10,
@@ -96,19 +105,20 @@ export const Accounts = () => {
             email: "x",
             phone: "1234567890",
             problems: "37",
-            solved: "25"
+            solved: "25",
+            workGroup: "Viscon x"
         },
     ];
     return (
-        <div className="flex bg-white dark:bg-gray-900 transition duration-300">
+        <div className="flex bg-white dark:bg-gray-900 w-full transition duration-300">
       <NavSide />
-      <div>
+      <div className="w-full">
         <Header />
-        <div className="flex flex-col p-2 w-2/3">
-          <div className="-my-2 overflow-x-auto mx-2">
-            <div className="py-2 align-middle inline-block min-w-full px-2">
+        <div className="flex flex-col w-full p-4">
+          <div className="">
+            <div className="py-2 align-middle inline-block w-2/3 px-2">
               <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
-                <table className="min-w-full divide-y dark:bg-gray-900 divide-gray-200">
+                <table className="w-full divide-y dark:bg-gray-900 divide-gray-200">
                   <thead className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800  dark:text-gray-500">
                     <tr>
                       <th
@@ -122,6 +132,12 @@ export const Accounts = () => {
                         className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         Group
+                      </th>
+                      <th
+                        scope="col"
+                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                      >
+                        Workgroup
                       </th>
                       <th
                         scope="col"
@@ -166,6 +182,11 @@ export const Accounts = () => {
                                 {user.group}
                             </div>
                         </td>
+                        <td className="">
+                            <div className="text-sm ">
+                                {user.workGroup}
+                            </div>
+                        </td>
                         <td className="px-2 py-4 whitespace-nowrap">
                             <div className="text-sm ">
                                 {user.email}
@@ -199,4 +220,3 @@ export const Accounts = () => {
 </div>
     );
 }
-
