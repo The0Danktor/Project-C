@@ -5,14 +5,11 @@ import ja from "../../assets/logo.png";
 import { Dropdown } from "./Dropdown";
 import {ImageGallery} from "./ImageGallery"
 import {Button} from "./Button"
-import {status, priority} from "./Ticket"
-
 interface information {
-  display: boolean,
-  status: string,
-  date: Date,
-  close: any,
-  prio: string
+  display: boolean;
+  status: string;
+  date: Date;
+  close: any;
 }
 
 export function PopUp(props: information) {
@@ -49,7 +46,7 @@ export function PopUp(props: information) {
             {props.date.getFullYear().toString()}
           </span>
           <strong className="text-2xl block">Machine #3</strong>
-          <span>Associated Worker:</span>
+          <span>Helped by:</span>
           {/* dropdowns */}
           <Dropdown
             selected="Admin"
@@ -58,10 +55,10 @@ export function PopUp(props: information) {
           <span>Status: </span>
           <Dropdown
             selected={props.status}
-            info={status}
+            info={["New", "In Progress", "Finished"]}
           />
           <span>Priority: </span>
-          <Dropdown selected={props.prio} info={priority} />
+          <Dropdown selected="High" info={["High", "Middle", "Low"]} />
 
           {/* displays user information */}
           <div className="md:absolute md:top-11 md:right-28 my-3">

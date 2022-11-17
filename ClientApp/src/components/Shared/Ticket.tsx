@@ -1,17 +1,13 @@
 import React from "react";
 import { PopUp } from "./PopUp";
 import { useState } from "react";
-import "../../index.css";
-import { Priority } from "./priority";
+import "../../index.css"
 
-export const status = ["New", "In progress", "Finished"];
-export const priority = ["High", "Middle", "Low"];
 export function Ticket() {
-  var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
-  var currentPriority = priority[Math.floor(Math.random() * priority.length)]; // picks random item im priority list
-
+  const status = ["New", "In progress", "Finished"];
   var color;
   var date = new Date();
+  var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
   // gives color based on the curent status
   if (currentStatus == "New") color = "bg-cyan-500";
   else if (currentStatus == "In progress") color = "bg-yellow-300";
@@ -40,12 +36,9 @@ export function Ticket() {
           {date.getMonth().toString().padStart(2, "0")}/
           {date.getFullYear().toString()}
         </span>
-        <strong className="inline-block">Title</strong>
-        {/* priority */}
-        <Priority prio={currentPriority}/>
-
+        <strong>Title</strong>
         <p>Owner</p>
-        <p>Problem type</p>
+        <p>Description</p>
         <button
           className={
             color +
@@ -62,7 +55,6 @@ export function Ticket() {
           display={active}
           status={currentStatus}
           date={date}
-          prio={currentPriority}
         />
       )}
     </div>

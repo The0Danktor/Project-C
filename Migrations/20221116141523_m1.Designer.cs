@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Project_C.EF;
@@ -11,9 +12,10 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221116141523_m1")]
+    partial class m1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +61,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("CompanyMachines");
+                    b.ToTable("CompanyMachine");
                 });
 
             modelBuilder.Entity("Project_C.Models.Customer", b =>
@@ -123,7 +125,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentEmployees");
+                    b.ToTable("DepartmentEmployee");
                 });
 
             modelBuilder.Entity("Project_C.Models.Machine", b =>
@@ -138,7 +140,7 @@ namespace Project_C.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Machines");
+                    b.ToTable("Machine");
                 });
 
             modelBuilder.Entity("Project_C.Models.Problem", b =>
@@ -158,7 +160,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("Problems");
+                    b.ToTable("Problem");
                 });
 
             modelBuilder.Entity("Project_C.Models.Solutions", b =>
@@ -211,7 +213,7 @@ namespace Project_C.Migrations
                     b.HasIndex("Tekennummer")
                         .IsUnique();
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("Project_C.Models.VisconEmployee", b =>
@@ -238,7 +240,7 @@ namespace Project_C.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VisconEmployees");
+                    b.ToTable("VisconEmployee");
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
@@ -253,7 +255,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("WorkingOnTickets");
+                    b.ToTable("WorkingOnTicket");
                 });
 
             modelBuilder.Entity("Project_C.Models.Company", b =>
