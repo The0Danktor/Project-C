@@ -20,19 +20,6 @@ export function AddImage() {
                 Browse files
               </button>
               <input
-<<<<<<< Updated upstream
-              type="file"
-              id="file"
-              accept="image/*, video/*"
-              onChange={displayImg}
-              multiple
-              className="opacity-1 absolute cursor-pointer w-40 m-3" />
-            <button className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-          hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2"
-          >
-            Browse files
-          </button>
-=======
                 type="file"
                 id="file"
                 accept="image/*, video/*"
@@ -40,7 +27,6 @@ export function AddImage() {
                 multiple
                 className="absolute top-0 right-0 opacity-0 text-3xl cursor-pointer w-[93%]"
               />
->>>>>>> Stashed changes
             </div>
           </form>
           <div id="display_images"></div>
