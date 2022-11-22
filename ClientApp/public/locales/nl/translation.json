@@ -1,1 +1,10 @@
-{}
+{
+  "login": {
+    "title": "Inloggen",
+    "username": "gebruikersnaam",
+    "password": "wachtwoord",
+    "submit": "Login",
+    "success": "Inlog succesvol",
+    "failure": "Gebruikersnaam of wachtwoord onjuist"
+  }
+}

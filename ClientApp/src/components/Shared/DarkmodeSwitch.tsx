@@ -37,11 +37,18 @@ export function DarkmodeSwitch() {
     </svg>
   );
 
-  let [logo, setLogo] = useState( localStorage.theme === "dark"? {svg: moon, name: "moon" } : {svg: sun, name: "sun" } );
+  let [logo, setLogo] = useState(
+    localStorage.theme === "dark"
+      ? { svg: moon, name: "moon" }
+      : { svg: sun, name: "sun" }
+  );
+
 
   const root = document.getElementsByTagName("html")[0];
   const toggleDarkMode = () => {
     root.setAttribute("class", "dark");
+    root.classList.add("dark");
+    root.classList.add("dark-scrollbar");
     localStorage.theme = "dark";
     setLogo({ svg: moon, name: "moon" });
   };
@@ -54,23 +61,20 @@ export function DarkmodeSwitch() {
     console.log(localStorage.theme);
     if (localStorage.theme === "dark") {
       toggleLightMode();
-      console.log(`new theme: ${localStorage.theme}`);
-    }
-    else if (localStorage.theme === "light") {
+    } else if (localStorage.theme === "light") {
       toggleDarkMode();
-      console.log(`new theme: ${localStorage.theme}`);
     }
   };
 
   return (
     <div>
       <button
-        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-gray-100 dark:bg-gray-800  flex items-center  transition duration-300 focus:outline-none shadow"
+        className="w-10 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800  flex items-center  transition duration-300 focus:outline-none shadow"
         onClick={onChange}
       >
         <div
           id="switch-toggle"
-          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-blue-500 -translate-x-2 dark:translate-x-full dark:bg-gray-700 p-1 text-white flex items-center justify-center"
+          className="w-6 h-6 md:w-7 md:h-7 relative rounded-full transition duration-500 transform bg-yellow-500 -translate-x-2 dark:translate-x-full dark:bg-gray-700 p-1 text-white flex items-center justify-center"
         >
           {logo.svg}
         </div>

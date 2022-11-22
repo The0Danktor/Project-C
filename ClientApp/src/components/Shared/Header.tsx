@@ -11,5 +11,5 @@ export function Header() {
         </div>
         <div className="flex transition duration-300 text-black dark:text-gray-400 "><Link to="/admin/settings"><UserIcon className="flex w-10 h-10 cursor-pointer"/></Link></div> {/* justify end toevoegen svp, nu niet ivm met uitlijnen beeldscherm ratio voor pagina xD */}
     </div>
-  )
+  );
 }
