@@ -2,7 +2,16 @@ import React from "react";
 import { NavSide } from "../components/Shared/NavSide";
 
 export function AddImage() {
-  function displayImg() {}
+  function displayImg() {
+
+  }
+  // var state = {
+  //   img: logo
+  // }
+  
+  // const handleChangeImage = e => {
+  //   this.setState({[e.target.name]: URL.createObjectURL(e.target.files[0])})
+  // }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <div className="hidden md:flex">
@@ -12,25 +21,23 @@ export function AddImage() {
         <div className="grow w-full p-3">
           <strong className="text-2xl">Select images</strong>
           <form>
-            <div className="relative overflow-hidden inline-block">
-              <button
-                className="border w-screen md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-          hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2 !cursor-pointer"
-              >
-                Browse files
-              </button>
+            <div className="relative overflow-hidden ">
+              <label htmlFor="file" className="cursor-pointer">
+                <p className="border w-screen md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
+            hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2 text-center">Browse files</p>
+              </label>
+
               <input
                 type="file"
                 id="file"
                 accept="image/*, video/*"
                 onChange={displayImg}
                 multiple
-                className="absolute top-0 right-0 opacity-0 text-3xl cursor-pointer w-[93%]"
+                className="absolute top-0 right-0 w-[0.1px] h-[0.1px]"
               />
             </div>
           </form>
-          <div id="display_images"></div>
-          <img src="" alt="" />
+          {/* <img src={this.state.imgSrc} /> */}
         </div>
       </div>
     </div>
