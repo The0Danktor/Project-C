@@ -5,7 +5,7 @@ import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
 
 
-export const machines = [
+export const machines2 = [
     {
       id: 1,
       name: "Machine 1",
@@ -90,12 +90,12 @@ function statusColor(status : any) {
 }
     
 //form to add machine and update the page
-export const Machines = () => {
+export const Machines2 = () => {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [status, setStatus] = useState("");
     const [date, setDate] = useState("");
-    const [machine, setMachine] = useState(machines);
+    const [machine, setMachine] = useState(machines2);
     const [id, setId] = useState(11);
     const [error, setError] = useState("");
     const [showError, setShowError] = useState(false);
