@@ -11,7 +11,7 @@ import { TestPageProblems } from "./pages/TestPageProblems";
 import { Settings } from "./pages/Settings"
 import { Account } from "./pages/Account"
 import { AdminHistory } from "./pages/AdminHistory.tsx";
-import { AddImage } from "./pages/addImage";
+import { AddImage } from "./pages/AddImage";
 
 export const routes = [
   { path: "/", name: "homePage", component: <HomePage /> },

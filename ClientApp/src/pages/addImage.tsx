@@ -1,17 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
 
 export function AddImage() {
-  function displayImg() {
-
+  const [imagePreview, setImagePreview] = useState();
+  const [videoPreview, setVideoPreview] = useState();
+  function displayImg(e : any) {
+    // Reading New File (open file Picker Box)
+    const reader = new FileReader();
+    // Gettting Selected File (user can select multiple but we are choosing only one)
+    const selectedFile = e.currentTarget.files[0];
+    if (selectedFile) {
+      reader.readAsDataURL(selectedFile);
+    }
+    // As the File loaded then set the stage as per the file type
+    reader.onload = (readerEvent : any) => {
+      if (selectedFile.type.includes("image")) {
+        setImagePreview(readerEvent.target.result);
+      } else if (selectedFile.type.includes("video")) {
+        setVideoPreview(readerEvent.target.result);
+      }
+    };
   }
-  // var state = {
-  //   img: logo
-  // }
-  
-  // const handleChangeImage = e => {
-  //   this.setState({[e.target.name]: URL.createObjectURL(e.target.files[0])})
-  // }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <div className="hidden md:flex">
@@ -23,8 +33,12 @@ export function AddImage() {
           <form>
             <div className="relative overflow-hidden ">
               <label htmlFor="file" className="cursor-pointer">
-                <p className="border w-screen md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-            hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2 text-center">Browse files</p>
+                <p
+                  className="border w-screen md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
+                hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2 text-center"
+                >
+                  Browse files
+                </p>
               </label>
 
               <input
@@ -33,11 +47,15 @@ export function AddImage() {
                 accept="image/*, video/*"
                 onChange={displayImg}
                 multiple
-                className="absolute top-0 right-0 w-[0.1px] h-[0.1px]"
+                // ref={filePicker}
+                hidden
               />
             </div>
           </form>
-          {/* <img src={this.state.imgSrc} /> */}
+          {/* <ImageGallery src={[imagePreview]} /> */}
+
+          <img src={imagePreview} className="h-64"/>
+          {/* <video controls src=""></video> */}
         </div>
       </div>
     </div>

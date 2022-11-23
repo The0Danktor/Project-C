@@ -1,11 +1,8 @@
-import { current } from "@reduxjs/toolkit";
 import React from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { Ticket } from "../components/Shared/Ticket";
-import { Button } from "../components/Shared/Button";
-import { NavSideButton } from "../components/Shared/NavSideButton";
-import { AddImage } from "./addImage";
-import { Link, LinkProps } from "react-router-dom";
+// import { AddImage } from "./addImage";
+import { Link } from "react-router-dom";
 
 export function TicketPage() {
   const reports = [];
