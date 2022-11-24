@@ -46,7 +46,7 @@ export function NavSide() {
           <NavSideButton
             title="Testing Ground"
             svg={<SwatchIcon className="w-6 h-6 m-2" />}
-            page="../test/1" 
+            page="../test" 
           />
         </div>
         <div className="flex flex-col items-center my-4">

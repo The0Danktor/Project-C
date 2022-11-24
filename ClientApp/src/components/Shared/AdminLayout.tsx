@@ -134,7 +134,7 @@ export function Layout() {
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
             <Link to="dev">
-              <p>kut tailwind</p>
+              <p>placeholders</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
               </h1>
@@ -142,14 +142,14 @@ export function Layout() {
           </div>
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
             <Link to="dev">
-              <p>waarom centered die niet gvd</p>
+              <p>placeholder</p>
               <h1 className="m-12 font-semibold text-3xl text-black dark:text-gray-400">
                 bar
               </h1>
             </Link>
           </div>
         </div>
-        <div className="flex w-screen font-semibold text-black dark:text-gray-400 transition duration-300">
+        <div className="flex w-full font-semibold text-black dark:text-gray-400 transition duration-300">
           <div className="flex flex-col items-center mt-40 mx-10 w-1/6 h-1/3 border-4 border-gray-100 dark:border-gray-800 dark:shadow-gray-800 shadow-lg rounded-3xl">
             <div className="flex flex-col justify-center items-center w-60 text-2xl mt-2 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
               <p>Recent Activity</p>
@@ -183,12 +183,12 @@ export function Layout() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col w-1/2 mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl transition duration-300">
-          Uptime
-          <div className="mt-2 w-3/4 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
-          Uptime
-          <div className="mt-2 w-3/4 h-3/4 items-end border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
-        </div>
+        {/* <div className="flex flex-row w-full mt-14 mx-10 dark:text-gray-400 items-start font-semibold text-2xl transition duration-300">
+          
+          <div className="mt-2 w-1/2 h-3/4 items-start border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
+          
+          <div className="mt-2 w-1/2 h-3/4 items-end border-gray-100 dark:border-gray-800 border-2 rounded-2xl shadow-lg dark:shadow-gray-800"><Chart type="bar" data={data}/></div>
+        </div> */}
       </div>
     </div>
   );

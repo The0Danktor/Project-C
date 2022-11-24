@@ -13,6 +13,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow:hidden;
   @apply dark:bg-gray-900 text-black dark:text-gray-400;
 }
 
@@ -61,7 +62,6 @@ img.logo {
 .dark-scrollbar {
   color-scheme: dark;
 }
-
 input[type=text], input[type=password], button[type=button] {
   @apply p-2 rounded-md;
 }
@@ -113,5 +113,3 @@ button[type=button] {
 .dark .shadow-lg {
   --tw-shadow: 0 10px 15px -3px  rgb(124 124 124 / 10%), 0 4px 6px -4px rgb(124 124 124 / 10%);
 }
-
-input[type="file"] > input { cursor: pointer }
