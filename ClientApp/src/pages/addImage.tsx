@@ -5,6 +5,7 @@ import { NavSide } from "../components/Shared/NavSide";
 export function AddImage() {
   const [imagePreview, setImagePreview] = useState();
   const [videoPreview, setVideoPreview] = useState();
+  var allImages;
   function displayImg(e : any) {
     // Reading New File (open file Picker Box)
     const reader = new FileReader();
@@ -17,6 +18,7 @@ export function AddImage() {
     reader.onload = (readerEvent : any) => {
       if (selectedFile.type.includes("image")) {
         setImagePreview(readerEvent.target.result);
+        // allImages.push(readerEvent.target.result);
       } else if (selectedFile.type.includes("video")) {
         setVideoPreview(readerEvent.target.result);
       }
@@ -52,10 +54,10 @@ export function AddImage() {
               />
             </div>
           </form>
-          {/* <ImageGallery src={[imagePreview]} /> */}
+          {/* <ImageGallery src={[allImages]} /> */}
 
           <img src={imagePreview} className="h-64"/>
-          {/* <video controls src=""></video> */}
+          <video controls src={videoPreview} className="h-64 hidden"></video>
         </div>
       </div>
     </div>
