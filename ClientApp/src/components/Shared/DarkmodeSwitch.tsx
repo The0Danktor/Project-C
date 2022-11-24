@@ -43,7 +43,6 @@ export function DarkmodeSwitch() {
       : { svg: sun, name: "sun" }
   );
 
-
   const root = document.getElementsByTagName("html")[0];
   const toggleDarkMode = () => {
     root.setAttribute("class", "dark");
