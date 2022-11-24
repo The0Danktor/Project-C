@@ -12,14 +12,14 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221116142005_m2")]
-    partial class m2
+    [Migration("20221117105443_m1")]
+    partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -255,7 +255,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("workingOnTickets");
+                    b.ToTable("WorkingOnTickets");
                 });
 
             modelBuilder.Entity("Project_C.Models.Company", b =>
