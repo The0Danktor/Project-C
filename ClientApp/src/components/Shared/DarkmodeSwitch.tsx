@@ -62,6 +62,8 @@ export function DarkmodeSwitch() {
       toggleLightMode();
     } else if (localStorage.theme === "light") {
       toggleDarkMode();
+    } else {
+      toggleLightMode();
     }
   };
 
