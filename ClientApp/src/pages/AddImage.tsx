@@ -5,7 +5,6 @@ import { NavSide } from "../components/Shared/NavSide";
 export function AddImage() {
   const [imagePreview, setImagePreview] = useState();
   const [videoPreview, setVideoPreview] = useState();
-  var allImages;
   function displayImg(e : any) {
     // Reading New File (open file Picker Box)
     const reader = new FileReader();

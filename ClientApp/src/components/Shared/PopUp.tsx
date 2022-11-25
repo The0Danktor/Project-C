@@ -23,7 +23,7 @@ export function PopUp(props: information) {
       md:min-h-[50%] md:w-1/2 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2
       ">
         {/* close button */}
-        <button onClick={props.close} className="float-right m-3">
+        <button onClick={props.close} className="float-right m-3 sticky top-3 bg-gray-100 dark:bg-gray-700 z-20">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
