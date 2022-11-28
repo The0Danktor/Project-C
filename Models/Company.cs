@@ -11,7 +11,7 @@ namespace Project_C.Models
         public string Name { get; set; } = null!;
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; } = null!;
-        public List<Customer> Customers { get; set; } = null!;
+        public List<User> Users { get; set; } = null!;
         public List<CompanyMachine> CompanyMachines { get; set; } = null!;
     }
 }

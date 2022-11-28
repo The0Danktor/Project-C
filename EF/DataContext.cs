@@ -7,11 +7,10 @@ namespace Project_C.EF
 {
     public class DataContext : DbContext
     {
-        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<User> users { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Department> Departments { get; set; } = null!;
         public DbSet<DepartmentEmployee> DepartmentEmployees { get; set; } = null!;
-        public DbSet<VisconEmployee> VisconEmployees { get; set; } = null!;
         public DbSet<Machine> Machines { get; set; } = null!;
         public DbSet<CompanyMachine> CompanyMachines { get; set; } = null!;
         public DbSet<Problem> Problems { get; set; } = null!;        
@@ -26,9 +25,9 @@ namespace Project_C.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Customer>()
+            modelBuilder.Entity<User>()
                .HasOne(c => c.Company)
-               .WithMany(c => c.Customers)
+               .WithMany(c => c.Users)
                .HasForeignKey(c => c.CompanyId);
 
             modelBuilder.Entity<Company>()
@@ -62,7 +61,7 @@ namespace Project_C.EF
                 .HasForeignKey(c => c.ProblemId);
 
             modelBuilder.Entity<Ticket>()
-                .HasOne(c => c.Customer)
+                .HasOne(c => c.User)
                 .WithMany(c => c.Tickets)
                 .HasForeignKey(c => c.CustomerId);
 
@@ -75,7 +74,7 @@ namespace Project_C.EF
                 .HasForeignKey(c => c.DepartmentId);
             
             modelBuilder.Entity<DepartmentEmployee>()
-                .HasOne(c => c.Employee)
+                .HasOne(c => c.User)
                 .WithMany(c => c.DepartmentEmployees)
                 .HasForeignKey(c => c.EmployeeId);
 
@@ -83,7 +82,7 @@ namespace Project_C.EF
                 .HasKey(c => new { c.EmployeeId, c.TicketId });
             
             modelBuilder.Entity<WorkingOnTicket>()
-                .HasOne(c => c.Employee)
+                .HasOne(c => c.User)
                 .WithMany(c => c.WorkingOnTickets)
                 .HasForeignKey(c => c.EmployeeId);
             

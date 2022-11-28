@@ -1,6 +1,7 @@
 global using Microsoft.EntityFrameworkCore;
 global using Project_C.EF;
 global using Project_C.Models;
+global using Project_C.Enums;
 global using System.ComponentModel.DataAnnotations;
 
 

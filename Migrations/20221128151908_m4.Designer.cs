@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Project_C.EF;
@@ -11,9 +12,10 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221128151908_m4")]
+    partial class m4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,7 +188,7 @@ namespace Project_C.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("CompanyId")
+                    b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
@@ -331,7 +333,9 @@ namespace Project_C.Migrations
                 {
                     b.HasOne("Project_C.Models.Company", "Company")
                         .WithMany("Users")
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
                 });
