@@ -3,7 +3,10 @@ global using Project_C.EF;
 global using Project_C.Models;
 global using Project_C.Enums;
 global using Project_C.Services.MachineService;
+global using Project_C.Services.CompanyService;
+global using Project_C.Services.CompanyMachineService;
 global using System.ComponentModel.DataAnnotations;
+
 
 
 
@@ -30,6 +33,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMachineService, MachineService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICompanyMachineService, CompanyMachineService>();
 
 var app = builder.Build();
 
