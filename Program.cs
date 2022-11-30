@@ -2,7 +2,9 @@ global using Microsoft.EntityFrameworkCore;
 global using Project_C.EF;
 global using Project_C.Models;
 global using Project_C.Enums;
+global using Project_C.Services.MachineService;
 global using System.ComponentModel.DataAnnotations;
+
 
 
 
@@ -25,10 +27,9 @@ builder.Services.AddDbContext<DataContext>(optionsBuilder =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddCors();
-
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IMachineService, MachineService>();
 
 var app = builder.Build();
 
