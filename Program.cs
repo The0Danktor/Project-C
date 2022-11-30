@@ -7,7 +7,7 @@ global using System.ComponentModel.DataAnnotations;
 
 
 // dotnet tool install --global dotnet-ef
-// dotnet add package Microsoft.EntityFrameworkCore.Design
+// dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.9
 // dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.5
 // dotnet ef Migrations add _MigrationName
 // dotnet ef Database update 

@@ -18,7 +18,7 @@ namespace Project_C.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Machine>> Get()
+        public async Task<IActionResult> Get()
         {
            var query = from m in _context.Machines
                        select new {m.Id, m.Name,};
