@@ -1,55 +1,55 @@
 import React, { useState, useEffect } from "react";
+import { isJSDocAugmentsTag } from "typescript";
 import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
 
 export function AddImage() {
+  var errors = {
+    wrongFile: "You can only add images and videos",
+    overLimit: "You can only add up to 10 files",
+    overLimitVideo: "You can only add 1 video",
+    overLimitMB: "You can only add files below 500MB",
+  };
+  const [displayError, setError] = useState("");
   // show images
-  const [images, setImages] = useState([] as any);
+  const [images, setFiles] = useState([] as any);
   const [imageURLS, setImageURLs] = useState([]);
+  // show videos
+  const [videos, _] = useState([] as any);
+  const [videoURLS, setVideoURLs] = useState([]);
   useEffect(() => {
-    if (images.length < 1 || images.length > 11) return;
-    const listImages: any = [];
-    images.map((image: any) => listImages.push(URL.createObjectURL(image)));
-    setImageURLs(listImages);
+    // checks how many files are added
+    if (
+      images.length + videos.length < 1 ||
+      images.length + videos.length > 10
+    ) {
+      if (images.length + videos.length == 0) return;
+      setError(errors.overLimit);
+      return;
+    }
+    setError("");
+    const listImages: any = [],
+      listVideos: any = [];
+    images.map((file: any) => {
+      // filters if file is video or image
+      if (file.type.includes("image/"))
+        listImages.push(URL.createObjectURL(file));
+      else if (file.type.includes("video/") && listVideos.length < 1)
+        listVideos.push(URL.createObjectURL(file));
+      else {
+        setError(errors.wrongFile); // if file is neither image or video
+        if (file.type.includes("video/") && listVideos.length == 1)
+          setError(errors.overLimitVideo); // if more than 1 video is added
+        else if (file.size > 524288000) setError(errors.overLimitMB); // if file exceeds maximum size
+      }
+      console.log(listImages.length + listVideos.length);
+      setImageURLs(listImages);
+      setVideoURLs(listVideos);
+    });
   }, [images]);
 
-  // show videos
-  const [videos, setVideos] = useState([] as any);
-  const [videoURLS, setVideoURLs] = useState([]);
-
-  useEffect(() => {
-    if (videos.length < 1 || videos.length > 11) return;
-    const listVideos: any = [];
-    images.map((video: any) => listVideos.push(URL.createObjectURL(video)));
-    setVideoURLs(listVideos);
-  }, [videos]);
-
   function displayImg(e: any) {
-    setImages([...e.target.files]);
-    setVideos([...e.target.files]);
-
-    // // const listImages: any[] = [];
-    // function displayImg(e: any) {
-    //   // Reading New File (open file Picker Box)
-    //   const reader = new FileReader();
-    //   // Gettting Selected File (user can select multiple but we are choosing only one)
-    //   var key = e.currentTarget.files;
-    //   const selectedImage = Object.keys(key).map((element: any) => {
-    //     // const selectedImage = e.currentTarget.files[0];
-    //     if (key[element]) {
-    //       reader.readAsDataURL(key[element]);
-    //     }
-    //     // As the File loaded then set the stage as per the file type
-    //     reader.onload = (readerEvent: any) => {
-    //       if (key[element].type.includes("image")) {
-    //         setImagePreview(readerEvent.target.result);
-    //       } else if (key[element].type.includes("video")) {
-    //         setVideoPreview(readerEvent.target.result);
-    //       }
-    //     };
-
-    //   });
-    // listImages.push(<img src={imagePreview} className="w-64" />);
+    setFiles([...e.target.files]);
   }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
@@ -87,40 +87,16 @@ export function AddImage() {
           ))}
 
           {videoURLS.map((videoPreview) => (
-            <video controls src={videoPreview} className="min-h-[40px] max-h-64"></video>
+            <video
+              controls
+              src={videoPreview}
+              className="min-h-[40px] max-h-64 my-2"
+            ></video>
           ))}
-          {/* <img src={imagePreview} className="min-h-[40px] max-h-64"/>
-          {videoPreview != null && <video controls src={videoPreview} className="min-h-[40px] max-h-64"></video>} */}
+
+          <p className="text-red-500 text-sm">{displayError}</p>
         </div>
       </div>
     </div>
   );
 }
-
-// import React, { useState, useEffect } from "react";
-
-// const AddImage = () => {
-//   const [images, setImages] = useState([] as any);
-//   const [imageURLS, setImageURLs] = useState([]);
-//   useEffect(() => {
-//     if (images.length < 1) return;
-//     const newImageUrls: any = [];
-//     images.forEach((image:any) => newImageUrls.push(URL.createObjectURL(image)));
-//     setImageURLs(newImageUrls);
-//   }, [images]);
-
-//   function onImageChange(e: any) {
-//     setImages([...e.target.files]);
-//   }
-
-//   return (
-//     <>
-//       <input type="file" multiple accept="image/*" onChange={onImageChange} />
-//       {imageURLS.map((imageSrc) => (
-//         <img src={imageSrc} alt="not fount" width={"250px"} />
-//       ))}
-//     </>
-//   );
-// };
-
-// export default AddImage;
