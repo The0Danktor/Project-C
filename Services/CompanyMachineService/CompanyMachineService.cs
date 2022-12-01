@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Project_C.Dtos.CompanyMachine;
 
-namespace Project_C.Services.CompanyMachineService
+namespace Project_C.Services
 {
     public class CompanyMachineService : ICompanyMachineService
     {

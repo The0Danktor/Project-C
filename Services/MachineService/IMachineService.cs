@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project_C.Dtos.Machine;
 
-namespace Project_C.Services.MachineService
+namespace Project_C.Services
 {
     public interface IMachineService
     {

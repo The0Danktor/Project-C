@@ -2,9 +2,8 @@ global using Microsoft.EntityFrameworkCore;
 global using Project_C.EF;
 global using Project_C.Models;
 global using Project_C.Enums;
-global using Project_C.Services.MachineService;
-global using Project_C.Services.CompanyService;
-global using Project_C.Services.CompanyMachineService;
+global using Project_C.Services;
+global using Project_C.Dtos;
 global using System.ComponentModel.DataAnnotations;
 
 

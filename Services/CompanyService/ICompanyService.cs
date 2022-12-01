@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Project_C.Dtos.Company;
 
-namespace Project_C.Services.CompanyService
+namespace Project_C.Services
 {
     public interface ICompanyService
     {
