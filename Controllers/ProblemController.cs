@@ -10,11 +10,37 @@ namespace Project_C.Controllers
     [Route("api/[controller]")]
     public class ProblemController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IProblemService _problemService;
 
-        public ProblemController(DataContext context)
+        public ProblemController(IProblemService problemService)
         {
-            _context = context;
+            _problemService = problemService;
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<GetProblemDto>>> GetAllProblems()
+        {
+            return Ok(await _problemService.GetAllProblems());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetProblemDto>> GetProblemById(Guid id)
+        {
+           var result = await _problemService.GetProblemById(id);
+
+           if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+            
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<GetProblemDto>>> AddProblem(AddProblemDto problem)
+        {
+            return Ok(await _problemService.AddProblem(problem));
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Project_C.Services
                         Name = c.Name,
                         DepartmentId = c.DepartmentId
                     };
-            return _.ToList();
+            return await _.ToListAsync();
         }
 
         public async Task<List<GetCompanyDto>> GetAllCompanies()

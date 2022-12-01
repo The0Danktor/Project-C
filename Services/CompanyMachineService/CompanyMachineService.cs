@@ -24,12 +24,14 @@ namespace Project_C.Services
             _context.CompanyMachines.Add(newCompanyMachine);
             await _context.SaveChangesAsync();
             var _ = from cm in _context.CompanyMachines
+                    join m in _context.Machines on cm.MachineId equals m.Id
                     select new GetCompanyMachineDto
                     {
                         Name = cm.Name,
                         CompanyId = cm.CompanyId,
                         MachineId = cm.MachineId,
-                        Tekennummer = cm.Tekennummer
+                        Tekennummer = cm.Tekennummer,
+                        Type = m.Name
                     };
             return await _.ToListAsync();
         }
@@ -41,7 +43,7 @@ namespace Project_C.Services
                         select new GetCompanyMachineDto
                         {
                             Tekennummer = cm.Tekennummer,
-                            Name = m.Name,
+                            Name = cm.Name,
                             CompanyId = cm.CompanyId,
                             MachineId = m.Id,
                             Type = m.Name

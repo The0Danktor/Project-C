@@ -32,7 +32,7 @@ namespace Project_C.Services
                     Id = m.Id,
                     Name = m.Name
                 };
-            return _.ToList();
+            return await _.ToListAsync();
         }
 
         public async Task<List<GetMachineDto>> GetAllMachines()
