@@ -43,7 +43,7 @@ namespace Project_C.Services
                             Name = c.Name,
                             DepartmentId = c.DepartmentId
                         };
-            return (query.ToList());           
+            return (await query.ToListAsync());           
         }
 
         public async Task<GetCompanyDto?> GetCompanyById(Guid id)
@@ -56,7 +56,7 @@ namespace Project_C.Services
                               Name = c.Name,
                               DepartmentId = c.DepartmentId
                           };
-            return company.FirstOrDefault();
+            return await company.FirstOrDefaultAsync();
         }
     }
 }

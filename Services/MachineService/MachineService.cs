@@ -43,7 +43,7 @@ namespace Project_C.Services
                            Id = m.Id,
                            Name = m.Name
                        };
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
         public async Task<GetMachineDto?> GetMachineById(Guid id)
@@ -55,7 +55,7 @@ namespace Project_C.Services
                               Id = m.Id,
                               Name = m.Name
                           };
-            return machine.FirstOrDefault();
+            return await machine.FirstOrDefaultAsync();
         }
     }
 
