@@ -114,5 +114,5 @@ button[type=button] {
 }
 
 .container {
-  @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto
+  @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:min-h-[unset] md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto
 }
