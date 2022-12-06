@@ -17,40 +17,39 @@ export function AddImage() {
     [videoURLS, setVideoURLs] = useState<Array<string>>([]); // list of videos
 
   useEffect(() => {
+    var lImages = [...imageURLS];
+    var lVideos = [...videoURLS];
+
     // checks how many files are added
-    if (files.length < 1 || files.length > 10 || imageURLS.length + videoURLS.length > 9) {
-      if (files.length == 0) return;
+    if (lImages.length + lVideos.length + files.length > 10) {
       setError(errors.overLimit);
       return;
     }
-    setError("");
-    var lImages = [...imageURLS]
-    var lVideos = [...videoURLS]
+
     files.forEach((file: any) => {
       // checks if file is video or image
-      if (file.type.includes("image/"))
-        lImages.push(URL.createObjectURL(file));
-      else if (file.type.includes("video/") && lVideos.length < 1)
+      if (file.type.includes("image/")) lImages.push(URL.createObjectURL(file));
+      else if (file.type.includes("video/") && lVideos.length < 1) {
         lVideos.push(URL.createObjectURL(file));
-      else {
+        // lImages.push(URL.createObjectURL(file));
+      } else {
         setError(errors.wrongFile); // if file is neither image or video
         if (file.type.includes("video/") && lVideos.length == 1)
           setError(errors.overLimitVideo); // if more than 1 video is added
-        else if (file.size > 524288000)
-          setError(errors.overLimitMB); // if file exceeds maximum size
+        else if (file.size > 524288000) setError(errors.overLimitMB); // if file exceeds maximum size
       }
+
       setImageURLs(lImages);
       setVideoURLs(lVideos);
     });
-  }, [, files]);
+  }, [files]);
   function displayImg(e: any) {
     setFiles([...e.target.files]);
   }
-  function delet(e : any) {
-    console.log(imageURLS)
-    var index = imageURLS.indexOf(e); 
-    delete imageURLS[index];
-    // displayImg;
+  function delet(e: any) {
+    const filteredList = imageURLS.filter((element) => element != e);
+    setError("");
+    setImageURLs(filteredList);
   }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300 z-20">
@@ -83,15 +82,16 @@ export function AddImage() {
 
           {/* displays the images */}
           <div className="flex flex-wrap ">
-            <ImageGallery src={imageURLS} del={delet}/>
-            {videoURLS.map((videoPreview: any) => (
+            <ImageGallery src={imageURLS} del={delet} />
+            {/* <ImageGallery src={videoURLS} del={delet} /> */}
+
+            {/* {videoURLS.map((videoPreview: any) => (
               <video
-                controls
+                // controls
                 src={videoPreview}
                 className="h-auto w-full md:min-h-[40px] md:max-h-64 md:w-[unset] my-2"
-                poster={placeholder}
-              ></video>
-            ))}
+              />
+            ))} */}
           </div>
           {displayError != "" ? (
             <p className="text-red-500 text-sm">{displayError}</p>

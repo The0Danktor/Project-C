@@ -16,15 +16,17 @@ interface information {
 interface informationImage {
   image: any;
   close: any;
+  active? : any;
 }
 
 export function PopUp(props: information) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0">
+    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0 ">
       <div
-        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] overflow-y-auto
-      md:min-h-[50%] md:w-1/2 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2
-      "
+        className={
+          // (activePopUp ? "overflow-y-auto" : "overflow-y-[unset]") +
+          " overflow-y-auto bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
+        }
       >
         {/* close button */}
         <button
@@ -68,7 +70,7 @@ export function PopUp(props: information) {
           <Dropdown selected={props.prio} info={priority} />
 
           {/* displays user information */}
-          <div className="md:absolute md:top-11 md:right-28 my-3">
+          <div className="xl:absolute xl:top-11 xl:right-28 my-3">
             <strong className="text-xl block">User information</strong>
             <strong>User: </strong>
             <span>user name</span>
@@ -124,7 +126,6 @@ export function PopUp(props: information) {
               placeholder,
             ]}
           />
-
           {/* save buttons */}
           <div className="flex flex-row justify-center flex-wrap pt-4">
             <Button value="Save" fun={props.close} />
@@ -139,12 +140,17 @@ export function PopUp(props: information) {
 
 export function PopUpImage(props: informationImage) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0" onClick={props.close}>
+    <div
+    // bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 min-h-screen m-0
+      className="relative w-full"
+      onClick={props.close}
+    >
       <div
-        className="absolute md:left-1/2 md:-translate-x-1/2 top-1/2 -translate-y-1/2
+      // absolute md:left-1/2 top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
+        className=" relative md:left-1/2 md:-translate-x-1/2
       "
       >
-        <img src={props.image} className="w-screen md:w-[unset]"/>
+        <img src={props.image} className="w-screen md:w-[unset]" />
       </div>
     </div>
   );
