@@ -7,7 +7,8 @@ namespace Project_C.EF
 {
     public class DataContext : DbContext
     {
-        public DbSet<User> users { get; set; } = null!;
+
+        public DbSet<User> users { get; set; } = null!
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Department> Departments { get; set; } = null!;
         public DbSet<DepartmentEmployee> DepartmentEmployees { get; set; } = null!;

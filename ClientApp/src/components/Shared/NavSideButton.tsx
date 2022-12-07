@@ -5,9 +5,10 @@ interface NavSideButtonProps {
   title?: string;
   svg?: JSX.Element;
   page: LinkProps["to"];
+  img?: string;
 }
 
-export default function NavSideButton(props: NavSideButtonProps) {
+export function NavSideButton(props: NavSideButtonProps) {
   return (
     <Link
       to={props.page}
@@ -15,6 +16,15 @@ export default function NavSideButton(props: NavSideButtonProps) {
     >
       {props.svg}
       <p className="m-2">{props.title}</p>
+    </Link>
+  );
+}
+
+export function NavSideButtonLogo(props: NavSideButtonProps) {
+  return (
+    <Link
+      to={props.page}>
+      <img src={props.img} className="logo" />
     </Link>
   );
 }

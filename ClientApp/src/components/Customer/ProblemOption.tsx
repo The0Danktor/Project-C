@@ -1,5 +1,6 @@
 import { Disclosure, Transition } from "@headlessui/react";
 import React from "react";
+import { Tag } from "../Shared/Tag";
 
 interface ProblemMenuProps {
   title: string;
@@ -14,11 +15,9 @@ export function ProblemOption(props: ProblemMenuProps) {
       {({ open }) => (
         <>
           <div className="border-b-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full transition duration-300">
-            <Disclosure.Button className="flex  justify-between w-full p-2 transition duration-300">
+            <Disclosure.Button type="submit" className="flex  justify-between w-full p-2 transition duration-300">
               <p className="text-black dark:text-gray-400 transition duration-300">{props.title}</p>
-              <p className="px-2 rounded-xl  border-2  text-black dark:text-gray-400 text-sm bg-white border-gray-100 dark:bg-gray-800 dark:border-gray-800 transition duration-300">
-                {props.machineType}
-              </p>
+              <Tag text={props.machineType} />
             </Disclosure.Button>
             <Transition
               show={open}

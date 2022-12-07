@@ -12,8 +12,8 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221116142316_m3")]
-    partial class m3
+    [Migration("20221124143847_cr")]
+    partial class cr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

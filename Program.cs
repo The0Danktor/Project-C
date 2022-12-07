@@ -10,6 +10,8 @@ global using System.ComponentModel.DataAnnotations;
 
 
 
+
+
 // dotnet tool install --global dotnet-ef
 // dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.9
 // dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 6.0.5

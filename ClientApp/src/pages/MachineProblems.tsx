@@ -3,7 +3,7 @@ import React from "react";
 import { ProblemMenu } from "../components/Customer/ProblemMenu";
 import { useParams } from "react-router-dom";
 
-export function TestPageProblems() {
+export function MachineProblems() {
   const { Problem_Id } = useParams();
 
   return (
