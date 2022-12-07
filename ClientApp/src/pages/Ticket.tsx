@@ -15,7 +15,7 @@ export function TicketPage() {
       <div className="hidden md:flex">
         <NavSide />
       </div>
-      <div className="grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto">
+      <div className="container">
         <div className="grow w-full m-2 md:m-3">
           <strong className="text-2xl">All tickets</strong>
           <Link to="../AddImage">

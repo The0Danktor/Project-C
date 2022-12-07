@@ -28,7 +28,10 @@ export function Ticket() {
     }
   }
   return (
-    <div className="text-left w-full lg:w-[48.5%] border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2">
+    // displays ticket button
+    <div className="text-left w-full lg:w-[48.5%] border border-gray-300
+     dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 
+     dark:text-gray-400 rounded-lg m-2">
       {/* displays ticket itself */}
       <button
         className="w-full text-left p-4"
@@ -59,7 +62,6 @@ export function Ticket() {
       {active && (
         <PopUp
           close={Popup}
-          display={active}
           status={currentStatus}
           date={date}
           prio={currentPriority}

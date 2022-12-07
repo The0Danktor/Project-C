@@ -3,27 +3,36 @@ import { useState } from "react";
 import placeholder from "../../assets/add_picture.png";
 import ja from "../../assets/logo.png";
 import { Dropdown } from "./Dropdown";
-import {ImageGallery} from "./ImageGallery"
-import {Button} from "./Button"
-import {status, priority} from "./Ticket"
+import { ImageGallery } from "./ImageGallery";
+import { Button } from "./Button";
+import { status, priority } from "./Ticket";
 
 interface information {
-  display: boolean,
-  status: string,
-  date: Date,
-  close: any,
-  prio: string
+  status: string;
+  date: Date;
+  close: any;
+  prio: string;
+}
+interface informationImage {
+  image: any;
+  close: any;
+  active? : any;
 }
 
 export function PopUp(props: information) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0">
+    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0 ">
       <div
-        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] overflow-y-auto
-      md:min-h-[50%] md:w-1/2 md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2
-      ">
+        className={
+          // (activePopUp ? "overflow-y-auto" : "overflow-y-[unset]") +
+          " overflow-y-auto bg-gray-100 text-black dark:bg-gray-700 dark:text-white max-h-[93vh] md:max-h-[90vh] md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
+        }
+      >
         {/* close button */}
-        <button onClick={props.close} className="float-right m-3">
+        <button
+          onClick={props.close}
+          className="float-right m-3 sticky top-3 bg-gray-100 dark:bg-gray-700 z-10"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -56,15 +65,12 @@ export function PopUp(props: information) {
             info={["Admin", "Worker #1", "Worker #2"]}
           />
           <span>Status: </span>
-          <Dropdown
-            selected={props.status}
-            info={status}
-          />
+          <Dropdown selected={props.status} info={status} />
           <span>Priority: </span>
           <Dropdown selected={props.prio} info={priority} />
 
           {/* displays user information */}
-          <div className="md:absolute md:top-11 md:right-28 my-3">
+          <div className="xl:absolute xl:top-11 xl:right-28 my-3">
             <strong className="text-xl block">User information</strong>
             <strong>User: </strong>
             <span>user name</span>
@@ -104,17 +110,47 @@ export function PopUp(props: information) {
               penatibus et magnis dis parturient montes, nascetur ridiculus mus.
             </li>
           </ul>
-          
-          {/* image gallery */}
-          <ImageGallery src={[placeholder, placeholder, placeholder, placeholder, ja, placeholder, placeholder, ja, placeholder, placeholder]} />
 
+          {/* image gallery */}
+          <ImageGallery
+            src={[
+              placeholder,
+              placeholder,
+              placeholder,
+              placeholder,
+              ja,
+              placeholder,
+              placeholder,
+              ja,
+              placeholder,
+              placeholder,
+            ]}
+          />
           {/* save buttons */}
           <div className="flex flex-row justify-center flex-wrap pt-4">
-            <Button value="Save" fun={props.close}/>
-            <Button value="Delete" fun={props.close}/>
-            <Button value="Add comment" fun={props.close}/>
+            <Button value="Save" fun={props.close} />
+            <Button value="Delete" fun={props.close} />
+            <Button value="Add comment" fun={props.close} />
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function PopUpImage(props: informationImage) {
+  return (
+    <div
+    // bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 min-h-screen m-0
+      className="relative w-full"
+      onClick={props.close}
+    >
+      <div
+      // absolute md:left-1/2 top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
+        className=" relative md:left-1/2 md:-translate-x-1/2
+      "
+      >
+        <img src={props.image} className="w-screen md:w-[unset]" />
       </div>
     </div>
   );
