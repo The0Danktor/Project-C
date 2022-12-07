@@ -8,7 +8,7 @@ namespace Project_C.Models
     public class DepartmentEmployee
     {
         public Guid EmployeeId { get; set; }
-        public VisconEmployee Employee { get; set; } = null!;
+        public User User { get; set; } = null!;
         public Guid DepartmentId { get; set; }
         public Department Department { get; set; } = null!;
     }

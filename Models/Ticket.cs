@@ -10,7 +10,7 @@ namespace Project_C.Models
         
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
-        public Customer Customer { get; set; } = null!;
+        public User User { get; set; } = null!;
         public string Tekennummer { get; set; } = null!;
         public CompanyMachine CompanyMachine { get; set; } = null!;
         public Guid ProblemId { get; set; }

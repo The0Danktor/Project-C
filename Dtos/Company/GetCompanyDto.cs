@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Project_C.Models
+namespace Project_C.Dtos
 {
-    public class Company
+    public class GetCompanyDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public Guid DepartmentId { get; set; }
-        public Department Department { get; set; } = null!;
-        public List<User> Users { get; set; } = null!;
-        public List<CompanyMachine> CompanyMachines { get; set; } = null!;
     }
 }
