@@ -36,6 +36,7 @@ builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyMachineService, CompanyMachineService>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IProblemService, ProblemService>();
+builder.Services.AddScoped<ISolutionService, SolutionService>();
 
 var app = builder.Build();
 

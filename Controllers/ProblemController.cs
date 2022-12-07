@@ -37,6 +37,19 @@ namespace Project_C.Controllers
             
         }
 
+        [HttpGet("{id}/Solution")]
+        public async Task<ActionResult<GetProblemWithSolutionDto>> GetProblemWithSolutionById(Guid id)
+        {
+            var result = await _problemService.GetProblemWithSolutionById(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<ActionResult<List<GetProblemDto>>> AddProblem(AddProblemDto problem)
         {
