@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { PopUpImage } from "./PopUp";
+import placeholder from "../../assets/video_preview.png";
 
 interface information {
   src: any;
   del?: any;
+  param?: boolean;
+  video?: string[];
 }
 export function ImageGallery(props: information) {
   const [image, setImage] = useState("");
+  const [active, setActive] = useState(false);
   // loops through entire list
   // places the element as the src
   const allImages = props.src.map((element: any) => (
     <div
-      className="border-2 m-2 h-32 w-32 rounded-3xl overflow-hidden bg-cover bg-center cursor-pointer"
-      style={{ backgroundImage: "url(" + element + ")" }}
-      key={element}
+      className={
+        (props.param ? (active ? "hidden" : "block") : null) +
+        (element.includes("video_preview")
+          ? " bg-[length:75px]"
+          : " bg-cover") +
+        " dark:border-gray-700 bg-no-repeat border-2 m-2 h-32 w-32 rounded-3xl overflow-hidden bg-center cursor-pointer"
+      }
+      style={
+        localStorage.theme == "dark"
+          ? { backgroundImage: "url(" + placeholder + ")" }
+          : { backgroundImage: "url(" + element + ")" }
+      }
     >
       <img
         className="opacity-0 absolute h-32 w-32 rounded-3xl"
@@ -42,18 +55,22 @@ export function ImageGallery(props: information) {
       )}
     </div>
   ));
-  const [active, setActive] = useState(false);
 
   function Popup(e: any) {
     setActive(!active); // displays popup if button is clicked
     setImage(e);
-    // if (active) {
-    // }
   }
   return (
     <div className="flex flex-row flex-wrap justify-center md:justify-start">
       {allImages}
-      {active && <PopUpImage image={image} close={Popup}/>}
+      {active && (
+        <PopUpImage
+          image={image}
+          video={props.video}
+          close={Popup}
+          active={props.param}
+        />
+      )}
     </div>
   );
 }

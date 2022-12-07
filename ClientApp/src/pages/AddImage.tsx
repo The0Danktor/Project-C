@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { isConstructorDeclaration, isJSDocAugmentsTag } from "typescript";
 import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
-import placeholder from "../assets/add_picture.png";
+import placeholder from "../assets/video_preview_black.png";
 import { SlowBuffer } from "buffer";
 export function AddImage() {
   var errors = {
@@ -31,7 +31,7 @@ export function AddImage() {
       if (file.type.includes("image/")) lImages.push(URL.createObjectURL(file));
       else if (file.type.includes("video/") && lVideos.length < 1) {
         lVideos.push(URL.createObjectURL(file));
-        // lImages.push(URL.createObjectURL(file));
+        lImages.push(placeholder);
       } else {
         setError(errors.wrongFile); // if file is neither image or video
         if (file.type.includes("video/") && lVideos.length == 1)
@@ -47,9 +47,14 @@ export function AddImage() {
     setFiles([...e.target.files]);
   }
   function delet(e: any) {
-    const filteredList = imageURLS.filter((element) => element != e);
     setError("");
+    if (e.includes("video_preview")) {
+      const filteredVideoList = videoURLS.filter((element) => element != element);
+      setVideoURLs(filteredVideoList);
+    }
+    const filteredList = imageURLS.filter((element) => element != e);
     setImageURLs(filteredList);
+    
   }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300 z-20">
@@ -82,16 +87,12 @@ export function AddImage() {
 
           {/* displays the images */}
           <div className="flex flex-wrap ">
-            <ImageGallery src={imageURLS} del={delet} />
-            {/* <ImageGallery src={videoURLS} del={delet} /> */}
-
-            {/* {videoURLS.map((videoPreview: any) => (
-              <video
-                // controls
-                src={videoPreview}
-                className="h-auto w-full md:min-h-[40px] md:max-h-64 md:w-[unset] my-2"
-              />
-            ))} */}
+            <ImageGallery
+              src={imageURLS}
+              del={delet}
+              param={false}
+              video={videoURLS}
+            />
           </div>
           {displayError != "" ? (
             <p className="text-red-500 text-sm">{displayError}</p>
