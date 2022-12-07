@@ -23,7 +23,7 @@ export function Machines() {
             <input type="string" placeholder="Search" className="bg-gray-200 dark:bg-gray-800 dark:text-white text-black caret-black dark:caret-white py-2 rounded-xl p-8"/>
           </div>
           <ul className="flex flex-col w-full gap-8 overflow-y-auto items-center border-2 border-gray-100 dark:border-gray-800 p-10 rounded-xl">
-            <Machine machineName="Machine 1" tekenNumber="1" type="1" onclick={() => buttonClick("/machineproblems/1")}/>
+            <Machine machineName="Machine 1" tekenNumber="1" type="1" onclick={() => buttonClick("/machineproblems/333baae5-703b-490f-a6af-e9eea762e611")}/>
             <Machine machineName="Machine 2" tekenNumber="2" type="2" onclick={() => buttonClick("/machineproblems/1")}/>
             <Machine machineName="Machine 3" tekenNumber="3" type="3" onclick={() => buttonClick("/machineproblems/1")}/>
             <Machine machineName="Machine 4" tekenNumber="4" type="4" onclick={() => buttonClick("/machineproblems/1")}/>
