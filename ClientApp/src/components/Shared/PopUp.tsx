@@ -147,13 +147,13 @@ export function PopUpImage(props: informationImage) {
       // bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 min-h-screen m-0
       className={
         (props.active ? "h-[94vh]" : "h-screen") +
-        " bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20  m-0"
+        " !bg-opacity-90 bg-gray-200 dark:bg-gray-800 absolute top-0 left-0 block w-full z-20  m-0"
       }
       onClick={props.close}
     >
       <div
         // absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
-        className="absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 
+        className="absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
       "
       >
         {props.image.includes("video_preview") &&

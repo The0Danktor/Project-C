@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { isConstructorDeclaration, isJSDocAugmentsTag } from "typescript";
 import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
-import placeholder from "../assets/video_preview_black.png";
+import placeholder from "../assets/video_preview.png";
 import { SlowBuffer } from "buffer";
 export function AddImage() {
   var errors = {
@@ -14,7 +14,8 @@ export function AddImage() {
   const [displayError, setError] = useState(""),
     [files, setFiles] = useState([] as any),
     [imageURLS, setImageURLs] = useState<Array<string>>([]), // list of images
-    [videoURLS, setVideoURLs] = useState<Array<string>>([]); // list of videos
+    [videoURLS, setVideoURLs] = useState<Array<string>>([]), // list of videos
+    inputRef = useRef(null);
 
   useEffect(() => {
     var lImages = [...imageURLS];
@@ -38,23 +39,24 @@ export function AddImage() {
           setError(errors.overLimitVideo); // if more than 1 video is added
         else if (file.size > 524288000) setError(errors.overLimitMB); // if file exceeds maximum size
       }
-
       setImageURLs(lImages);
       setVideoURLs(lVideos);
     });
   }, [files]);
   function displayImg(e: any) {
     setFiles([...e.target.files]);
+    e.target.value = null; // empties input file field so we can add the same file multiple times
   }
   function delet(e: any) {
     setError("");
     if (e.includes("video_preview")) {
-      const filteredVideoList = videoURLS.filter((element) => element != element);
+      const filteredVideoList = videoURLS.filter(
+        (element) => element != element
+      );
       setVideoURLs(filteredVideoList);
     }
     const filteredList = imageURLS.filter((element) => element != e);
     setImageURLs(filteredList);
-    
   }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300 z-20">
@@ -80,6 +82,7 @@ export function AddImage() {
                 accept="image/*, video/*"
                 onChange={displayImg}
                 multiple
+                ref={inputRef}
                 hidden
               />
             </div>
