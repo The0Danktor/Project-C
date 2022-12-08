@@ -10,7 +10,7 @@ interface information {
 export function ImageGallery(props: information) {
   const [image, setImage] = useState("");
   const [active, setActive] = useState(false);
-  
+
   // loops through entire list
   // places the element as the src
   const allImages = props.src.map((element: any) => (
@@ -20,10 +20,9 @@ export function ImageGallery(props: information) {
         (element.includes("video_preview")
           ? " bg-[length:75px]"
           : " bg-cover") +
-        " dark:border-gray-700 bg-no-repeat border-2 m-2 h-32 w-32 rounded-3xl overflow-hidden bg-center cursor-pointer"
+        " dark:border-gray-600 border-2 bg-no-repeat m-2 h-32 w-32 rounded-3xl overflow-hidden bg-center cursor-pointer"
       }
-      style={{ backgroundImage: "url(" + element + ")" }
-      }
+      style={{ backgroundImage: "url(" + element + ")" }}
     >
       <img
         className="opacity-0 absolute h-32 w-32 rounded-3xl"
@@ -32,7 +31,7 @@ export function ImageGallery(props: information) {
       {props.del != undefined && (
         <button
           onClick={() => props.del(element)}
-          className="float-right p-2 rounded-bl-2xl bg-gray-100 dark:bg-gray-700 relative "
+          className="float-right p-2 rounded-bl-2xl bg-gray-100 dark:bg-gray-700 relative"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
