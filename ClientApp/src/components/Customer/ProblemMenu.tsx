@@ -1,8 +1,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import { ProblemOption } from "./ProblemOption";
-import { Problem } from "../../Types/types";
-import { Machine } from "../../Types/types";
+import { Problem ,Machine } from "../../Types/types";
 
 //https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 interface Prop {
