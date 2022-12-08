@@ -130,19 +130,19 @@ function Mention({ attributes, children, element }: RenderElementProps) {
 
   return (
     <>
-    <span {...attributes} className={`bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
-      {children}
-      {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
-    </span>
-    {selected && focused && (sel === null || Range.isCollapsed(sel)) && (
-      <span contentEditable={false} className="float-left my-1 p-2 bg-gray-700 rounded">
-        <h1 className="text-3xl">{name}</h1>
-        <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
-        </p>
+      <span {...attributes} className={`bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
+        {children}
+        {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
       </span>
-    )}
+      {selected && focused && (sel === null || Range.isCollapsed(sel)) && (
+        <span contentEditable={false} className="float-left my-1 p-2 bg-gray-700 rounded">
+          <h1 className="text-3xl">{name}</h1>
+          <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
+          </p>
+        </span>
+      )}
     </>
   )
 }
@@ -245,6 +245,8 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
   const [index, setIndex] = useState(0);
   const [searchType, setSearchType] = useState<"user" | "machine">("user");
   const [search, setSearch] = useState("");
+
+  const focused = useFocused();
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
 
@@ -448,20 +450,21 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
         setTarget(undefined);
       }}
     >
-      <div className="flex flex-col w-full gap-2 p-4">
-        <div className="flex gap-2">
-          <FormatButton format="bold" icon="format_bold" />
-          <FormatButton format="italic" icon="format_italic" />
-          <FormatButton format="underline" icon="format_underline" />
+      <div className="flex flex-col w-full gap-2 py-2">
+          <div className="flex gap-2">
+            <FormatButton format="bold" icon="format_bold" />
+            <FormatButton format="italic" icon="format_italic" />
+            <FormatButton format="underline" icon="format_underline" />
 
-          <BlockButton format="code" icon="code" />
-          <BlockButton format="unordered-list" icon="format_list_bulleted" />
-          <BlockButton format="ordered-list" icon="format_list_numbered" />
-        </div>
+            <BlockButton format="code" icon="code" />
+            <BlockButton format="unordered-list" icon="format_list_bulleted" />
+            <BlockButton format="ordered-list" icon="format_list_numbered" />
+          </div>
         <Editable
           renderElement={props => renderers[props.element.type](props)}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
+          
           className="border border-gray-700 rounded-md p-2 selection:bg-sky-500"
           decorate={([node, path]) => (
             editor.selection != null &&
