@@ -73,6 +73,10 @@ button[type=button] {
   @apply px-4 bg-gray-200 hover:bg-gray-300 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-500 dark:active:bg-gray-600 select-none;
 }
 
+span[data-slate-placeholder=true] {
+  @apply !w-fit !inline-block;
+}
+
 .shake {
   animation: shake .2s infinite ease-in-out;
 }
