@@ -127,7 +127,6 @@ export function PopUp(props: information) {
               placeholder,
             ]}
             param={true}
-            // videoURLS=
           />
           {/* save buttons */}
           <div className="flex flex-row justify-center flex-wrap pt-4">
@@ -144,16 +143,14 @@ export function PopUp(props: information) {
 export function PopUpImage(props: informationImage) {
   return (
     <div
-      // bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 min-h-screen m-0
       className={
         (props.active ? "h-[94vh]" : "h-screen") +
-        " !bg-opacity-90 bg-gray-200 dark:bg-gray-800 absolute top-0 left-0 block w-full z-20  m-0"
+        " bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20  m-0"
       }
       onClick={props.close}
     >
       <div
-        // absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
-        className="absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2
+        className="absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 
       "
       >
         {props.image.includes("video_preview") &&
@@ -167,7 +164,7 @@ export function PopUpImage(props: informationImage) {
             />
           ))}
         {!props.image.includes("video_preview") && (
-          <img src={props.image} className="max-h-[80vh]" />
+          <img src={props.image} className="w-screen md:w-auto max-h-[80vh]" />
         )}
       </div>
     </div>
