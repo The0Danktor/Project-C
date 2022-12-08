@@ -28,6 +28,7 @@ export function Machines() {
     fetchData();
   }, []);
 
+  
   // <Machine machineName="Machine 1" tekenNumber="1" type="1" page="/machineproblems/333baae5-703b-490f-a6af-e9eea762e611"/>
 
   return (
