@@ -13,8 +13,9 @@ export function ImageGallery(props: information) {
 
   // loops through entire list
   // places the element as the src
-  const allImages = props.src.map((element: any) => (
+  const allImages = props.src.map((element: any, i: number) => (
     <div
+      key={"image-" + i}
       className={
         (props.param ? (active ? "hidden" : "block") : null) +
         (element.includes("video_preview")
@@ -22,16 +23,20 @@ export function ImageGallery(props: information) {
           : " bg-cover") +
         " dark:border-gray-600 border-2 bg-no-repeat m-2 h-32 w-32 rounded-3xl overflow-hidden bg-center cursor-pointer"
       }
-      style={{ backgroundImage: "url(" + element + ")" }}
+      style={{ backgroundImage: "url(" + element + ")" }} // displays image in the box
+      onClick={() => Popup(element)}
     >
       <img
         className="opacity-0 absolute h-32 w-32 rounded-3xl"
-        onClick={() => Popup(element)}
       />
+      {/* displays delete button */}
       {props.del != undefined && (
         <button
-          onClick={() => props.del(element)}
-          className="float-right p-2 rounded-bl-2xl bg-gray-100 dark:bg-gray-700 relative"
+          onClick={e => {
+            e.stopPropagation();
+            props.del(element);
+          }}
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 relative"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +58,7 @@ export function ImageGallery(props: information) {
   ));
 
   function Popup(e: any) {
+    console.log("Popup");
     setActive(!active); // displays popup if button is clicked
     setImage(e);
   }
