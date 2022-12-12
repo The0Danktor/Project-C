@@ -42,7 +42,7 @@ namespace Project_C.Controllers
         {
             var result = await _problemService.GetProblemWithSolutionById(id);
 
-            if (result == null)
+            if (result == null || result.Count == 0)
             {
                 return NotFound();
             }

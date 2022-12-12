@@ -49,7 +49,7 @@ namespace Project_C.Services
             return await query.ToListAsync();
         }
 
-        public async Task<GetSolutionDto> GetSolutionById(Guid id)
+        public async Task<GetSolutionDto?> GetSolutionById(Guid id)
         {
             var solution = from s in _context.Solutions
                 where s.Id == id

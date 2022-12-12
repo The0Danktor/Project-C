@@ -51,6 +51,22 @@ namespace Project_C.Services
             return await query.ToListAsync();
         }
 
+        public async Task<List<GetCompanyMachineDto>> GetCompanyMachinesByCompanyId(Guid id)
+        {
+            var query = from cm in _context.CompanyMachines
+                        join m in _context.Machines on cm.MachineId equals m.Id
+                        where cm.CompanyId == id
+                        select new GetCompanyMachineDto
+                        {
+                            Tekennummer = cm.Tekennummer,
+                            Name = cm.Name,
+                            CompanyId = cm.CompanyId,
+                            MachineId = m.Id,
+                            Type = m.Name
+                        };
+            return await query.ToListAsync();
+        }
+
         public async Task<GetCompanyMachineDto?> GetCompanyMachineById(string Tekennummer)
         {
             var query = from cm in _context.CompanyMachines
