@@ -10,11 +10,13 @@ namespace Project_C.Models
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string? Password { get; set; }
+        public string passwordHash { get; set; } = null!;
+        public string passwordSalt { get; set; } = null!;
         public string Phone { get; set; } = null!;
         public Guid? CompanyId { get; set; }
         public Company? Company { get; set; }
         public Role Role { get; set; }
+        public bool ResetPassword { get; set; }
         public List<Ticket> Tickets { get; set; } = null!;
         public List<WorkingOnTicket> WorkingOnTickets { get; set; } = null!;
         public List<DepartmentEmployee> DepartmentEmployees { get; set; } = null!;
