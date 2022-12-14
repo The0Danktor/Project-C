@@ -8,6 +8,6 @@ namespace Project_C.Services
     public interface IAuthService
     {
         public Task<UserLoginDto> Register(UserRegistrationDto request);
-        public Task<string> Login(UserLoginDto request);
+        public Task<string?> Login(UserLoginDto request);
     }
 }

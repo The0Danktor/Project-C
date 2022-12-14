@@ -16,6 +16,9 @@ global using System.ComponentModel.DataAnnotations;
 // dotnet ef Migrations add _MigrationName
 // dotnet ef Database update 
 
+// dotnet add package Microsoft.IdentityModel.Tokens
+// dotnet add package System.IdentityModel.Tokens.Jwt
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -24,5 +24,13 @@ namespace Project_C.Controllers
             if (response == null) return BadRequest(new {message = "Email already exists"});
             return Ok(response);
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<string>> Login(UserLoginDto request)
+        {
+            var response = await _authService.Login(request);
+            if (response == null) return BadRequest(new {message = "Invalid credentials"});
+            return Ok(response);
+        }
     }
 }
