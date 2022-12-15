@@ -120,3 +120,7 @@ span[data-slate-placeholder=true] {
 .container {
   @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:min-h-[unset] md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto
 }
+
+.height {
+  height: calc(100vh - 10rem);
+}

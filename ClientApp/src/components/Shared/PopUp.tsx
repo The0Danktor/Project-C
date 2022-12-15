@@ -6,6 +6,7 @@ import { Dropdown } from "./Dropdown";
 import { ImageGallery } from "./ImageGallery";
 import { Button } from "./Button";
 import { status, priority } from "./Ticket";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface information {
   status: string;
@@ -16,7 +17,6 @@ interface information {
 interface informationImage {
   image: any;
   close: any;
-  active?: any;
   video?: string[];
 }
 
@@ -33,20 +33,7 @@ export function PopUp(props: information) {
           onClick={props.close}
           className="float-right m-3 sticky top-3 bg-gray-100 dark:bg-gray-700 z-10"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <XMarkIcon className="w-6 h-6" />
         </button>
 
         {/* dipslays information */}
@@ -125,7 +112,7 @@ export function PopUp(props: information) {
               placeholder,
               placeholder,
             ]}
-            param={true}
+            visible={true}
           />
           {/* save buttons */}
           <div className="flex flex-row justify-between flex-wrap pt-4">

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { isConstructorDeclaration, isJSDocAugmentsTag } from "typescript";
 import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
 import placeholder from "../assets/video_preview.png";
-import { SlowBuffer } from "buffer";
+
 export function AddImage() {
   var errors = {
     wrongFile: "You can only add images and videos",
@@ -93,7 +92,7 @@ export function AddImage() {
             <ImageGallery
               src={imageURLS}
               del={delet}
-              param={false}
+              visible={false}
               video={videoURLS}
             />
           </div>

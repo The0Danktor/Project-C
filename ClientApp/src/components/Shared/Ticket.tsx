@@ -2,7 +2,7 @@ import React from "react";
 import { PopUp } from "./PopUp";
 import { useState } from "react";
 import "../../index.css";
-import { Priority } from "./priority";
+import { Priority } from "./Priority";
 
 export const status = ["New", "In progress", "Finished"];
 export const priority = ["High", "Middle", "Low"];

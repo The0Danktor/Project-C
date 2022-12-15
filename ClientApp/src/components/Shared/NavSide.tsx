@@ -16,12 +16,12 @@ import {
 
 export function NavSide() {
   return (
-    <div className="h-screen hidden  w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
+    <div className="h-screen w-screen fixed sm:static sm:w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300">
       <div className="flex justify-between w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
         <NavSideButtonLogo img={logo} page="../" />
         <DarkmodeSwitch />
       </div>
-      <div className="flex flex-col h-full justify-between">
+      <div className="flex flex-col sm:h-full justify-between height">
         <div className="flex flex-col items-center my-4">
           <NavSideButton
             title="Home"
