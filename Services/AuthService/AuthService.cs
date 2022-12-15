@@ -34,12 +34,8 @@ namespace Project_C.Services
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email , user.Email),
-                new Claim(ClaimTypes.Role , user.Role.ToString()),
-                new Claim(ClaimTypes.Name , user.Name),
                 new Claim(ClaimTypes.Sid , user.Id.ToString()),
-                new Claim(ClaimTypes.MobilePhone , user.Phone),
-                new Claim(ClaimTypes.GroupSid , user.CompanyId.ToString()),
+                new Claim(ClaimTypes.Role , user.Role.ToString())
             };
             
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
