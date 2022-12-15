@@ -24,15 +24,18 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <title>Viscon Support</title>
 
     <script>
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
       document.documentElement.classList.add('dark-scrollbar')
+      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove('dark')
       document.documentElement.classList.remove('dark-scrollbar')
+      localStorage.setItem("theme", "light");
     }
     </script>
 

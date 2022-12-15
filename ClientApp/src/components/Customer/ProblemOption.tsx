@@ -1,23 +1,18 @@
 import { Disclosure, Transition } from "@headlessui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Tag } from "../Shared/Tag";
+import { Problem } from "../../Types/types";
 
-interface ProblemMenuProps {
-  title: string;
-  machineType: string;
-  description?: string;
-  solutions: string[];
-}
+export function ProblemOption({ problem, machineName }: { problem: Problem, machineName: string }) {
 
-export function ProblemOption(props: ProblemMenuProps) {
   return (
     <Disclosure>
       {({ open }) => (
         <>
           <div className="border-b-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full transition duration-300">
             <Disclosure.Button type="submit" className="flex  justify-between w-full p-2 transition duration-300">
-              <p className="text-black dark:text-gray-400 transition duration-300">{props.title}</p>
-              <Tag text={props.machineType} />
+              <p className="text-black dark:text-gray-400 transition duration-300">{problem.description}</p>
+              <Tag text={machineName} />
             </Disclosure.Button>
             <Transition
               show={open}
@@ -35,13 +30,17 @@ export function ProblemOption(props: ProblemMenuProps) {
                   <p className="text-black dark:text-gray-400 ">
                     Mogelijke oplossingen:
                   </p>
-                  <ul className="list-disc list-inside">
-                    {props.solutions.map((solution) => (
-                      <li className="text-black dark:text-gray-400 ">
+                  {problem.solutions.length > 1 ? (
+                    <ul className="list-disc list-inside">
+                    {problem.solutions.map((solution) => (
+                      <li className="text-black dark:text-gray-400 " key={solution}>
                         {solution}
                       </li>
                     ))}
                   </ul>
+                  ) : (
+                    <p>suck</p>
+                  )}
                 </div>
               </Disclosure.Panel>
             </Transition>

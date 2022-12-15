@@ -13,7 +13,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow:hidden;
   @apply dark:bg-gray-900 text-black dark:text-gray-400;
 }
 
@@ -74,6 +73,10 @@ button[type=button] {
   @apply px-4 bg-gray-200 hover:bg-gray-300 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-500 dark:active:bg-gray-600 select-none;
 }
 
+span[data-slate-placeholder=true] {
+  @apply !w-fit !inline-block;
+}
+
 .shake {
   animation: shake .2s infinite ease-in-out;
 }
@@ -112,4 +115,8 @@ button[type=button] {
 
 .dark .shadow-lg {
   --tw-shadow: 0 10px 15px -3px  rgb(124 124 124 / 10%), 0 4px 6px -4px rgb(124 124 124 / 10%);
+}
+
+.container {
+  @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:min-h-[unset] md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto
 }

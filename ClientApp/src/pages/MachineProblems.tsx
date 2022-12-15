@@ -9,7 +9,7 @@ export function MachineProblems() {
   return (
     <div className="bg-white dark:bg-gray-900 transition flex duration-300 h-screen">
       <NavSide />
-      <ProblemMenu />
+      <ProblemMenu Id={Problem_Id}/>
     </div>
   );
 }
