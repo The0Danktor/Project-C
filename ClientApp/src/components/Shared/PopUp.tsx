@@ -23,9 +23,10 @@ interface informationImage {
 // ticket pop up
 export function PopUp(props: information) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-screen m-0">
+    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
       <div
-        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
+        className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:max-h-[90vh] 
+        md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
       >
         {/* close button */}
         <button
@@ -127,10 +128,9 @@ export function PopUp(props: information) {
             param={true}
           />
           {/* save buttons */}
-          <div className="flex flex-row justify-center flex-wrap pt-4">
-            <Button value="Save" fun={props.close} />
+          <div className="flex flex-row justify-between flex-wrap pt-4">
             <Button value="Delete" fun={props.close} />
-            <Button value="Add comment" fun={props.close} />
+            <Button value="Save" fun={props.close} />
           </div>
         </div>
       </div>
@@ -142,10 +142,7 @@ export function PopUp(props: information) {
 export function PopUpImage(props: informationImage) {
   return (
     <div
-      className={
-        (props.active ? "h-[94vh]" : "h-screen") +
-        " bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 m-0"
-      }
+      className="h-screen md:h-[94vh] bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 m-0"
       onClick={props.close}
     >
       <div
