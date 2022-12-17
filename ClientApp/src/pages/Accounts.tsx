@@ -6,111 +6,111 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 export const Accounts = () => {
-    //create 10 user accounts with id, name, group, email and phonenumbers
-    const users = [
-        {
-            id: 1,
-            name: "John Doe",
-            group: "Admin",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 2,
-            name: "Jane Doe",
-            group: "Admin",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 3,
-            name: "John Smith",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 4,
-            name: "Jane Smith",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 5,
-            name: "John Jones",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 6,
-            name: "Jane Jones",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 7,
-            name: "John Doe",
-            group: "Admin",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 8,
-            name: "Jane Doe",
-            group: "Admin",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 9,
-            name: "John Smith",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-        {
-            id: 10,
-            name: "Jane Smith",
-            group: "User",
-            email: "x",
-            phone: "1234567890",
-            problems: "37",
-            solved: "25",
-            workGroup: "Viscon x"
-        },
-    ];
-    return (
-        <div className="flex bg-white dark:bg-gray-900 w-full transition duration-300">
+  //create 10 user accounts with id, name, group, email and phonenumbers
+  const users = [
+    {
+      id: 1,
+      name: "John Doe",
+      group: "Admin",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 2,
+      name: "Jane Doe",
+      group: "Admin",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 3,
+      name: "John Smith",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 4,
+      name: "Jane Smith",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 5,
+      name: "John Jones",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 6,
+      name: "Jane Jones",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 7,
+      name: "John Doe",
+      group: "Admin",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 8,
+      name: "Jane Doe",
+      group: "Admin",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 9,
+      name: "John Smith",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+    {
+      id: 10,
+      name: "Jane Smith",
+      group: "User",
+      email: "x",
+      phone: "1234567890",
+      problems: "37",
+      solved: "25",
+      workGroup: "Viscon x",
+    },
+  ];
+  return (
+    <div className="flex bg-white dark:bg-gray-900 w-full transition duration-300">
       <NavSide />
       <div className="w-full">
         <Header />
@@ -171,53 +171,39 @@ export const Accounts = () => {
                         <td className="px-2 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="ml-4">
-                                <div className="text-sm font-medium ">
-                                    {user.name}
-                                </div>
+                              <div className="text-sm font-medium ">
+                                {user.name}
+                              </div>
                             </div>
-                            </div>
+                          </div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm ">
-                                {user.group}
-                            </div>
+                          <div className="text-sm ">{user.group}</div>
                         </td>
                         <td className="">
-                            <div className="text-sm ">
-                                {user.workGroup}
-                            </div>
+                          <div className="text-sm ">{user.workGroup}</div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm ">
-                                {user.email}
-                            </div>
+                          <div className="text-sm ">{user.email}</div>
                         </td>
                         <td className="px-2 py-4 whitespace-nowrap">
-                            <div className="text-sm ">
-                                {user.phone}
-                            </div>
+                          <div className="text-sm ">{user.phone}</div>
                         </td>
                         <td className="">
-
-                            <div className="text-sm ">
-                                {user.problems}
-                            </div>
+                          <div className="text-sm ">{user.problems}</div>
                         </td>
                         <td className="">
-                            <div className="text-sm ">
-                                {user.solved}
-                            </div>
+                          <div className="text-sm ">{user.solved}</div>
                         </td>
-                        </tr>
+                      </tr>
                     ))}
-                    </tbody>
+                  </tbody>
                 </table>
+              </div>
             </div>
-            </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-    );
-}
-
+  );
+};

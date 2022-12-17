@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 interface information {
   prio: string;
@@ -17,3 +16,5 @@ export function Priority(props: information) {
     <ExclamationCircleIcon stroke={color} className="w-6 h-6 ml-1 inline-block"/>
   );
 }
+
+

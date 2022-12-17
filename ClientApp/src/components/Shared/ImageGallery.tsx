@@ -39,7 +39,7 @@ export function ImageGallery(props: information) {
             e.stopPropagation();
             props.del(element);
           }}
-          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 relative"
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600"
         >
           <XMarkIcon className="w-6 h-6" />
         </button>

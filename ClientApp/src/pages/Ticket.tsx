@@ -10,9 +10,7 @@ export function TicketPage() {
   }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
-      {/* <div className="flex"> */}
-        <NavSide />
-      {/* </div> */}
+      <NavSide />
       <div className="container">
         <div className="grow w-full m-2 md:m-3">
           <strong className="text-2xl">All tickets</strong>

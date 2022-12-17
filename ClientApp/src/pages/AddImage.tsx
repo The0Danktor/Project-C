@@ -58,15 +58,13 @@ export function AddImage() {
     setImageURLs(filteredList);
   }
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300 z-20">
-      <div className="hidden md:flex">
-        <NavSide />
-      </div>
+    <div className="flex dark:bg-gray-900 transition duration-300">
+      <NavSide />
       <div className="container">
         <div className="grow w-full p-3">
           <strong className="text-2xl">Select images</strong>
           <form>
-            <div className="relative w-full md:w-fit overflow-hidden ">
+            <div className="w-full md:w-fit overflow-hidden ">
               <label htmlFor="file" className="cursor-pointer">
                 <p
                   className="border md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 

@@ -23,7 +23,7 @@ interface informationImage {
 // ticket pop up
 export function PopUp(props: information) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
+    <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
       <div
         className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:max-h-[90vh] 
         md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
@@ -31,7 +31,7 @@ export function PopUp(props: information) {
         {/* close button */}
         <button
           onClick={props.close}
-          className="float-right m-3 sticky top-3 bg-gray-100 dark:bg-gray-700 z-10"
+          className="float-right m-3 sticky top-4 bg-gray-100 dark:bg-gray-700 z-10"
         >
           <XMarkIcon className="w-6 h-6" />
         </button>
@@ -125,11 +125,11 @@ export function PopUp(props: information) {
   );
 }
 
-// pops up an iamge
+// pops up an image
 export function PopUpImage(props: informationImage) {
   return (
     <div
-      className="h-screen md:h-[94vh] bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 m-0"
+      className="h-screen z-[9999] md:h-[94vh] bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full m-0"
       onClick={props.close}
     >
       <div
