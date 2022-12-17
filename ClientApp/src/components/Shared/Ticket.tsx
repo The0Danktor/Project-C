@@ -29,7 +29,7 @@ export function Ticket() {
   }
   return (
     // displays ticket button
-    <div className="text-left w-full lg:w-[48.5%] border border-gray-300
+    <div className="text-left w-full lg:w-[48%] border border-gray-300
      dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 
      dark:text-gray-400 rounded-lg m-2">
       {/* displays ticket itself */}

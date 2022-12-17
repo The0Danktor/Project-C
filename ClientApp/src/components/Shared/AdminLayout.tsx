@@ -107,7 +107,7 @@ export function Layout() {
       <NavSide />
       <div>
         <Header />
-        <div className="flex font-semibold text-black dark:text-gray-400 transition duration-300">
+        <div className="flex flex-row flex-wrap w-screen font-semibold text-black dark:text-gray-400 transition duration-300">
           <div className="flex flex-col items-center justify-center mt-20 mx-10 w-60 h-40 font-semibold bg-white text-2xl text-black dark:hover:text-white dark:text-gray-400 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-lg transition duration-300 cursor-pointer">
             <Link to="accounts">
               <p className="mt-2">Our Accounts</p>
