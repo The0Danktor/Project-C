@@ -9,5 +9,6 @@ namespace Project_C.Services
     {
         public Task<UserLoginDto> Register(UserRegistrationDto request);
         public Task<string?> Login(UserLoginDto request);
+        public Task<GetUserDto?> GetCurrentUser();
     }
 }

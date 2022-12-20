@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace Project_C.Services
 {
@@ -14,10 +15,31 @@ namespace Project_C.Services
 
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
-        public AuthService(DataContext context, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public AuthService(DataContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<GetUserDto?> GetCurrentUser()
+        {
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
+            if (userId == null) return null;
+            var user = await _context.users.FindAsync(Guid.Parse(userId));
+            if (user == null) return null;
+            GetUserDto getUserDto = new GetUserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Phone = user.Phone,
+                Role = user.Role,
+                CompanyId = user.CompanyId,
+                ResetPassword = user.ResetPassword
+            };
+            return getUserDto;
         }
 
         public async Task<string?> Login(UserLoginDto request)
@@ -105,22 +127,17 @@ namespace Project_C.Services
 
         public static class PasswordGenerator
         {
-            // Generate a random password with 5 numbers
+            // Generate a random password with 9 random characters
             public static string GeneratePassword()
             {
-                var password = string.Join("", Enumerable.Range(0, 5).Select(i => RandomNumber()));
-                return password;
-            }
-
-            // Generate a random number between 0 and 9
-            static int RandomNumber()
-            {
-                using (var rng = new RNGCryptoServiceProvider())
+                const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                StringBuilder res = new StringBuilder();
+                Random rnd = new Random();
+                while (res.Length < 9)
                 {
-                    var randomNumber = new byte[1];
-                    rng.GetBytes(randomNumber);
-                    return (randomNumber[0] % 10);
+                    res.Append(valid[rnd.Next(valid.Length)]);
                 }
+                return res.ToString();
             }
         }
     }

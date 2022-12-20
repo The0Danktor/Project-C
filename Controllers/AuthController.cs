@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project_C.Controllers
@@ -17,6 +18,14 @@ namespace Project_C.Controllers
             _authService = authService;
         }
         
+        [HttpGet, Authorize]
+        public async Task<ActionResult<GetUserDto>> GetCurrentUser()
+        {
+            var response = await _authService.GetCurrentUser();
+            if (response == null) return BadRequest(new {message = "Invalid credentials"});
+            return Ok(response);
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult<UserLoginDto>> Register(UserRegistrationDto request)
         {
