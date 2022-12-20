@@ -1,33 +1,38 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import React from "react";
-import { ProblemAdd } from "./ProblemAdd";
+import React, { useState } from "react";
 import { ProblemAddButton } from "./ProblemAddButton";
 import { ProblemList } from "./ProblemList";
-import { ProblemOption } from "./ProblemOption";
 
-//https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 export function ProblemMenu() {
 
-  const list = [
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />,
-    <ProblemOption title="Product verkeerd op machine" machineType="Satelliet shuttle" solutions={["Fotocellen controleren","Eventueel product handmatig op juiste positie plaatsen"]} />
-  ]
+  const [id, setId] = useState("");
+  const [description, setDescription] = useState("");
+
+  const postProblem = async () => {
+    const problemInfo = {id, description};
+
+    await fetch("https://localhost:7162/api/Problem", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(problemInfo)
+    })
+    .then(response => {
+      console.log(response.json)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+  
+  const idChange = (x: React.FormEvent<HTMLInputElement>) => {
+    const currentTarget = x.target as HTMLInputElement;
+    setId(currentTarget.value);
+  };
+
+  const descriptionChange = (x: React.FormEvent<HTMLInputElement>) => {
+    const currentTarget = x.target as HTMLInputElement;
+    setDescription(currentTarget.value);
+  };
 
   return (
     <div className="w-full p-10 overflow-y-scroll">
@@ -37,9 +42,16 @@ export function ProblemMenu() {
       {/*//TODO vergrootglas icon toevoegen */}
       <input type="text"  placeholder="Search" className="w-96 my-6 border-2 rounded-md focus:outline-none dark:bg-gray-900 dark:border-gray-800 px-3 py-2 dark:text-gray-400 dark:placeholder:text-gray-500 transition duration-300" />
       <div className="border-x-2 border-t-2 dark:border-gray-800  w-full rounded-md transition duration-300">
+        <form>
+          <div>
+            <input type="text" name="id" value={id} onChange={idChange}/>
+          </div>
+          <div>
+            <input type="text" name="description" value={description} onChange={descriptionChange}/>
+          </div>
+        </form>
+        <ProblemAddButton onclick={() => postProblem}/>
         <ProblemList/>
-        <ProblemAddButton onclick={() => <ProblemAdd titleInput="Title" machineTypeInput="MachineType" solutionsInput={["solutions"]} list={list}/>} />
-        {/* <ProblemList/> */}
       </div>
     </div>
   );
