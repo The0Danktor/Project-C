@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { NavSide } from "./NavSide";
+import { AdminNav } from "./AdminSidebar";
 import { Header } from "./Header";
 import { Link } from "react-router-dom";
 import {
@@ -104,7 +104,7 @@ export function Layout() {
   }
   return (
     <div className="flex bg-white dark:bg-gray-900 transition duration-300">
-      <NavSide />
+      <AdminNav />
       <div>
         <Header />
         <div className="flex font-semibold text-black dark:text-gray-400 transition duration-300">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
-import { NavSide } from "../components/Shared/NavSide";
+import { AdminNav } from "../components/Shared/AdminSidebar";
 import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
 
@@ -142,7 +142,7 @@ export const Machines2 = () => {
     
     return (
         <div className="flex flex-row">
-            <NavSide />
+            <AdminNav/>
             <div className="flex flex-col w-full dark:bg-gray-900 transition duration-300 dark:text-gray-500">
                 <Header />
                 <div className="flex flex-col w-full p-5">

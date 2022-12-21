@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { NavSide } from "../components/Shared/NavSide";
+import { AdminNav } from "../components/Shared/AdminSidebar";
 import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
 import { useState} from "react";
@@ -78,7 +78,7 @@ export const AdminHistory = () => {
     }
     return (
         <div className="flex h-screen bg-gray-200 dark:bg-gray-900 dark:text-gray-500">
-            <NavSide />
+            <AdminNav />
             <div className="flex flex-col flex-1 w-full">
                 <Header />
                 <main className="h-full overflow-y-auto">

@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { NavSide } from "../components/Shared/NavSide";
+import { AdminNav } from "../components/Shared/AdminSidebar";
 import { Header } from "../components/Shared/Header";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -111,7 +111,7 @@ export const Accounts = () => {
     ];
     return (
         <div className="flex bg-white dark:bg-gray-900 w-full transition duration-300">
-      <NavSide />
+      <AdminNav />
       <div className="w-full">
         <Header />
         <div className="flex flex-col w-full p-4">
