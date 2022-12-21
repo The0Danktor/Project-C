@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEventHandler, useCallback, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, MouseEventHandler, useCallback, useEffect, useRef, useState, forwardRef, ForwardedRef, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
 import { createEditor, BaseEditor, Descendant, Editor, Transforms, Text, Range } from "slate";
 import { withHistory } from "slate-history";
@@ -130,12 +130,12 @@ function Mention({ attributes, children, element }: RenderElementProps) {
 
   return (
     <>
-      <span {...attributes} className={`bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
+      <span {...attributes} className={`bg-gray-300 dark:bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
         {children}
         {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
       </span>
       {selected && focused && (sel === null || Range.isCollapsed(sel)) && (
-        <span contentEditable={false} className="float-left my-1 p-2 bg-gray-700 rounded">
+        <span contentEditable={false} className="float-left my-1 p-2 bg-gray-200 dark:bg-gray-700 rounded">
           <h1 className="text-3xl">{name}</h1>
           <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
           <p>
@@ -238,15 +238,30 @@ const machines: Machine[] = [
   { id: 4, name: "Machine 4" }
 ];
 
-export default function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text: "" }] }] }: { initialValue?: Descendant[] }) {
+function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text: "" }] }] }: { initialValue?: Descendant[] }, valueRef: ForwardedRef<{ value: Descendant[] }>) {
   const [editor] = useState(() => withMergeAdjacentLists(withMentions(withReact(withHistory(createEditor())))));
-  const ref = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [target, setTarget] = useState<Range | undefined>();
   const [index, setIndex] = useState(0);
   const [searchType, setSearchType] = useState<"user" | "machine">("user");
   const [search, setSearch] = useState("");
+  const [value, setValue] = useState(initialValue);
 
-  const focused = useFocused();
+  useImperativeHandle(valueRef, () => ({
+    get value() { return value; },
+    set value(x) {
+      setValue(x);
+      Editor.withoutNormalizing(editor, () => {
+        Transforms.delete(editor, {
+          at: {
+            anchor: Editor.start(editor, []),
+            focus: Editor.end(editor, []),
+          },
+        });
+        Transforms.insertFragment(editor, x, { at: [0, 0] });
+      });
+    }
+  }));
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
 
@@ -320,28 +335,28 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
           });
           Transforms.move(editor);
 
-          setTarget(undefined)
+          setTarget(undefined);
         }
         return;
 
       case "ArrowDown":
         if (target) {
-          e.preventDefault()
-          const prevIndex = (index + 1) % arr.length
-          setIndex(prevIndex)
+          e.preventDefault();
+          const prevIndex = (index + 1) % arr.length;
+          setIndex(prevIndex);
         }
         return;
 
       case "ArrowUp":
         if (target) {
-          e.preventDefault()
-          const nextIndex = (index - 1 + arr.length) % arr.length
-          setIndex(nextIndex)
+          e.preventDefault();
+          const nextIndex = (index - 1 + arr.length) % arr.length;
+          setIndex(nextIndex);
         }
         return;
 
       case "Escape":
-        e.preventDefault()
+        e.preventDefault();
         setTarget(undefined);
         return;
 
@@ -409,7 +424,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
   }, [editor, filteredMachines, filteredUsers, index, searchType, target]);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = dropdownRef.current;
 
     if (target && users.length > 0 && el) {
       const domRange = ReactEditor.toDOMRange(editor, target);
@@ -424,6 +439,9 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
       editor={editor}
       value={initialValue}
       onChange={e => {
+        if (valueRef !== null && typeof valueRef === "object")
+          setValue(e);
+
         const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
@@ -464,7 +482,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
           renderElement={props => renderers[props.element.type](props)}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
-          
+
           className="border border-gray-700 rounded-md p-2 selection:bg-sky-500"
           decorate={([node, path]) => (
             editor.selection != null &&
@@ -484,7 +502,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
         {target && (searchType === "user" ? filteredUsers.length > 0 : filteredMachines.length > 0) && (
           createPortal(
             (<div
-              ref={ref}
+              ref={dropdownRef}
               className="absolute z-10 p-1 bg-gray-800 rounded-md shadow-lg"
               data-cy="mentions-portal"
             >
@@ -503,6 +521,8 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
     </Slate>
   )
 }
+
+export default forwardRef(RichTextEditor);
 
 const BlockButton = ({ format, icon }: { format: BlockType, icon?: string }) => {
   const editor = useSlate();
