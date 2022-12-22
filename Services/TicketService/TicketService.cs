@@ -50,9 +50,11 @@ namespace Project_C.Services
             var newTicket = new Ticket
             {
                 Id = Guid.NewGuid(),
+                CustomerId = ticket.CustomerId,
                 ProblemId = ticket.ProblemId,
                 Tekennummer = ticket.Tekennummer,
-                Note = ticket.Note
+                Note = ticket.Note,
+                WorkingOnTickets = ticket.WorkingOnTickets
             };
             _context.Tickets.Add(newTicket);
             await _context.SaveChangesAsync();
