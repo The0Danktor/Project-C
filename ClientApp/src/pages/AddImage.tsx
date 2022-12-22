@@ -26,7 +26,7 @@ export function AddImage() {
       return;
     }
 
-    files.forEach((file: any) => {
+    files.forEach((file: File) => {
       // checks if file is video or image
       if (file.type.includes("image/")) lImages.push(URL.createObjectURL(file));
       else if (file.type.includes("video/") && lVideos.length < 1) {
@@ -42,11 +42,11 @@ export function AddImage() {
       setVideoURLs(lVideos);
     });
   }, [files]);
-  function displayImg(e: any) {
+  function displayImg(e : any) {
     setFiles([...e.target.files]);
     e.target.value = null; // empties input file field so we can add the same file multiple times
   }
-  function delet(e: any) {
+  function delet(e: string) {
     setError("");
     if (e.includes("video_preview")) {
       const filteredVideoList = videoURLS.filter(

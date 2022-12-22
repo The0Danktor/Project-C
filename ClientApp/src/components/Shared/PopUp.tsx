@@ -15,7 +15,7 @@ interface information {
   prio: string;
 }
 interface informationImage {
-  image: any;
+  image: string;
   close: any;
   video?: string[];
 }
@@ -139,7 +139,7 @@ export function PopUpImage(props: informationImage) {
         {/* displays video */}
         {props.image.includes("video_preview") &&
           props.video != undefined &&
-          props.video.map((videoPreview: any) => (
+          props.video.map((videoPreview: string) => (
             <video
               controls
               autoPlay

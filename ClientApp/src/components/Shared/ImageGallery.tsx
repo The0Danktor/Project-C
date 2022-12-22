@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 
 interface information {
-  src: any;
+  src: string[];
   del?: any;
   visible?: boolean;
   video?: string[];
@@ -15,7 +15,7 @@ export function ImageGallery(props: information) {
 
   // loops through entire list
   // places the element as the src
-  const allImages = props.src.map((element: any, i: number) => (
+  const allImages = props.src.map((element: string, i: number) => (
     <div
       key={"image-" + i}
       className={
