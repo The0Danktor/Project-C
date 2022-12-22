@@ -116,7 +116,7 @@ export const Accounts = () => {
         <Header />
         <div className="flex flex-col w-full p-4">
           <div className="">
-            <div className="py-2 align-middle inline-block w-2/3 px-2">
+            <div className="py-2 align-middle inline-block w-full px-2">
               <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
                 <table className="w-full divide-y dark:bg-gray-900 divide-gray-200">
                   <thead className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800  dark:text-gray-500">

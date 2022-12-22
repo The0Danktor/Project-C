@@ -19,6 +19,12 @@ export function NavSide() {
   const [isOpen, setActive] = useState(false);
   function open() {
     setActive(!isOpen);
+    // if (isOpen) {
+    //   // will make everything unscrollable except the popup itself
+    //   document.body.style.position = "inherit";
+    // } else {
+    //   document.body.style.position = "fixed";
+    // }
   }
   return (
     <div>
@@ -26,7 +32,7 @@ export function NavSide() {
       <button
         className={
           (isOpen ? "top-8" : "top-3") +
-          " sm:hidden bg-white dark:bg-gray-900 absolute z-30 right-3 transition-[top] border-2 p-2 rounded-3xl dark:border-gray-400 border-gray-500"
+          " sm:hidden bg-white dark:bg-gray-900 fixed z-30 right-3 transition-[top] border-2 p-2 rounded-3xl dark:border-gray-400 border-gray-500"
         }
         onClick={() => open()}
       >
@@ -37,7 +43,7 @@ export function NavSide() {
       <div
         className={
           (isOpen ? "" : "-translate-x-full sm:translate-x-[unset] z-[9999]") +
-          " h-screen min-h-[50vh] overflow-auto !fixed sm:sticky top-0 w-screen sm:w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300"
+          " h-screen min-h-[50vh] overflow-auto fixed sm:sticky top-0 w-screen sm:w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300"
         }
       >
         <div className="flex justify-between items-center w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">

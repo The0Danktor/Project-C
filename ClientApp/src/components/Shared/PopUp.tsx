@@ -18,6 +18,7 @@ interface informationImage {
   image: string;
   close: any;
   video?: string[];
+  height?: boolean;
 }
 
 // ticket pop up
@@ -129,7 +130,10 @@ export function PopUp(props: information) {
 export function PopUpImage(props: informationImage) {
   return (
     <div
-      className="h-screen z-[9999] md:h-[94vh] bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full m-0"
+      className={
+        (props.height ? " md:h-[94vh] " : "") +
+        "h-screen z-[9999]  bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full m-0"
+      }
       onClick={props.close}
     >
       <div

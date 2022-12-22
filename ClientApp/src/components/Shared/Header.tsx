@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <div className="flex flex-col w-screen sm:w-full h-24 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
+    <div className="hidden sm:flex flex-col w-screen sm:w-full h-24 sticky top-0 bg-white dark:bg-gray-900 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
       <div className="flex flex-row mt-3 text-2xl items-center justify-center font-medium dark:text-gray-400 text-black transition duration-300">
         Logged in as: Admin
       </div>

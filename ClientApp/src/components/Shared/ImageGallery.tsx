@@ -60,6 +60,7 @@ export function ImageGallery(props: information) {
           image={image}
           video={props.video}
           close={Popup}
+          height={props.visible}
         />
       )}
     </div>
