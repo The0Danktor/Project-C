@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { PopUpImage } from "./PopUp";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-
 
 interface information {
-  src: string[];
+  src: any;
   del?: any;
   visible?: boolean;
   video?: string[];
@@ -15,11 +13,10 @@ export function ImageGallery(props: information) {
 
   // loops through entire list
   // places the element as the src
-  const allImages = props.src.map((element: string, i: number) => (
+  const allImages = props.src.map((element: any, i: number) => (
     <div
       key={"image-" + i}
       className={
-        // displays image gallery
         (props.visible ? (active ? "hidden" : "block") : null) +
         (element.includes("video_preview")
           ? " bg-[length:75px]"
@@ -39,9 +36,22 @@ export function ImageGallery(props: information) {
             e.stopPropagation();
             props.del(element);
           }}
-          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600"
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 relative"
         >
-          <XMarkIcon className="w-6 h-6" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
       )}
     </div>

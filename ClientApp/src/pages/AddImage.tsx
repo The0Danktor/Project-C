@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { isConstructorDeclaration, isJSDocAugmentsTag } from "typescript";
 import { ImageGallery } from "../components/Shared/ImageGallery";
 import { NavSide } from "../components/Shared/NavSide";
 import placeholder from "../assets/video_preview.png";
-
+import { SlowBuffer } from "buffer";
 export function AddImage() {
   var errors = {
     wrongFile: "You can only add images and videos",
@@ -26,7 +27,7 @@ export function AddImage() {
       return;
     }
 
-    files.forEach((file: File) => {
+    files.forEach((file: any) => {
       // checks if file is video or image
       if (file.type.includes("image/")) lImages.push(URL.createObjectURL(file));
       else if (file.type.includes("video/") && lVideos.length < 1) {
@@ -42,11 +43,11 @@ export function AddImage() {
       setVideoURLs(lVideos);
     });
   }, [files]);
-  function displayImg(e : any) {
+  function displayImg(e: any) {
     setFiles([...e.target.files]);
     e.target.value = null; // empties input file field so we can add the same file multiple times
   }
-  function delet(e: string) {
+  function delet(e: any) {
     setError("");
     if (e.includes("video_preview")) {
       const filteredVideoList = videoURLS.filter(
@@ -58,13 +59,15 @@ export function AddImage() {
     setImageURLs(filteredList);
   }
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
-      <NavSide />
+    <div className="flex dark:bg-gray-900 transition duration-300 z-20">
+      <div className="hidden md:flex">
+        <NavSide />
+      </div>
       <div className="container">
         <div className="grow w-full p-3">
           <strong className="text-2xl">Select images</strong>
           <form>
-            <div className="w-full md:w-fit overflow-hidden ">
+            <div className="relative w-full md:w-fit overflow-hidden ">
               <label htmlFor="file" className="cursor-pointer">
                 <p
                   className="border md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
