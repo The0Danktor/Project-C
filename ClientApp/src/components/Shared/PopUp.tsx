@@ -6,6 +6,7 @@ import { Dropdown } from "./Dropdown";
 import { ImageGallery } from "./ImageGallery";
 import { Button } from "./Button";
 import { status, priority } from "./Ticket";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface information {
   status: string;
@@ -14,16 +15,16 @@ interface information {
   prio: string;
 }
 interface informationImage {
-  image: any;
+  image: string;
   close: any;
-  active?: any;
   video?: string[];
+  height?: boolean;
 }
 
 // ticket pop up
 export function PopUp(props: information) {
   return (
-    <div className="bg-opacity-75 bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
+    <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
       <div
         className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:max-h-[90vh] 
         md:min-h-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
@@ -31,22 +32,9 @@ export function PopUp(props: information) {
         {/* close button */}
         <button
           onClick={props.close}
-          className="float-right m-3 sticky top-3 bg-gray-100 dark:bg-gray-700 z-10"
+          className="float-right m-3 sticky top-4 bg-gray-100 dark:bg-gray-700 z-10"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <XMarkIcon className="w-6 h-6" />
         </button>
 
         {/* dipslays information */}
@@ -125,7 +113,7 @@ export function PopUp(props: information) {
               placeholder,
               placeholder,
             ]}
-            param={true}
+            visible={true}
           />
           {/* save buttons */}
           <div className="flex flex-row justify-between flex-wrap pt-4">
@@ -138,11 +126,14 @@ export function PopUp(props: information) {
   );
 }
 
-// pops up an iamge
+// pops up an image
 export function PopUpImage(props: informationImage) {
   return (
     <div
-      className="h-screen md:h-[94vh] bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full z-20 m-0"
+      className={
+        (props.height ? " md:h-[94vh] " : "") +
+        "h-screen z-[9999]  bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full m-0"
+      }
       onClick={props.close}
     >
       <div
@@ -152,7 +143,7 @@ export function PopUpImage(props: informationImage) {
         {/* displays video */}
         {props.image.includes("video_preview") &&
           props.video != undefined &&
-          props.video.map((videoPreview: any) => (
+          props.video.map((videoPreview: string) => (
             <video
               controls
               autoPlay

@@ -4,7 +4,7 @@ import { PopUpImage } from "./PopUp";
 interface information {
   src: any;
   del?: any;
-  param?: boolean;
+  visible?: boolean;
   video?: string[];
 }
 export function ImageGallery(props: information) {
@@ -17,7 +17,7 @@ export function ImageGallery(props: information) {
     <div
       key={"image-" + i}
       className={
-        (props.param ? (active ? "hidden" : "block") : null) +
+        (props.visible ? (active ? "hidden" : "block") : null) +
         (element.includes("video_preview")
           ? " bg-[length:75px]"
           : " bg-cover") +
@@ -70,7 +70,7 @@ export function ImageGallery(props: information) {
           image={image}
           video={props.video}
           close={Popup}
-          active={props.param}
+          height={props.visible}
         />
       )}
     </div>

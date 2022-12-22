@@ -93,7 +93,7 @@ export function AddImage() {
             <ImageGallery
               src={imageURLS}
               del={delet}
-              param={false}
+              visible={false}
               video={videoURLS}
             />
           </div>
