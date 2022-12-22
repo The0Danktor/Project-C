@@ -11,6 +11,5 @@ namespace Project_C.Dtos
         public Guid ProblemId { get; set; }
         public string Tekennummer { get; set; } = null!;
         public string Note { get; set; } = null!;
-        public List<WorkingOnTicket> WorkingOnTickets { get; set; } = null!;
     }
 }

@@ -23,8 +23,7 @@ namespace Project_C.Services
                     CustomerId = x.CustomerId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note,
-                    WorkingOnTickets = x.WorkingOnTickets
+                    Note = x.Note
                 };
             return await query.ToListAsync();
         }
@@ -39,8 +38,7 @@ namespace Project_C.Services
                     CustomerId = x.CustomerId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note,
-                    WorkingOnTickets = x.WorkingOnTickets
+                    Note = x.Note
                 };
             return await query.FirstOrDefaultAsync();
         }
@@ -53,8 +51,7 @@ namespace Project_C.Services
                 CustomerId = ticket.CustomerId,
                 ProblemId = ticket.ProblemId,
                 Tekennummer = ticket.Tekennummer,
-                Note = ticket.Note,
-                WorkingOnTickets = ticket.WorkingOnTickets
+                Note = ticket.Note
             };
             _context.Tickets.Add(newTicket);
             await _context.SaveChangesAsync();
@@ -66,8 +63,7 @@ namespace Project_C.Services
                     CustomerId = x.CustomerId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note,
-                    WorkingOnTickets = x.WorkingOnTickets
+                    Note = x.Note
                 };
             return await query.ToListAsync();
         }
