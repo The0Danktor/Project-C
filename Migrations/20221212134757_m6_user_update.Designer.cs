@@ -12,14 +12,14 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221124143847_cr")]
-    partial class cr
+    [Migration("20221212134757_m6_user_update")]
+    partial class m6_user_update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -55,6 +55,10 @@ namespace Project_C.Migrations
                     b.Property<Guid>("MachineId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Tekennummer");
 
                     b.HasIndex("CompanyId");
@@ -62,40 +66,6 @@ namespace Project_C.Migrations
                     b.HasIndex("MachineId");
 
                     b.ToTable("CompanyMachines");
-                });
-
-            modelBuilder.Entity("Project_C.Models.Customer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Supervisor")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
@@ -216,10 +186,13 @@ namespace Project_C.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("Project_C.Models.VisconEmployee", b =>
+            modelBuilder.Entity("Project_C.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("CompanyId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
@@ -238,9 +211,17 @@ namespace Project_C.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("ResetPassword")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.ToTable("VisconEmployees");
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
@@ -288,17 +269,6 @@ namespace Project_C.Migrations
                     b.Navigation("Machine");
                 });
 
-            modelBuilder.Entity("Project_C.Models.Customer", b =>
-                {
-                    b.HasOne("Project_C.Models.Company", "Company")
-                        .WithMany("Customers")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("Project_C.Models.DepartmentEmployee", b =>
                 {
                     b.HasOne("Project_C.Models.Department", "Department")
@@ -307,7 +277,7 @@ namespace Project_C.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project_C.Models.VisconEmployee", "Employee")
+                    b.HasOne("Project_C.Models.User", "User")
                         .WithMany("DepartmentEmployees")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -315,7 +285,7 @@ namespace Project_C.Migrations
 
                     b.Navigation("Department");
 
-                    b.Navigation("Employee");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project_C.Models.Problem", b =>
@@ -342,7 +312,7 @@ namespace Project_C.Migrations
 
             modelBuilder.Entity("Project_C.Models.Ticket", b =>
                 {
-                    b.HasOne("Project_C.Models.Customer", "Customer")
+                    b.HasOne("Project_C.Models.User", "User")
                         .WithMany("Tickets")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -362,14 +332,23 @@ namespace Project_C.Migrations
 
                     b.Navigation("CompanyMachine");
 
-                    b.Navigation("Customer");
-
                     b.Navigation("Problem");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Project_C.Models.User", b =>
+                {
+                    b.HasOne("Project_C.Models.Company", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
                 {
-                    b.HasOne("Project_C.Models.VisconEmployee", "Employee")
+                    b.HasOne("Project_C.Models.User", "User")
                         .WithMany("WorkingOnTickets")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -381,27 +360,22 @@ namespace Project_C.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Employee");
-
                     b.Navigation("Ticket");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Project_C.Models.Company", b =>
                 {
                     b.Navigation("CompanyMachines");
 
-                    b.Navigation("Customers");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Project_C.Models.CompanyMachine", b =>
                 {
                     b.Navigation("Ticket")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Project_C.Models.Customer", b =>
-                {
-                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
@@ -431,9 +405,11 @@ namespace Project_C.Migrations
                     b.Navigation("WorkingOnTickets");
                 });
 
-            modelBuilder.Entity("Project_C.Models.VisconEmployee", b =>
+            modelBuilder.Entity("Project_C.Models.User", b =>
                 {
                     b.Navigation("DepartmentEmployees");
+
+                    b.Navigation("Tickets");
 
                     b.Navigation("WorkingOnTickets");
                 });

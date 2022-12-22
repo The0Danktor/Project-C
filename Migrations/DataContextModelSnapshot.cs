@@ -39,7 +39,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.CompanyMachine", b =>
@@ -63,7 +63,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("CompanyMachines");
+                    b.ToTable("CompanyMachines", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
@@ -78,7 +78,7 @@ namespace Project_C.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.DepartmentEmployee", b =>
@@ -93,7 +93,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentEmployees");
+                    b.ToTable("DepartmentEmployees", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Machine", b =>
@@ -108,7 +108,7 @@ namespace Project_C.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Machines");
+                    b.ToTable("Machines", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Problem", b =>
@@ -128,7 +128,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("Problems");
+                    b.ToTable("Problems", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Solutions", b =>
@@ -148,7 +148,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("ProblemId");
 
-                    b.ToTable("Solutions");
+                    b.ToTable("Solutions", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Ticket", b =>
@@ -181,7 +181,7 @@ namespace Project_C.Migrations
                     b.HasIndex("Tekennummer")
                         .IsUnique();
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.User", b =>
@@ -201,21 +201,29 @@ namespace Project_C.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("ResetPassword")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.Property<string>("passwordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("passwordSalt")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
@@ -230,7 +238,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("WorkingOnTickets");
+                    b.ToTable("WorkingOnTickets", (string)null);
                 });
 
             modelBuilder.Entity("Project_C.Models.Company", b =>
