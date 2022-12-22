@@ -12,7 +12,7 @@ import {
   ArrowRightOnRectangleIcon,
   Cog8ToothIcon,
   SwatchIcon,
-  Bars3Icon,
+  Bars3Icon
 } from "@heroicons/react/24/outline";
 
 export function NavSide() {
@@ -53,7 +53,7 @@ export function NavSide() {
           </div>
         </div>
 
-        {/* menu clickable links */}
+        {/* menu links */}
         <div className="flex flex-col sm:h-full justify-between height">
           <div className="flex flex-col items-center my-4">
             <NavSideButton
