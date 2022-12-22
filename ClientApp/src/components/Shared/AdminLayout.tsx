@@ -118,7 +118,8 @@ export function Layout() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="flex flex-col grow w-full overflow-hidden sm:overflow-visible">
+      {/* overflow-hidden */}
+      <div className="flex flex-col grow w-full sm:overflow-visible">
         <Header />
         <div className="container justify-center sm:justify-start">
           <div className="flex flex-col sm:flex-row flex-wrap w-full font-semibold text-black dark:text-gray-400 mr-4 transition duration-300">
