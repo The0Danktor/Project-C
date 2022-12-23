@@ -17,7 +17,7 @@ export function TestPage() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTUxMiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zaWQiOiIxYTU0ZDE5MS00MGU5LTRjNWYtODE0MS0yNjkzZDJlNzI0N2YiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJDbGllbnQiLCJleHAiOjE2NzE3OTc4Nzd9.qC4XT_CDBWijPnqf_g2Yf11DwoxEIZT_4khHyqIavRgWhRVwy0aJ_2vOfSf4XaQxDvnPomDqFhBnlqtYy6XYfw`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
       ).json();
