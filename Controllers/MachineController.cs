@@ -9,7 +9,7 @@ namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+
     public class MachineController : ControllerBase
     {
         private readonly IMachineService _machineService;

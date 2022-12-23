@@ -14,7 +14,7 @@ export function Machines() {
     try {
       const response = await (
         await fetch(
-          `https://localhost:7162/api/CompanyMachine/GetByCompanyId/a7072517-250e-4582-ade2-c771d248a580`
+          `http://localhost:7162/api/CompanyMachine/GetByCompanyId/a7072517-250e-4582-ade2-c771d248a580`
         )
       ).json();
       setMachine(response);

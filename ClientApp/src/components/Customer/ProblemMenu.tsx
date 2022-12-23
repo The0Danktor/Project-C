@@ -18,7 +18,7 @@ export function ProblemMenu({ Id }: Prop) {
   const fetchMachine = async () => {
     try {
       const response = await (
-        await fetch(`https://localhost:7162/api/Machine/${Id}`)
+        await fetch(`http://localhost:7162/api/Machine/${Id}`)
       ).json();
       setMachine(response);
     } catch (e) {
@@ -31,7 +31,7 @@ export function ProblemMenu({ Id }: Prop) {
     setLoadingData(true);
     try {
       const response = await (
-        await fetch(`https://localhost:7162/api/Problem/${Id}/Solution`)
+        await fetch(`http://localhost:7162/api/Problem/${Id}/Solution`)
       ).json();
       setProblems(response);
     } catch (e) {

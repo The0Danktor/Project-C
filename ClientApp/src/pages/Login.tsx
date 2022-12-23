@@ -14,6 +14,9 @@ export function LoginPage() {
   const form: MutableRefObject<HTMLFormElement | null> = useRef(null);
   const [timeoutId, setTimeoutId] = useState(-1);
 
+  const [Username,setUsername] = useState<string>("");
+  const [Password,setPassword] = useState<string>("");
+
 
   function login(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,6 +24,14 @@ export function LoginPage() {
     const els = e.currentTarget.elements as LoginFormControlsCollection;
     const username = els.username.value;
     const password = els.password.value;
+    
+    var Response = fetch(`http://localhost:7162/api/Auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({Username,Password}),
+    });
 
     if (username === "admin" && password === "admin") {
       setMessage(t("login.success"));
@@ -38,11 +49,11 @@ export function LoginPage() {
         <h1 className="mx-3 text-2xl text-center">{t("login.title")}</h1>
         <label className="flex">
           <UserIcon className="w-6 h-6 m-2" />
-          <input type="text" name="username" placeholder={t("login.username")} required />
+          <input type="text" name="username" placeholder={t("login.username")} onChange={(event) => setUsername(event.target.value)} required />
         </label>
         <label className="flex">
           <LockClosedIcon className="w-6 h-6 m-2" />
-          <input type="password" name="password" placeholder={t("login.password")} required />
+          <input type="password" name="password" placeholder={t("login.password")} onChange={(event) => setPassword(event.target.value)} required />
         </label>
         <input type="submit" hidden />
         <button type="button" className="w-fit mx-auto" onClick={e => form.current?.requestSubmit()}>
