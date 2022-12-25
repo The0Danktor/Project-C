@@ -26,6 +26,15 @@ namespace Project_C.Controllers
             return Ok(response);
         }
 
+        [HttpPost("ChangePassword")]
+        [Authorize]
+        public async Task<ActionResult<bool>> ChangePassword( ChangePasswordDto request )
+        {
+            var response = await _authService.ChangePassword(request.newPassword);
+            if (response == false) return BadRequest(new {message = "Restrictions not met"});
+            return Ok(response);
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult<UserLoginDto>> Register(UserRegistrationDto request)
         {

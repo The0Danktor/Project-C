@@ -12,7 +12,7 @@ export type User = {
   phone: string;
   companyId: string;
   role: string;
-  resetpassword: boolean;
+  resetPassword: boolean;
 }
 
 export type Machine = {

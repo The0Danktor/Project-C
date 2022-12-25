@@ -19,34 +19,6 @@ import { useNavigate } from "react-router-dom";
 
 export function NavSide() {
   const [isOpen, setActive] = useState(false);
-  const navigate = useNavigate();
-  const [loadingData, setLoadingData] = useState<boolean>();
-  const [user, setUser] = useState<User>();
-  const [error, setError] = useState<string>();
-
-  const fetchData = async () => {
-    setLoadingData(true);
-    try {
-      const response = await (
-        await fetch(`http://localhost:7162/api/Auth`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-      ).json();
-      setUser(response);
-    } catch (e) {
-      console.log(e);
-      setError("Unable to retrieve problems and solutions.");
-      navigate("/login");
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   function open() {
     setActive(!isOpen);
@@ -63,7 +35,7 @@ export function NavSide() {
       <button
         className={
           (isOpen ? "top-8" : "top-3") +
-          " sm:hidden bg-white dark:bg-gray-900 fixed z-30 right-3 transition-[top] border-2 p-2 rounded-3xl dark:border-gray-400 border-gray-500"
+          " sm:hidden bg-white dark:bg-gray-900 fixed z-20 right-3 transition-[top] border-2 p-2 rounded-3xl dark:border-gray-400 border-gray-500"
         }
         onClick={() => open()}
       >
@@ -73,7 +45,7 @@ export function NavSide() {
       {/* menu upper part */}
       <div
         className={
-          (isOpen ? "" : "-translate-x-full sm:translate-x-[unset] z-[9999]") +
+          (isOpen ? "" : "-translate-x-full sm:translate-x-[unset] z-[20]") +
           " h-screen min-h-[50vh] overflow-auto fixed sm:sticky top-0 w-screen sm:w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300"
         }
       >

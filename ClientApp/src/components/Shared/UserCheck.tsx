@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../Types/types";
+import { PasswordReset } from "./PasswordReset";
 
 export function UserCheck() {
   const navigate = useNavigate();
@@ -31,5 +32,9 @@ export function UserCheck() {
   useEffect(() => {
     fetchData();
   }, []);
-  return <></>;
+  return (
+    <>
+      {user?.resetPassword ? ( <PasswordReset /> ): null}
+    </>
+  );
 }

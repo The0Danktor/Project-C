@@ -7,12 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Project_C.Services
 {
     public class AuthService : IAuthService
     {
-
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -21,6 +21,32 @@ namespace Project_C.Services
             _context = context;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<bool> ChangePassword(string request)
+        {   
+            //password must contain at least one lowercase letter, one uppercase letter, one digit, and be between 8 and 15 characters long regex
+            Regex regex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,15}$");
+            if (!regex.IsMatch(request)) return false;
+            Console.WriteLine("Password is valid");
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
+            if (userId == null) return false;
+            var user = await _context.users.FindAsync(Guid.Parse(userId));
+            if (user == null) return false;
+            HashPassword(request, out byte[] passwordHash, out byte[] passwordSalt);
+            user.passwordHash = Convert.ToBase64String(passwordHash);
+            user.passwordSalt = Convert.ToBase64String(passwordSalt);
+            user.ResetPassword = false;
+            _context.users.Update(user);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<GetUserDto?> GetCurrentUser()

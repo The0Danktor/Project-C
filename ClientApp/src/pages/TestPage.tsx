@@ -42,7 +42,7 @@ export function TestPage() {
         <h1>And phone: {user?.phone}</h1>
         <h1>From Company: {user?.companyId}</h1>
         <h1>With The Role: {user?.role}</h1>
-        <h1>That needs to change his password: {user?.resetpassword ? "nee": "ja"}</h1>
+        <h1>That needs to change his password: {user?.resetPassword ? "ja": "nee"}</h1>
       </div>
     </div>
   );
