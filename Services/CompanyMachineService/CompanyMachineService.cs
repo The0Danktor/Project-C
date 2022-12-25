@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Project_C.Services
@@ -8,9 +9,11 @@ namespace Project_C.Services
     public class CompanyMachineService : ICompanyMachineService
     {
         private readonly DataContext _context;
-        public CompanyMachineService(DataContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CompanyMachineService(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<List<GetCompanyMachineDto>> AddCompanyMachine(AddCompanyMachineDto companyMachine)
         {
@@ -51,11 +54,15 @@ namespace Project_C.Services
             return await query.ToListAsync();
         }
 
-        public async Task<List<GetCompanyMachineDto>> GetCompanyMachinesByCompanyId(Guid id)
+        public async Task<List<GetCompanyMachineDto>?> GetCompanyMachinesByCompanyId()
         {
+            var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
+            if (userId == null) return null;
+            var user = await _context.users.FindAsync(Guid.Parse(userId));
+            if (user == null) return null;
             var query = from cm in _context.CompanyMachines
                         join m in _context.Machines on cm.MachineId equals m.Id
-                        where cm.CompanyId == id
+                        where cm.CompanyId == user.CompanyId
                         select new GetCompanyMachineDto
                         {
                             Tekennummer = cm.Tekennummer,

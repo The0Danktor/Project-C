@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DarkmodeSwitch } from "./DarkmodeSwitch";
 import { NavSideButton } from "./NavSideButton";
 import { NavSideButtonLogo } from "./NavSideButton";
@@ -12,11 +12,42 @@ import {
   ArrowRightOnRectangleIcon,
   Cog8ToothIcon,
   SwatchIcon,
-  Bars3Icon
+  Bars3Icon,
 } from "@heroicons/react/24/outline";
+import { User } from "../../Types/types";
+import { useNavigate } from "react-router-dom";
 
 export function NavSide() {
   const [isOpen, setActive] = useState(false);
+  const navigate = useNavigate();
+  const [loadingData, setLoadingData] = useState<boolean>();
+  const [user, setUser] = useState<User>();
+  const [error, setError] = useState<string>();
+
+  const fetchData = async () => {
+    setLoadingData(true);
+    try {
+      const response = await (
+        await fetch(`http://localhost:7162/api/Auth`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      ).json();
+      setUser(response);
+    } catch (e) {
+      console.log(e);
+      setError("Unable to retrieve problems and solutions.");
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   function open() {
     setActive(!isOpen);
     // if (isOpen) {

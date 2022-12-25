@@ -31,9 +31,6 @@ export function TestPage() {
   useEffect(() => {
     fetchData();
   }, []);
-  useEffect(() => {
-  console.log(user);
-  }, [user]);
   
   return (
     <div className="bg-white dark:bg-gray-900 transition flex duration-300">

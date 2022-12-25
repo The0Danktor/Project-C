@@ -9,7 +9,7 @@ namespace Project_C.Services
     {
         Task<List<GetCompanyMachineDto>> AddCompanyMachine(AddCompanyMachineDto companyMachine);
         Task<List<GetCompanyMachineDto>> GetAllCompanyMachines();
-        Task<List<GetCompanyMachineDto>> GetCompanyMachinesByCompanyId(Guid id);
+        Task<List<GetCompanyMachineDto>?> GetCompanyMachinesByCompanyId();
         Task<GetCompanyMachineDto?> GetCompanyMachineById(string tekennummer);
     }
 }
