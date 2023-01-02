@@ -23,6 +23,9 @@ interface informationImage {
 
 // ticket pop up
 export function PopUp(props: information) {
+  function deleteP() {
+    
+  }
   return (
     <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
       <div
@@ -59,7 +62,7 @@ export function PopUp(props: information) {
 
           {/* displays user information */}
           <div className="xl:absolute xl:top-11 xl:right-28 my-3">
-            <strong className="text-xl block">User information</strong>
+            <strong className="text-xl block">User Information</strong>
             <strong>User: </strong>
             <span>user name</span>
             <br />
@@ -72,10 +75,10 @@ export function PopUp(props: information) {
 
           {/* dipslays the problem */}
           <strong className="text-xl block">Problem</strong>
-          <strong>Problem type: </strong>
+          <strong>Problem Type: </strong>
           <span>Lorem ipsum</span>
           <br />
-          <strong className="">Problem description</strong>
+          <strong className="">Problem Description</strong>
           <ul className="p-[revert] list-disc">
             <li>
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
@@ -117,7 +120,7 @@ export function PopUp(props: information) {
           />
           {/* save buttons */}
           <div className="flex flex-row justify-between flex-wrap pt-4">
-            <Button value="Delete" fun={props.close} />
+            <Button value="Delete" fun={deleteP} />
             <Button value="Save" fun={props.close} />
           </div>
         </div>

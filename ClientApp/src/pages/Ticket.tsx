@@ -13,7 +13,7 @@ export function TicketPage() {
       <NavSide />
       <div className="container">
         <div className="grow w-full m-2 md:m-3">
-          <strong className="text-2xl">All tickets</strong>
+          <strong className="text-2xl">All Tickets</strong>
           <Link to="../AddImage">
             <button
               className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 

@@ -110,96 +110,97 @@ export const Accounts = () => {
     },
   ];
   return (
-    <div className="flex bg-white dark:bg-gray-900 w-full transition duration-300">
+    <div className="flex dark:bg-gray-900 w-full transition duration-300">
       <NavSide />
-      <div className="w-full">
-        <Header />
-        <div className="flex flex-col w-full p-4">
-          <div className="">
-            <div className="py-2 align-middle inline-block w-full px-2">
-              <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 sm:rounded-lg">
-                <table className="w-full divide-y dark:bg-gray-900 divide-gray-200">
-                  <thead className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800  dark:text-gray-500">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium dark:text-gray-400 uppercase tracking-wider"
+      <div className="grow">
+        {/* <Header /> */}
+        <div className="container flex flex-col w-full p-4">
+          <div className="py-2 align-middle inline-block w-full px-2">
+            <div className=" w-full m-2 pb-3 md:m-3">
+              <strong className="text-2xl">Accounts</strong>
+            </div>
+            <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 lg:rounded-lg">
+              <table className="w-full dark:bg-gray-900">
+                <thead className="hidden lg:table-header-group bg-white dark:bg-gray-800  dark:text-gray-500">
+                  <tr className="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                    <th scope="col" className="pl-6 px-2 py-3">
+                      Name
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Group
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Workgroup
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Email
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Phone
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Problems
+                    </th>
+                    <th scope="col" className="px-2 py-3">
+                      Solved
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                  {users.map((user) => (
+                    <tr key={user.id}>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 lg:bg-transparent"
+                        data-header="Name"
                       >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Group
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Workgroup
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Phone
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Problems
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Solved
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                    {users.map((user) => (
-                      <tr key={user.id}>
-                        <td className="px-2 py-4 whitespace-nowrap">
-                          <div className="flex items-center">
-                            <div className="ml-4">
-                              <div className="text-sm font-medium ">
-                                {user.name}
-                              </div>
+                        <div className="flex items-center justify-center lg:justify-start">
+                          <div className="ml-4">
+                            <div className="text-sm font-medium ">
+                              {user.name}
                             </div>
                           </div>
-                        </td>
-                        <td className="px-2 py-4 whitespace-nowrap">
-                          <div className="text-sm ">{user.group}</div>
-                        </td>
-                        <td className="">
-                          <div className="text-sm ">{user.workGroup}</div>
-                        </td>
-                        <td className="px-2 py-4 whitespace-nowrap">
-                          <div className="text-sm ">{user.email}</div>
-                        </td>
-                        <td className="px-2 py-4 whitespace-nowrap">
-                          <div className="text-sm ">{user.phone}</div>
-                        </td>
-                        <td className="">
-                          <div className="text-sm ">{user.problems}</div>
-                        </td>
-                        <td className="">
-                          <div className="text-sm ">{user.solved}</div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                        </div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Group"
+                      >
+                        <div className="text-sm ">{user.group}</div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Workgroup"
+                      >
+                        <div className="text-sm ">{user.workGroup}</div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Email"
+                      >
+                        <div className="text-sm ">{user.email}</div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Phone"
+                      >
+                        <div className="text-sm ">{user.phone}</div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Problems"
+                      >
+                        <div className="text-sm ">{user.problems}</div>
+                      </td>
+                      <td
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block before:content-[attr(data-header)] before:ml-2 before:text-sm before:w-3/5 before:float-left"
+                        data-header="Solved"
+                      >
+                        <div className="text-sm ">{user.solved}</div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

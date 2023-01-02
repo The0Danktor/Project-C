@@ -4,7 +4,7 @@ import { useState } from "react";
 import "../../index.css";
 import { Priority } from "./Priority";
 
-export const status = ["New", "In progress", "Finished"];
+export const status = ["Pending", "In Progress", "Resolved"];
 export const priority = ["High", "Middle", "Low"];
 export function Ticket() {
   var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
@@ -13,9 +13,9 @@ export function Ticket() {
   var color;
   var date = new Date();
   // gives color based on the curent status
-  if (currentStatus == "New") color = "bg-cyan-500";
-  else if (currentStatus == "In progress") color = "bg-yellow-300";
-  else color = "bg-green-500";
+  if (currentStatus == "Pending") color = "bg-cyan-500 text-cyan-900";
+  else if (currentStatus == "In Progress") color = "bg-yellow-300 text-yellow-800";
+  else color = "bg-green-500 text-green-800";
 
   const [active, setActive] = useState(false);
   function Popup() {
@@ -52,7 +52,7 @@ export function Ticket() {
         <button
           className={
             color +
-            " rounded text-black w-40 md:float-right md:-my-12 float-left my-0"
+            " rounded font-semibold w-40 md:float-right md:-my-12 float-left my-0"
           }
         >
           {currentStatus}

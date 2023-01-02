@@ -118,10 +118,11 @@ export function Layout() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="flex flex-col grow w-full overflow-hidden sm:overflow-visible">
-        <Header />
-        <div className="container justify-center sm:justify-start">
-          <div className="flex flex-col sm:flex-row flex-wrap w-full font-semibold text-black dark:text-gray-400 mr-4 transition duration-300">
+      {/* overflow-hidden */}
+      <div className="flex flex-col grow w-full md:overflow-visible">
+        {/* <Header /> */}
+        <div className="container justify-center md:justify-start">
+          <div className="flex flex-col md:flex-row flex-wrap w-full font-semibold text-black dark:text-gray-400 mr-4 transition duration-300">
             {/* button links */}
             <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="bar" />
             <ButtonAdmin linkTo="machines" title="Our Machines" bar="bar" />
@@ -131,7 +132,7 @@ export function Layout() {
           </div>
 
           {/* recent activity */}
-          <div className="flex justify-center sm:justify-between flex-wrap font-semibold w-full sm:m-2 sm:ml-2 sm:mr-7 text-black dark:text-gray-400 transition duration-300">
+          <div className="flex justify-center md:justify-between flex-wrap font-semibold w-full md:m-2 md:ml-2 md:mr-7 text-black dark:text-gray-400 transition duration-300">
             {recentActvity("Recent activity")}
             {recentActvity("Recent errors")}
             {recentActvity("Wee nie")}
