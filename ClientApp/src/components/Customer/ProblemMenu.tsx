@@ -5,11 +5,11 @@ import { ProblemList } from "./ProblemList";
 
 export function ProblemMenu() {
 
-  const [id, setId] = useState("");
+  const [machineId, setMachineId] = useState("");
   const [description, setDescription] = useState("");
 
   const postProblem = async () => {
-    const problemInfo = {id, description};
+    const problemInfo = {machineId, description};
 
     await fetch("https://localhost:7162/api/Problem", {
       method: "POST",
@@ -17,22 +17,12 @@ export function ProblemMenu() {
       body: JSON.stringify(problemInfo)
     })
     .then(response => {
-      console.log(response.json)
+      console.log(response)
     })
     .catch(error => {
       console.log(error);
     })
   }
-  
-  const idChange = (x: React.FormEvent<HTMLInputElement>) => {
-    const currentTarget = x.target as HTMLInputElement;
-    setId(currentTarget.value);
-  };
-
-  const descriptionChange = (x: React.FormEvent<HTMLInputElement>) => {
-    const currentTarget = x.target as HTMLInputElement;
-    setDescription(currentTarget.value);
-  };
 
   return (
     <div className="w-full p-10 overflow-y-scroll">
@@ -44,14 +34,13 @@ export function ProblemMenu() {
       <div className="border-x-2 border-t-2 dark:border-gray-800  w-full rounded-md transition duration-300">
         <form>
           <div>
-            <input type="text" name="id" value={id} onChange={idChange}/>
+            <input type="text" name="id" value={machineId} onChange={x => setMachineId(x.target.value)}/>
           </div>
           <div>
-            <input type="text" name="description" value={description} onChange={descriptionChange}/>
+            <input type="text" name="description" value={description} onChange={x => setDescription(x.target.value)}/>
           </div>
         </form>
-        <ProblemAddButton onclick={() => postProblem}/>
-        <ProblemList/>
+        <ProblemAddButton onclick={() => postProblem()}/>
       </div>
     </div>
   );
