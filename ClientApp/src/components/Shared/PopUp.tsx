@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import placeholder from "../../assets/add_picture.png";
 import ja from "../../assets/logo.png";
@@ -23,8 +23,10 @@ interface informationImage {
 
 // ticket pop up
 export function PopUp(props: information) {
+  const [active, setActive] = useState(false);
+
   function deleteP() {
-    
+    setActive(!active);
   }
   return (
     <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
@@ -119,10 +121,20 @@ export function PopUp(props: information) {
             visible={true}
           />
           {/* save buttons */}
-          <div className="flex flex-row justify-between flex-wrap pt-4">
-            <Button value="Delete" fun={deleteP} />
-            <Button value="Save" fun={props.close} />
-          </div>
+          {active ? ( // if delete button is clicked
+            <div className="flex flex-row justify-between flex-wrap pt-4">
+              <p className="text-red-500 text-sm p-3">
+                Are you sure you want to delete this ticket?
+              </p>
+
+              <Button value="Yes" fun={props.close} />
+              <Button value="No" fun={deleteP} />
+            </div>) : ( // if delete button is not clicked
+            <div className="flex flex-row justify-between flex-wrap pt-4">
+              <Button value="Delete" fun={deleteP} />
+              <Button value="Save" fun={props.close} />
+            </div>
+          )}
         </div>
       </div>
     </div>
