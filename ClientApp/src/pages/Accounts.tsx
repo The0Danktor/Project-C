@@ -202,9 +202,11 @@ export const Accounts = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+            </div>
+            </div>
         </div>
-      </div>
     </div>
-  );
-};
+</div>
+    );
+}
+
