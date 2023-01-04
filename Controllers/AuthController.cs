@@ -35,13 +35,46 @@ namespace Project_C.Controllers
             return Ok(response);
         }
 
-        [HttpPost("register")]
+        [HttpPost("register")] [Authorize(Roles = "Viscon_admin")]
         public async Task<ActionResult<UserLoginDto>> Register(UserRegistrationDto request)
         {
             var response = await _authService.Register(request);
             if (response == null) return BadRequest(new {message = "Email already exists"});
             return Ok(response);
         }
+        
+        [HttpPost("registerClient")] [Authorize(Roles = "Client_admin")]
+        public async Task<ActionResult<UserLoginDto>> RegisterClient(ClientUserRegistrationDto request)
+        {
+            var response = await _authService.RegisterClient(request);
+            if (response == null) return BadRequest(new {message = "Email already exists"});
+            return Ok(response);
+        }
+
+        [HttpPost("registerClientAdmin")] [Authorize(Roles = "Viscon_employee")]
+        public async Task<ActionResult<UserLoginDto>> RegisterClientAdmin(ClientUserRegistrationDto request)
+        {
+            var response = await _authService.RegisterClientAdmin(request);
+            if (response == null) return BadRequest(new {message = "Email already exists"});
+            return Ok(response);
+        }
+
+        [HttpPost("registerVisconEmployee")] [Authorize(Roles = "Viscon_admin")]
+        public async Task<ActionResult<UserLoginDto>> RegisterVisconEmployee(VisconUserRegistrationDto request)
+        {
+            var response = await _authService.RegisterVisconEmployee(request);
+            if (response == null) return BadRequest(new {message = "Email already exists"});
+            return Ok(response);
+        }
+
+        [HttpPost("registerVisconAdmin")] [Authorize(Roles = "Viscon_admin")]
+        public async Task<ActionResult<UserLoginDto>> RegisterVisconAdmin(VisconUserRegistrationDto request)
+        {
+            var response = await _authService.RegisterVisconAdmin(request);
+            if (response == null) return BadRequest(new {message = "Email already exists"});
+            return Ok(response);
+        }
+
 
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserLoginDto request)
