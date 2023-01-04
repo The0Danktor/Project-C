@@ -6,9 +6,11 @@ import { Slate, Editable, withReact, ReactEditor, RenderLeafProps, useSlate, Ren
 
 export type CustomEditorType = BaseEditor & ReactEditor;
 
+export type TextElement = FormattedText | MentionElement;
+
 export type ParagraphElement = {
   type: "paragraph";
-  children: CustomText[];
+  children: TextElement[];
 };
 
 export type CodeElement = {
@@ -28,14 +30,14 @@ export type OrderedListElement = {
 
 export type ListItemElement = {
   type: "list-item";
-  children: CustomText[];
+  children: TextElement[];
 };
 
 export type MentionElement = {
   type: "mention";
   mentionType?: "user" | "machine";
   id?: number;
-  children: CustomText[];
+  children: FormattedText[];
 }
 
 export type CustomElement = ParagraphElement | CodeElement | UnorderedListElement | OrderedListElement | ListItemElement | MentionElement;
@@ -48,8 +50,6 @@ export type FormattedText = {
   placeholder?: true;
 };
 
-export type CustomText = FormattedText;
-
 export type BlockType = CustomElement["type"]
 export type Format = keyof Omit<FormattedText, "text">;
 
@@ -57,7 +57,7 @@ declare module "slate" {
   interface CustomTypes {
     Editor: CustomEditorType
     Element: CustomElement
-    Text: CustomText
+    Text: FormattedText
   }
 };
 
@@ -226,7 +226,15 @@ const machines: Machine[] = [
   { id: 4, name: "Machine 4" }
 ];
 
-function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text: "" }] }] }: { initialValue?: Descendant[] }, valueRef: ForwardedRef<{ value: Descendant[] }>) {
+interface IEditorProps {
+  initialValue?: Descendant[];
+  readOnly?: boolean;
+}
+
+function RichTextEditor({
+  initialValue = [{ type: "paragraph", children: [{ text: "" }] }],
+  readOnly = false
+}: IEditorProps, valueRef: ForwardedRef<{ value: Descendant[] }>) {
   const [editor] = useState(() => withMergeAdjacentLists(withMentions(withReact(withHistory(createEditor())))));
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [target, setTarget] = useState<Range | undefined>();
@@ -498,7 +506,7 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
       }}
     >
       <div className="flex flex-col gap-2 py-2">
-        <div className="flex gap-2">
+        {!readOnly && <div className="flex gap-2">
           <FormatButton format="bold" icon="format_bold" />
           <FormatButton format="italic" icon="format_italic" />
           <FormatButton format="underline" icon="format_underline" />
@@ -506,13 +514,13 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
           <BlockButton format="code" icon="code" />
           <BlockButton format="unordered-list" icon="format_list_bulleted" />
           <BlockButton format="ordered-list" icon="format_list_numbered" />
-        </div>
+        </div>}
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
-
-          className="border border-gray-700 rounded-md p-2 selection:bg-sky-500 selection:text-white"
+          readOnly={readOnly}
+          className={`${readOnly ? "" : "border"} border-gray-700 rounded-md p-2 selection:bg-sky-500 selection:text-white`}
           decorate={([node, path]) => (
             editor.selection != null &&
               !Editor.isEditor(node) &&
