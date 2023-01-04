@@ -52,7 +52,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize (Roles = "Viscon_employee")]
         public async Task<ActionResult<List<GetProblemDto>>> AddProblem(AddProblemDto problem)
         {
             return Ok(await _problemService.AddProblem(problem));

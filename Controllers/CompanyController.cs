@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project_C.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")][Authorize]
     public class CompanyController : ControllerBase
     {
         
@@ -37,7 +38,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize(Roles="Viscon_employee")]
         public async Task<ActionResult<List<GetCompanyDto>>> AddCompany(AddCompanyDto company)
         {
             return Ok(await _companyService.AddCompany(company));

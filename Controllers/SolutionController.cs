@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class SolutionController : ControllerBase
     {
         readonly ISolutionService _solutionService;
@@ -36,7 +38,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize (Roles = "Viscon_employee")]
         public async Task<ActionResult<List<GetSolutionDto>>> AddSolution(AddSolutionDto solution)
         {
             return Ok(await _solutionService.AddSolution(solution));

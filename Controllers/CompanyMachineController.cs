@@ -45,7 +45,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize(Roles = "Viscon_employee")]
         public async Task<ActionResult<List<GetCompanyMachineDto>>> AddCompanyMachine(AddCompanyMachineDto companyMachine)
         {
             return Ok(await _companyMachineService.AddCompanyMachine(companyMachine));
