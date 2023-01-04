@@ -120,9 +120,6 @@ const renderers: Record<CustomElement["type"], (props: RenderElementProps) => JS
 function Mention({ attributes, children, element }: RenderElementProps) {
   const selected = useSelected();
   const focused = useFocused();
-  const editor = useSlate();
-
-  const sel = editor.selection;
 
   const el = element as MentionElement;
 
@@ -134,15 +131,6 @@ function Mention({ attributes, children, element }: RenderElementProps) {
         {children}
         {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
       </span>
-      {selected && focused && (sel === null || Range.isCollapsed(sel)) && (
-        <span contentEditable={false} className="float-left my-1 p-2 bg-gray-200 dark:bg-gray-700 rounded">
-          <h1 className="text-3xl">{name}</h1>
-          <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
-          </p>
-        </span>
-      )}
     </>
   )
 }
@@ -263,6 +251,47 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
     }
   }));
 
+  const renderElement = useCallback((props: RenderElementProps) => {
+    const renderedElement = renderers[props.element.type](props);
+
+    const { selection } = editor;
+
+    if (selection && Range.isCollapsed(selection)) {
+
+      const [match] = Editor.nodes(editor, {
+        match: n => "type" in n && n.type === "mention",
+        at: selection,
+      });
+
+      if (match) {
+        const el = match[0] as MentionElement;
+
+        const name = (el.mentionType === "user" ? users : machines).find(e => e.id === el.id)?.name || "Unknown";
+
+        const elementPath = ReactEditor.findPath(editor, props.element);
+        const mentionPath = ReactEditor.findPath(editor, el);
+
+        if (
+          (!props.element.type.endsWith("-list") && elementPath.length === 1 && elementPath[0] === mentionPath[0]) ||
+          (props.element.type === "list-item" && elementPath.length === 2 && elementPath[0] === mentionPath[0] && elementPath[1] === mentionPath[1])
+        ) {
+          return <>
+            {renderedElement}
+            <div contentEditable={false} className="my-1 p-2 bg-gray-200 dark:bg-gray-700 rounded">
+              <h1 className="text-3xl">{name}</h1>
+              <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
+              </p>
+            </div>
+          </>
+        }
+      }
+    }
+
+    return renderedElement;
+  }, [editor]);
+
   const renderLeaf = useCallback((props: RenderLeafProps) => {
 
     const style = {
@@ -285,8 +314,8 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
     </span>);
   }, []);
 
-  const filteredUsers = users.filter(user => user.name.toLowerCase().includes(search.toLowerCase()));
-  const filteredMachines = machines.filter(machine => machine.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredUsers = search.length ? users.filter(user => user.name.toLowerCase().includes(search.toLowerCase())) : users;
+  const filteredMachines = search.length ? machines.filter(machine => machine.name.toLowerCase().includes(search.toLowerCase())) : machines;
 
   const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     const parentEntry = Editor.parent(editor, editor.selection!);
@@ -450,7 +479,7 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
           const before = wordBefore && Editor.before(editor, wordBefore);
           const beforeRange = before && Editor.range(editor, before, start);
           const beforeText = beforeRange && Editor.string(editor, beforeRange);
-          const beforeMatch = beforeText && beforeText.match(/^([@#])(\w+)$/);
+          const beforeMatch = beforeText && beforeText.match(/^([@#])(\w*)$/);
           const after = Editor.after(editor, start);
           const afterRange = Editor.range(editor, start, after);
           const afterText = Editor.string(editor, afterRange);
@@ -468,22 +497,22 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
         setTarget(undefined);
       }}
     >
-      <div className="flex flex-col w-full gap-2 py-2">
-          <div className="flex gap-2">
-            <FormatButton format="bold" icon="format_bold" />
-            <FormatButton format="italic" icon="format_italic" />
-            <FormatButton format="underline" icon="format_underline" />
+      <div className="flex flex-col gap-2 py-2">
+        <div className="flex gap-2">
+          <FormatButton format="bold" icon="format_bold" />
+          <FormatButton format="italic" icon="format_italic" />
+          <FormatButton format="underline" icon="format_underline" />
 
-            <BlockButton format="code" icon="code" />
-            <BlockButton format="unordered-list" icon="format_list_bulleted" />
-            <BlockButton format="ordered-list" icon="format_list_numbered" />
-          </div>
+          <BlockButton format="code" icon="code" />
+          <BlockButton format="unordered-list" icon="format_list_bulleted" />
+          <BlockButton format="ordered-list" icon="format_list_numbered" />
+        </div>
         <Editable
-          renderElement={props => renderers[props.element.type](props)}
+          renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
 
-          className="border border-gray-700 rounded-md p-2 selection:bg-sky-500"
+          className="border border-gray-700 rounded-md p-2 selection:bg-sky-500 selection:text-white"
           decorate={([node, path]) => (
             editor.selection != null &&
               !Editor.isEditor(node) &&
@@ -503,7 +532,7 @@ function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text
           createPortal(
             (<div
               ref={dropdownRef}
-              className="absolute z-10 p-1 bg-gray-800 rounded-md shadow-lg"
+              className="absolute z-10 p-1 bg-gray-300 dark:bg-gray-800 rounded-md shadow-lg"
               data-cy="mentions-portal"
             >
               {(searchType === "user" ? filteredUsers : filteredMachines).map((user, i) => (
