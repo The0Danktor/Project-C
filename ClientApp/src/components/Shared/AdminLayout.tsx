@@ -105,7 +105,7 @@ export function Layout() {
 
   function recentActvity(title: string) {
     return (
-      <div className="flex flex-col items-center mt-4 w-[95%] sm:w-[49%] h-fit p-2 pb-4 border border-gray-300 dark:border-gray-700 rounded-3xl">
+      <div className="flex flex-col items-center mt-4 w-[95%] xl:w-[49%] h-fit p-2 pb-4 border border-gray-300 dark:border-gray-700 rounded-3xl">
         <div className="flex flex-col justify-center items-center w-60 text-2xl mt-2 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
           <p>{title}</p>
         </div>
@@ -119,10 +119,10 @@ export function Layout() {
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
       {/* overflow-hidden */}
-      <div className="flex flex-col grow w-full sm:overflow-visible">
-        <Header />
-        <div className="container justify-center sm:justify-start">
-          <div className="flex flex-col sm:flex-row flex-wrap w-full font-semibold text-black dark:text-gray-400 mr-4 transition duration-300">
+      <div className="flex flex-col grow w-full md:overflow-visible">
+        {/* <Header /> */}
+        <div className="container justify-center md:justify-start">
+          <div className="flex flex-col md:flex-row flex-wrap w-full font-semibold text-black dark:text-gray-400 mr-4 transition duration-300">
             {/* button links */}
             <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="bar" />
             <ButtonAdmin linkTo="machines" title="Our Machines" bar="bar" />
@@ -132,7 +132,7 @@ export function Layout() {
           </div>
 
           {/* recent activity */}
-          <div className="flex justify-center sm:justify-between flex-wrap font-semibold w-full sm:m-2 sm:ml-2 sm:mr-7 text-black dark:text-gray-400 transition duration-300">
+          <div className="flex justify-center md:justify-between flex-wrap font-semibold w-full md:m-2 md:ml-2 md:mr-7 text-black dark:text-gray-400 transition duration-300">
             {recentActvity("Recent activity")}
             {recentActvity("Recent errors")}
             {recentActvity("Wee nie")}

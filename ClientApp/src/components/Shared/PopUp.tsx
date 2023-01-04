@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import placeholder from "../../assets/add_picture.png";
 import ja from "../../assets/logo.png";
@@ -23,6 +23,11 @@ interface informationImage {
 
 // ticket pop up
 export function PopUp(props: information) {
+  const [active, setActive] = useState(false);
+
+  function deleteP() {
+    setActive(!active);
+  }
   return (
     <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
       <div
@@ -42,7 +47,7 @@ export function PopUp(props: information) {
           <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
             {/* dislays date: dd/mm/yyyy */}
             Reported: {props.date.getDate().toString().padStart(2, "0")}/
-            {props.date.getMonth().toString().padStart(2, "0")}/
+            {(props.date.getMonth() == 0) ? "01" : props.date.getMonth().toString().padStart(2, "0")}/
             {props.date.getFullYear().toString()}
           </span>
           <strong className="text-2xl block">Machine #3</strong>
@@ -59,7 +64,7 @@ export function PopUp(props: information) {
 
           {/* displays user information */}
           <div className="xl:absolute xl:top-11 xl:right-28 my-3">
-            <strong className="text-xl block">User information</strong>
+            <strong className="text-xl block">User Information</strong>
             <strong>User: </strong>
             <span>user name</span>
             <br />
@@ -72,10 +77,10 @@ export function PopUp(props: information) {
 
           {/* dipslays the problem */}
           <strong className="text-xl block">Problem</strong>
-          <strong>Problem type: </strong>
+          <strong>Problem Type: </strong>
           <span>Lorem ipsum</span>
           <br />
-          <strong className="">Problem description</strong>
+          <strong className="">Problem Description</strong>
           <ul className="p-[revert] list-disc">
             <li>
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
@@ -116,10 +121,20 @@ export function PopUp(props: information) {
             visible={true}
           />
           {/* save buttons */}
-          <div className="flex flex-row justify-between flex-wrap pt-4">
-            <Button value="Delete" fun={props.close} />
-            <Button value="Save" fun={props.close} />
-          </div>
+          {active ? ( // if delete button is clicked
+            <div className="flex flex-row justify-between flex-wrap pt-4">
+              <p className="text-red-500 text-sm p-3">
+                Are you sure you want to delete this ticket?
+              </p>
+
+              <Button value="Yes" fun={props.close} />
+              <Button value="No" fun={deleteP} />
+            </div>) : ( // if delete button is not clicked
+            <div className="flex flex-row justify-between flex-wrap pt-4">
+              <Button value="Delete" fun={deleteP} />
+              <Button value="Save" fun={props.close} />
+            </div>
+          )}
         </div>
       </div>
     </div>
