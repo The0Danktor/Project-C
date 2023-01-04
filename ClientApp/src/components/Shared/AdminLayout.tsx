@@ -105,7 +105,7 @@ export function Layout() {
 
   function recentActvity(title: string) {
     return (
-      <div className="flex flex-col items-center mt-4 w-[95%] sm:w-[49%] h-fit p-2 pb-4 border border-gray-300 dark:border-gray-700 rounded-3xl">
+      <div className="flex flex-col items-center mt-4 w-[95%] xl:w-[49%] h-fit p-2 pb-4 border border-gray-300 dark:border-gray-700 rounded-3xl">
         <div className="flex flex-col justify-center items-center w-60 text-2xl mt-2 h-10 font-semibold bg-white text-black dark:hover:text-white dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 dark:shadow-gray-600 shadow-lg rounded-full transition duration-300">
           <p>{title}</p>
         </div>

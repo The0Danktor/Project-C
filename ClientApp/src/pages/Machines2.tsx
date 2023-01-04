@@ -178,7 +178,7 @@ export const Machines2 = () => {
                   {machine.map((machine) => (
                     <tr key={machine.id}>
                       <td
-                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 lg:bg-transparent"
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:bg-transparent"
                         data-header="Name"
                       >
                         <div className="flex items-center justify-center lg:justify-start">
@@ -213,7 +213,7 @@ export const Machines2 = () => {
                         <div className="text-sm ">
                           <span className="flex flex-row items-center justify-center lg:justify-start">
                             <button
-                              className="flex flex-row w-1/2 lg:w-auto items-center justify-center px-2 py-1 mr-2 font-semibold text-red-900 bg-red-400 rounded-md"
+                              className="flex flex-row w-1/2 lg:w-auto items-center justify-center px-2 py-1 mr-2 font-semibold text-red-900 bg-red-400 dark:!bg-red-800 rounded-md"
                               onClick={() => deleteMachine(machine.id)}
                             >
                               <XMarkIcon
@@ -238,8 +238,8 @@ export const Machines2 = () => {
           </div>
         </div>
         {isShown && (
-          <div className="flex flex-col w-2/3 p-5">
-            <div className="w-full m-2 md:m-3">
+          <div className="container flex flex-col w-full">
+            <div className="w-full ">
               <strong className="text-2xl">Machines</strong>
             </div>
             <div className="flex flex-col  w-full mt-5">
@@ -284,7 +284,7 @@ export const Machines2 = () => {
               <div className="w-full mt-5">
                 <button
                 className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-          hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2 float-right"
+          hover:bg-gray-200 dark:text-gray-400 rounded-lg  py-2"
                 onClick={addMachine}
               >
                 Add Machine

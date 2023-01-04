@@ -47,7 +47,7 @@ export function PopUp(props: information) {
           <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
             {/* dislays date: dd/mm/yyyy */}
             Reported: {props.date.getDate().toString().padStart(2, "0")}/
-            {props.date.getMonth().toString().padStart(2, "0")}/
+            {(props.date.getMonth() == 0) ? "01" : props.date.getMonth().toString().padStart(2, "0")}/
             {props.date.getFullYear().toString()}
           </span>
           <strong className="text-2xl block">Machine #3</strong>

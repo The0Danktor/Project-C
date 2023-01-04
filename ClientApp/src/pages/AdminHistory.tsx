@@ -117,7 +117,7 @@ export const AdminHistory = () => {
                   {history.map((history) => (
                     <tr key={history.id}>
                       <td
-                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 lg:bg-transparent"
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:bg-transparent"
                         data-header="ID"
                       >
                         <div className="flex items-center justify-center lg:justify-start">

@@ -37,12 +37,12 @@ export function Machines() {
         <NavSide />
       </div>
       <div className="flex flex-col items-center w-full">
-        <div className="flex flex-col gap-10 w-full h-screen p-20">
+        <div className="flex flex-col gap-10 w-full h-screen p-10 lg:p-20">
           <div className="flex">
             <input
               type="string"
               placeholder="Search"
-              className="bg-gray-200 dark:bg-gray-800 dark:text-white text-black caret-black dark:caret-white py-2 rounded-xl p-8"
+              className="bg-gray-200 dark:bg-gray-800 dark:text-white text-black caret-black dark:caret-white py-2 rounded-xl grow lg:grow-0 pl-8"
             />
           </div>
           <ul className="flex flex-col w-full gap-8 overflow-y-auto items-center border-2 border-gray-100 dark:border-gray-800 p-10 rounded-xl">
