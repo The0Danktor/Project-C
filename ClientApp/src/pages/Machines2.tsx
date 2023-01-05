@@ -84,9 +84,7 @@ function statusColor(status: any) {
     return "text-green-500";
   } else if (status === "Inactive") {
     return "text-red-500";
-  } else {
-    return "text-gray-500";
-  }
+  } 
 }
 
 //form to add machine and update the page
@@ -143,9 +141,9 @@ export const Machines2 = () => {
       <NavSide />
       <div className="grow">
         {/* <Header /> */}
-        <div className="container flex flex-col w-full p-4">
+        <div className="container flex flex-col w-full p-2">
           <div className="py-2 align-middle inline-block w-full px-2">
-            <div className="w-full m-2 md:m-3">
+            <div className="w-full mb-2">
               <strong className="text-2xl">Machines</strong>
               <button
                 className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
@@ -178,7 +176,7 @@ export const Machines2 = () => {
                   {machine.map((machine) => (
                     <tr key={machine.id}>
                       <td
-                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:bg-transparent"
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:!bg-transparent"
                         data-header="Name"
                       >
                         <div className="flex items-center justify-center lg:justify-start">
@@ -213,7 +211,7 @@ export const Machines2 = () => {
                         <div className="text-sm ">
                           <span className="flex flex-row items-center justify-center lg:justify-start">
                             <button
-                              className="flex flex-row w-1/2 lg:w-auto items-center justify-center px-2 py-1 mr-2 font-semibold text-red-900 bg-red-400 dark:!bg-red-800 rounded-md"
+                              className="flex flex-row w-1/2 lg:w-auto items-center justify-center px-2 py-1 mr-2 font-semibold text-red-900 bg-red-400 rounded-md"
                               onClick={() => deleteMachine(machine.id)}
                             >
                               <XMarkIcon

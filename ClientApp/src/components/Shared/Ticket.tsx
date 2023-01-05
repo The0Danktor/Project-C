@@ -6,7 +6,11 @@ import { Priority } from "./Priority";
 
 export const status = ["Pending", "In Progress", "Resolved"];
 export const priority = ["High", "Middle", "Low"];
-export function Ticket() {
+interface information {
+  onHomePage?: boolean;
+}
+
+export function Ticket(props: information) {
   var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
   var currentPriority = priority[Math.floor(Math.random() * priority.length)]; // picks random item im priority list
 
@@ -14,7 +18,8 @@ export function Ticket() {
   var date = new Date();
   // gives color based on the curent status
   if (currentStatus == "Pending") color = "bg-cyan-500 text-cyan-900";
-  else if (currentStatus == "In Progress") color = "bg-yellow-300 text-yellow-800";
+  else if (currentStatus == "In Progress")
+    color = "bg-yellow-300 text-yellow-800";
   else color = "bg-green-500 text-green-800";
 
   const [active, setActive] = useState(false);
@@ -29,9 +34,12 @@ export function Ticket() {
   }
   return (
     // displays ticket button
-    <div className="text-left w-full lg:w-[48%] border border-gray-300
-     dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 
-     dark:text-gray-400 rounded-lg m-2 !h-auto">
+    <div
+      className={
+        (props.onHomePage ? "lg:w-[98%]" : "lg:w-[48%]") +
+          " w-full text-left border border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 hover:bg-gray-200 dark:text-gray-400 rounded-lg m-2"
+      }
+    >
       {/* displays ticket itself */}
       <button
         className="w-full text-left p-4"
@@ -40,12 +48,14 @@ export function Ticket() {
         <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
           {/* dislays date: dd/mm/yyyy */}
           {date.getDate().toString().padStart(2, "0")}/
-          {(date.getMonth() == 0) ? "01" : date.getMonth().toString().padStart(2, "0")}/
-          {date.getFullYear().toString()}
+          {date.getMonth() == 0
+            ? "01"
+            : date.getMonth().toString().padStart(2, "0")}
+          /{date.getFullYear().toString()}
         </span>
         <strong className="inline-block">Title</strong>
         {/* priority */}
-        <Priority prio={currentPriority}/>
+        <Priority prio={currentPriority} />
 
         <p>Owner</p>
         <p>Problem type</p>
