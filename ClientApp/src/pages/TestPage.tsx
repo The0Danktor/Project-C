@@ -1,8 +1,7 @@
 import { NavSide } from "../components/Shared/NavSide";
 import React, { useEffect, useState } from "react";
-import { ProblemMenu } from "../components/Customer/ProblemMenu";
-import { Disclosure, Transition } from "@headlessui/react";
 import { User } from "../Types/types";
+import { UserCreation } from "../components/Shared/UserCreation";
 
 export function TestPage() {
   const [loadingData, setLoadingData] = useState<boolean>();
@@ -35,15 +34,7 @@ export function TestPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition flex duration-300">
       <NavSide />
-      <div /*center this div */ className="mx-auto flex flex-col justify-center">
-        <h1>Your are: {user?.name}</h1>
-        <h1>With Id: {user?.id}</h1>
-        <h1>With email: {user?.email}</h1>
-        <h1>And phone: {user?.phone}</h1>
-        <h1>From Company: {user?.companyId}</h1>
-        <h1>With The Role: {user?.role}</h1>
-        <h1>That needs to change his password: {user?.resetPassword ? "ja": "nee"}</h1>
-      </div>
+      <UserCreation Role={user?.role} />
     </div>
   );
 }
