@@ -13,8 +13,8 @@ export type ParagraphElement = {
   children: TextElement[];
 };
 
-export type CodeElement = {
-  type: "code";
+export type QuoteElement = {
+  type: "quote";
   children: Text[];
 };
 
@@ -40,13 +40,14 @@ export type MentionElement = {
   children: FormattedText[];
 }
 
-export type CustomElement = ParagraphElement | CodeElement | UnorderedListElement | OrderedListElement | ListItemElement | MentionElement;
+export type CustomElement = ParagraphElement | QuoteElement | UnorderedListElement | OrderedListElement | ListItemElement | MentionElement;
 
 export type FormattedText = {
   text: string;
   bold?: true;
   italic?: true;
   underline?: true;
+  code?: true;
   placeholder?: true;
 };
 
@@ -78,7 +79,11 @@ const CustomEditor = {
       match: n => Editor.isBlock(editor, n) && n.type === format,
     });
 
-    return !!match;
+    const [otherMatch] = Editor.nodes(editor, {
+      match: n => Editor.isBlock(editor, n) && n.type !== format && n.type !== "list-item",
+    });
+
+    return !!match && !otherMatch;
   },
   toggleBlock(editor: CustomEditorType, format: BlockType) {
     const isActive = this.isBlockActive(editor, format);
@@ -105,12 +110,13 @@ const hotkeys: Record<string, (editor: CustomEditorType) => void> = {
   "b": editor => CustomEditor.toggleMark(editor, "bold"),
   "i": editor => CustomEditor.toggleMark(editor, "italic"),
   "u": editor => CustomEditor.toggleMark(editor, "underline"),
-  "/": editor => CustomEditor.toggleBlock(editor, "code"),
+  "Dead": editor => CustomEditor.toggleMark(editor, "code"),
+  "/": editor => CustomEditor.toggleBlock(editor, "quote"),
 };
 
 const renderers: Record<CustomElement["type"], (props: RenderElementProps) => JSX.Element> = {
   "paragraph": props => <p {...props.attributes}>{props.children}</p>,
-  "code": props => <pre {...props.attributes} className="pl-8" ><code>{props.children}</code></pre>,
+  "quote": props => <blockquote {...props.attributes} className="pl-8" >{props.children}</blockquote>,
   "unordered-list": props => <ul {...props.attributes} className="list-disc list-inside">{props.children}</ul>,
   "ordered-list": props => <ol {...props.attributes} className="list-decimal list-inside">{props.children}</ol>,
   "list-item": props => <li {...props.attributes} className="ml-8">{props.children}</li>,
@@ -305,7 +311,8 @@ function RichTextEditor({
     const style = {
       ...(props.leaf.bold) && { fontWeight: "bold" },
       ...(props.leaf.italic) && { fontStyle: "italic" },
-      ...(props.leaf.underline) && { textDecoration: "underline" }
+      ...(props.leaf.underline) && { textDecoration: "underline" },
+      ...(props.leaf.code) && { fontFamily: "monospace" },
     };
 
     return (<span
@@ -314,6 +321,7 @@ function RichTextEditor({
     >
       {props.leaf.placeholder && <span
         className="text-gray-600 absolute pointer-events-none"
+        style={{ textDecoration: "inherit" }}
         contentEditable={false}
       >
         Type @ or # to tag a user/machine
@@ -346,7 +354,7 @@ function RichTextEditor({
           editor.selection &&
           Editor.path(editor, editor.selection).length > 0 &&
           Editor.isBlock(editor, parent) &&
-          ["list-item", "code"].includes(parent.type) &&
+          ["list-item", "quote"].includes(parent.type) &&
           Editor.isEmpty(editor, parent)
         ) {
           e.preventDefault();
@@ -404,7 +412,7 @@ function RichTextEditor({
 
           const prevParentEntry = Editor.previous(editor, { at: parentPath });
 
-          if (["list-item", "code"].includes(parent.type)) {
+          if (["list-item", "quote"].includes(parent.type)) {
             if (Editor.isStart(editor, editor.selection.anchor, parentPath)) {
               // if (prevParent && Editor.isBlock(editor, prevParent)[0] && prevParent[0].type === parent.type && !Editor.isEmpty(editor, prevParent[0])) return;
               e.preventDefault();
@@ -506,14 +514,15 @@ function RichTextEditor({
       }}
     >
       <div className="flex flex-col gap-2 py-2">
-        {!readOnly && <div className="flex gap-2">
+        {!readOnly && <div className="flex gap-2 items-center">
           <FormatButton format="bold" icon="format_bold" />
           <FormatButton format="italic" icon="format_italic" />
           <FormatButton format="underline" icon="format_underline" />
-
-          <BlockButton format="code" icon="code" />
+          <FormatButton format="code" icon="code" />
+          <span className="w-[2px] h-8 bg-gray-700"></span>
           <BlockButton format="unordered-list" icon="format_list_bulleted" />
           <BlockButton format="ordered-list" icon="format_list_numbered" />
+          <BlockButton format="quote" icon="format_quote" />
         </div>}
         <Editable
           renderElement={renderElement}
@@ -588,7 +597,7 @@ const EditorButton = ({ onClick, active, title, icon = "error" }: { onClick: Mou
         ReactEditor.focus(editor);
       }}
       className={`!p-0 w-10 h-10 grid items-center ${active ? "text-sky-600" : ""}`}
-      title={title}
+      title={title.split("-").join(" ")}
     >
       <span className="material-icons-round">{icon}</span>
     </button>

@@ -77,6 +77,10 @@ span[data-slate-placeholder=true] {
   @apply !w-fit !inline-block;
 }
 
+blockquote {
+  @apply !pl-2 ml-8 border-l-4 border-gray-300 dark:border-gray-700;
+}
+
 .shake {
   animation: shake .2s infinite ease-in-out;
 }
