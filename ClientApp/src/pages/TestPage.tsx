@@ -2,6 +2,7 @@ import { NavSide } from "../components/Shared/NavSide";
 import React, { useEffect, useState } from "react";
 import { User } from "../Types/types";
 import { UserCreation } from "../components/Shared/UserCreation";
+import { Tabs } from "../components/Shared/Tabs";
 
 export function TestPage() {
   const [loadingData, setLoadingData] = useState<boolean>();
@@ -34,7 +35,8 @@ export function TestPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition flex duration-300">
       <NavSide />
-      <UserCreation Role={user?.role} />
+      {/* <UserCreation Role={user?.role} /> */}
+      <Tabs />
     </div>
   );
 }
