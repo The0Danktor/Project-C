@@ -61,7 +61,7 @@ export function AddImage() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="container p-2">
+      <div className="container">
         <div className="grow w-full m-2 md:m-3">
           <strong className="text-2xl">Select images</strong>
           </div>

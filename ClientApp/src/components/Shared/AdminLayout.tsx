@@ -122,7 +122,7 @@ export function Layout() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="container m-2">
+      <div className="container">
         {/* <Header /> */}
         <div className="grow w-full">
           <div className="flex flex-col md:flex-row flex-wrap gap-4 grow font-semibold text-black dark:text-gray-400 transition duration-300">

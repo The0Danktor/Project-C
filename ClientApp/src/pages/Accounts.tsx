@@ -114,7 +114,7 @@ export const Accounts = () => {
       <NavSide />
       <div className="grow">
         {/* <Header /> */}
-        <div className="container flex flex-col w-full p-2">
+        <div className="container flex flex-col w-full">
           <div className="py-2 align-middle inline-block w-full px-2">
             <div className=" w-full m-2 pb-3 md:m-3">
               <strong className="text-2xl">Accounts</strong>
