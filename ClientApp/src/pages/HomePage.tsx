@@ -24,20 +24,20 @@ export function HomePage() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="container flex flex-row gap-2">
+      <div className="container flex flex-col lg:flex-row gap-2">
         {/* new ticket section */}
-        <div className="w-1/2">
-          <div className="flex flex-row justify-between items-center m-2 md:m-3">
+        <div className="w-full lg:w-1/2 pr-4 lg:pr-0">
+          <div className="flex flex-col lg:flex-row justify-between lg:items-center m-2 md:m-3">
             <strong className="text-2xl">New Tickets</strong>
             <Link to="../Ticket">View all tickets {">"}</Link>
           </div>
           {reports}
         </div>
 
-        <div className="w-1/2">
-          <div className="flex flex-col my-3 flex-start">
+        <div className="w-full lg:w-1/2 px-2 sm:px-0">
+          <div className="flex flex-col mb-3 lg:my-3 flex-start">
             {/* make new ticket */}
-            <strong className="text-2xl mb-3">Make new ticket</strong>
+            <strong className="text-2xl mb-3">Make New Ticket</strong>
             <form
               onSubmit={goToKnowledge}
               className="flex flex-col gap-2 items-end"
@@ -58,8 +58,8 @@ export function HomePage() {
             </form>
           </div>
           <div>
-            <strong className="text-2xl font-bold">Admin panel</strong>
-            <div className="flex grow flex-row flex-wrap gap-2 my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
+            <strong className="text-2xl font-bold">Admin Panel</strong>
+            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
 
               {/* button links */}
               <ButtonAdmin
