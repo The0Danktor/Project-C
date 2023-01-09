@@ -3,8 +3,8 @@ import { Combobox, Switch, Tab, Transition, Dialog } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 
-//https://headlessui.com/react/combobox
-//https://headlessui.com/react/tabs
+// combobox toevoegen voor company
+// dialog toevoegen met gemaakte account en wachtwoord
 interface User {
   name: string;
   email: string;
@@ -35,7 +35,6 @@ export function UserCreation(props: { Role?: string }) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // submit the user to the server
     console.log(user);
     console.log(`Is admin ${setEnabled}`);
     console.log(`Selected index ${selectedIndex}`);
