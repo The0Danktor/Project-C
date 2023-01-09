@@ -47,7 +47,7 @@ export function Machines() {
             <input
               type="string"
               placeholder="Search"
-              value={statedProblem != null ? statedProblem.value : ""}
+              defaultValue={statedProblem != null ? statedProblem.value : ""}
               className="bg-gray-200 dark:bg-gray-800 dark:text-white text-black caret-black dark:caret-white py-2 rounded-xl grow lg:grow-0 pl-8"
             />
           </div>

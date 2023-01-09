@@ -3,22 +3,21 @@ import { PopUp } from "./PopUp";
 import { useState } from "react";
 import "../../index.css";
 import { Priority } from "./Priority";
+import { Ticket } from "../../Types/types";
 
 export const status = ["Pending", "In Progress", "Resolved"];
 export const priority = ["High", "Middle", "Low"];
 interface information {
   onHomePage?: boolean;
+  ticket: Ticket;
 }
 
-export function Ticket(props: information) {
-  var currentStatus = status[Math.floor(Math.random() * status.length)]; // picks random item im status list
-  var currentPriority = priority[Math.floor(Math.random() * priority.length)]; // picks random item im priority list
-
+export function TicketLayout(props: information) {
   var color;
   var date = new Date();
   // gives color based on the curent status
-  if (currentStatus == "Pending") color = "bg-cyan-500 text-cyan-900";
-  else if (currentStatus == "In Progress")
+  if (props.ticket.status == "Pending") color = "bg-cyan-500 text-cyan-900";
+  else if (props.ticket.status == "In Progress")
     color = "bg-yellow-300 text-yellow-800";
   else color = "bg-green-500 text-green-800";
 
@@ -47,34 +46,32 @@ export function Ticket(props: information) {
       >
         <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
           {/* dislays date: dd/mm/yyyy */}
-          {date.getDate().toString().padStart(2, "0")}/
-          {date.getMonth() == 0
+          {props.ticket.date.getDate().toString().padStart(2, "0")}/
+          {props.ticket.date.getMonth() == 0
             ? "01"
             : date.getMonth().toString().padStart(2, "0")}
-          /{date.getFullYear().toString()}
+          /{props.ticket.date.getFullYear().toString()}
         </span>
-        <strong className="inline-block">Title</strong>
+        <strong className="inline-block">{props.ticket.problem.machineId}</strong>
         {/* priority */}
-        <Priority prio={currentPriority} />
+        <Priority prio={props.ticket.priority} />
 
-        <p>Owner</p>
-        <p>Problem type</p>
+        <p>{props.ticket.customer.name}</p>
+        <p>{props.ticket.problem.id}</p>
         <button
           className={
             color +
             " rounded font-semibold w-40 md:float-right md:-my-12 float-left my-0"
           }
         >
-          {currentStatus}
+          {props.ticket.status}
         </button>
       </button>
       {/* displays pop up message */}
       {active && (
         <PopUp
           close={Popup}
-          status={currentStatus}
-          date={date}
-          prio={currentPriority}
+          ticket={props.ticket}
         />
       )}
     </div>
