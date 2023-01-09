@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Combobox, Switch, Tab, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
 
 //https://headlessui.com/react/combobox
 //https://headlessui.com/react/tabs
@@ -25,6 +26,7 @@ const initialUser: User = {
 export function UserCreation(props: { Role?: string }) {
   const [user, setUser] = useState(initialUser);
   const [enabled, setEnabled] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -35,6 +37,108 @@ export function UserCreation(props: { Role?: string }) {
     event.preventDefault();
     // submit the user to the server
     console.log(user);
+    console.log(`Is admin ${setEnabled}`);
+    console.log(`Selected index ${selectedIndex}`);
+    console.log(`Role ${props.Role}`);
+    if (props.Role === "Client_admin") {
+      try {
+        axios.post(
+          "http://localhost:7162/api/Auth/registerClient",
+          {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (props.Role === "Viscon_employee") {
+      try {
+        axios.post(
+          "http://localhost:7162/api/Auth/registerClientAdmin",
+          {
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            company: user.company,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    if (props.Role === "Viscon_admin") {
+      if (selectedIndex === 1) {
+        if (enabled) {
+          try {
+            axios.post(
+              "http://localhost:7162/api/Auth/registerVisconAdmin",
+              {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          try {
+            axios.post(
+              "http://localhost:7162/api/Auth/registerVisconEmployee",
+              {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      } else {
+        try {
+          axios.post(
+            "http://localhost:7162/api/Auth/registerClientAdmin",
+            {
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              company: user.company,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
   };
 
   return (
@@ -129,7 +233,11 @@ export function UserCreation(props: { Role?: string }) {
       )}
       {props.Role === "Viscon_admin" && (
         <div className="flex flex-col gap-10 w-full h-screen p-20">
-          <Tab.Group manual>
+          <Tab.Group
+            manual
+            selectedIndex={selectedIndex}
+            onChange={setSelectedIndex}
+          >
             <Tab.List className="">
               <Tab>Customer</Tab>
               <Tab>Viscon</Tab>

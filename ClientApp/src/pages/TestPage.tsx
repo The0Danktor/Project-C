@@ -35,8 +35,8 @@ export function TestPage() {
   return (
     <div className="bg-white dark:bg-gray-900 transition flex duration-300">
       <NavSide />
-      {/* <UserCreation Role={user?.role} /> */}
-      <Tabs />
+      <UserCreation Role={user?.role} />
+      {/* <Tabs /> */}
     </div>
   );
 }
