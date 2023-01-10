@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PopUpImage } from "./PopUp";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -37,9 +37,9 @@ export function ImageGallery(props: information) {
             e.stopPropagation();
             props.del(element);
           }}
-          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600"
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 relative"
         >
-          <XMarkIcon className="w-6 h-6" stroke="currentColor"/>
+          <XMarkIcon className="w-6 h-6" stroke="currentColor" />
         </button>
       )}
     </div>
