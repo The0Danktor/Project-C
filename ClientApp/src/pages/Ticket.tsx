@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
-import { Ticket } from "../components/Shared/Ticket";
+import { Ticket } from "../Types/types";
 // import { AddImage } from "./addImage";
 import { Link } from "react-router-dom";
+import { TicketLayout } from "../components/Shared/Ticket";
 
-export function TicketPage() {
-  const reports = [];
-  for (var i = 0; i < 20; i++) {
-    reports.push(<Ticket />);
+interface ticketProps {
+  Id?: string
+}
+
+export function TicketPage(Id: ticketProps) {
+
+  const [tickets, setTickets] = useState<Ticket[]>();
+  
+  const getTickets = async () => {
+    (await fetch(`https://localhost:7162/api/Ticket/${Id}`))
+    .json()
+    .then(response => { 
+      setTickets(response);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   }
+
   function Redirect() {}
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
@@ -28,8 +43,25 @@ export function TicketPage() {
             </button>
           </Link>
         </div>
-
-        {reports}
+        <>
+        {tickets !== undefined ?
+        (
+          <div>
+            {tickets.map((ticket: Ticket) => (
+              <TicketLayout
+                key={ticket.id}
+                ticket={ticket}
+              />
+            ))}
+          </div>
+        )
+        :
+        (
+          <div>
+            No Tickets
+          </div>
+        )}
+        </>
       </div>
     </div>
   );
