@@ -33,7 +33,7 @@ namespace Project_C.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GetCompanyMachineDto>> GetCompanyMachineById(string id)
+        public async Task<ActionResult<GetCompanyMachineDto>> GetCompanyMachineById(Guid id)
         {
             var result = await _companyMachineService.GetCompanyMachineById(id);
 

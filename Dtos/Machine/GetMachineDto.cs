@@ -9,5 +9,6 @@ namespace Project_C.Dtos
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
+        public string Tekennummer { get; set; } = null!;
     }
 }

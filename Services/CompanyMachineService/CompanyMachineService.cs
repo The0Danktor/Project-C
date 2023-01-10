@@ -19,10 +19,10 @@ namespace Project_C.Services
         {
             var newCompanyMachine = new CompanyMachine
             {
+                Id = new Guid(),
                 Name = companyMachine.Name,
                 CompanyId = companyMachine.CompanyId,
                 MachineId = companyMachine.MachineId,
-                Tekennummer = companyMachine.Tekennummer
             };
             _context.CompanyMachines.Add(newCompanyMachine);
             await _context.SaveChangesAsync();
@@ -30,10 +30,10 @@ namespace Project_C.Services
                     join m in _context.Machines on cm.MachineId equals m.Id
                     select new GetCompanyMachineDto
                     {
+                        Id = cm.Id,
                         Name = cm.Name,
                         CompanyId = cm.CompanyId,
                         MachineId = cm.MachineId,
-                        Tekennummer = cm.Tekennummer,
                         Type = m.Name
                     };
             return await _.ToListAsync();
@@ -45,7 +45,7 @@ namespace Project_C.Services
                         join m in _context.Machines on cm.MachineId equals m.Id
                         select new GetCompanyMachineDto
                         {
-                            Tekennummer = cm.Tekennummer,
+                            Id = cm.Id,
                             Name = cm.Name,
                             CompanyId = cm.CompanyId,
                             MachineId = m.Id,
@@ -65,7 +65,7 @@ namespace Project_C.Services
                         where cm.CompanyId == user.CompanyId
                         select new GetCompanyMachineDto
                         {
-                            Tekennummer = cm.Tekennummer,
+                            Id = cm.Id,
                             Name = cm.Name,
                             CompanyId = cm.CompanyId,
                             MachineId = m.Id,
@@ -74,14 +74,14 @@ namespace Project_C.Services
             return await query.ToListAsync();
         }
 
-        public async Task<GetCompanyMachineDto?> GetCompanyMachineById(string Tekennummer)
+        public async Task<GetCompanyMachineDto?> GetCompanyMachineById(Guid Id)
         {
             var query = from cm in _context.CompanyMachines
                         join m in _context.Machines on cm.MachineId equals m.Id
-                        where cm.Tekennummer == Tekennummer
+                        where cm.Id == Id
                         select new GetCompanyMachineDto
                         {
-                            Tekennummer = cm.Tekennummer,
+                            Id = cm.Id,
                             Name = m.Name,
                             CompanyId = cm.CompanyId,
                             MachineId = m.Id,

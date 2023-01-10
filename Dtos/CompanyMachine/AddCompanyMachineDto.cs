@@ -7,7 +7,6 @@ namespace Project_C.Dtos
 {
     public class AddCompanyMachineDto
     {
-        public string Tekennummer { get; set; } = null!;
         public string Name { get; set; } = null!;
         public Guid CompanyId { get; set; }
         public Guid MachineId { get; set; }

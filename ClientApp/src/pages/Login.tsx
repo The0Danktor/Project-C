@@ -33,7 +33,7 @@ export function LoginPage() {
     
     try {
       await setResponse(
-        await axios.post("http://localhost:7162/api/Auth/login", {
+         await axios.post("http://localhost:7162/api/Auth/login", {
           Email,
           Password,
         })

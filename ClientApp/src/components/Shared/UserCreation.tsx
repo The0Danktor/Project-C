@@ -144,7 +144,6 @@ export function UserCreation(props: { Role?: string }) {
     <div>
       {props.Role === "Client_admin" && (
         <div>
-          <p>{props.Role}</p>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
@@ -188,7 +187,6 @@ export function UserCreation(props: { Role?: string }) {
       )}
       {props.Role === "Viscon_employee" && (
         <div>
-          <p>{props.Role}</p>
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">Name:</label>
             <input
@@ -244,7 +242,7 @@ export function UserCreation(props: { Role?: string }) {
             <Tab.Panels className="">
               <Tab.Panel>
                 <div>
-                  <p>{props.Role}</p>
+      
                   <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -288,7 +286,7 @@ export function UserCreation(props: { Role?: string }) {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <p>{props.Role}</p>
+      
                   <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -317,14 +315,13 @@ export function UserCreation(props: { Role?: string }) {
                       onChange={handleChange}
                     />
                     <br />
-                    <Switch
+                    <Switch type="reset"
                       checked={enabled}
                       onChange={setEnabled}
                       className={`${
                         enabled ? "bg-blue-600" : "bg-gray-200"
-                      } relative inline-flex h-6 w-11 items-center rounded-full`}
+                      } relative inline-flex h-6 w-11 items-center rounded-full transition-all`}
                     >
-                      <span className="sr-only">Enable notifications</span>
                       <span
                         className={`${
                           enabled ? "translate-x-6" : "translate-x-1"
