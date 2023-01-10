@@ -28,8 +28,6 @@ export function LoginPage() {
     e.preventDefault();
 
     const els = e.currentTarget.elements as LoginFormControlsCollection;
-    const username = els.username.value;
-    const password = els.password.value;
     
     try {
       await setResponse(
@@ -69,8 +67,8 @@ export function LoginPage() {
           <UserIcon className="w-6 h-6 m-2" />
           <input
             type="text"
-            name="username"
-            placeholder={t("login.username")}
+            name="Email"
+            placeholder={t("login.email")}
             onChange={(event) => setEmail(event.target.value)}
             required
           />
