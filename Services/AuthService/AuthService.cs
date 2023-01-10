@@ -105,6 +105,9 @@ namespace Project_C.Services
 
         public async Task<UserLoginDto?> Register(UserRegistrationDto request)
         {
+
+           
+            
             User user = new User
             {
                 Id = Guid.NewGuid(),
@@ -152,7 +155,12 @@ namespace Project_C.Services
         }
 
         public async Task<UserLoginDto?> RegisterClient(ClientUserRegistrationDto request)
-        {
+        { 
+             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
+            if (userId == null) return null;
+            var CompanyId = await _context.users.Select(x => x.CompanyId).SingleOrDefaultAsync(x => x == Guid.Parse(userId));
+            if (CompanyId == null) return null;
+            
             var user = new User
             {
                 Id = Guid.NewGuid(),
@@ -160,7 +168,7 @@ namespace Project_C.Services
                 Email = request.Email,
                 Phone = request.Phone,
                 Role = Role.Client,
-                CompanyId = request.CompanyId,
+                CompanyId = CompanyId,
                 ResetPassword = true
             };
             UserLoginDto userLoginDto = new UserLoginDto
@@ -180,7 +188,7 @@ namespace Project_C.Services
             return userLoginDto;
         }
 
-        public async Task<UserLoginDto?> RegisterClientAdmin(ClientUserRegistrationDto request)
+        public async Task<UserLoginDto?> RegisterClientAdmin(ClientAdminRegistrationDto request)
         {
             var user = new User
             {

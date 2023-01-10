@@ -52,7 +52,7 @@ namespace Project_C.Controllers
         }
 
         [HttpPost("registerClientAdmin")] [Authorize(Roles = "Viscon_employee")]
-        public async Task<ActionResult<UserLoginDto>> RegisterClientAdmin(ClientUserRegistrationDto request)
+        public async Task<ActionResult<UserLoginDto>> RegisterClientAdmin(ClientAdminRegistrationDto request)
         {
             var response = await _authService.RegisterClientAdmin(request);
             if (response == null) return BadRequest(new {message = "Email already exists"});
