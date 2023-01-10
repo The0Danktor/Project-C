@@ -5,13 +5,9 @@ import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
 import { Ticket } from "../Types/types";
+import { TicketFetch } from "./Ticket";
 
 export function HomePage() {
-  const reports = [] as any;
-  const [_, setLoadingData] = useState<boolean>();
-  const [Tickets, setTicket] = useState<Ticket[]>();
-  const [__, setError] = useState<string>();
-
   // go to knowledge base with parameters
   const navigate = useNavigate();
   const goToKnowledge = (event: any) => {
@@ -21,38 +17,6 @@ export function HomePage() {
       replace: false,
     });
   };
-  // loads data from database
-  const fetchData = async () => {
-    setLoadingData(true);
-    try {
-      const response = await (
-        await fetch(
-          `https://localhost:7162/api/CompanyMachine/GetByCompanyId/a7072517-250e-4582-ade2-c771d248a580`
-        )
-      ).json();
-      setTicket(response);
-    } catch (e) {
-      console.log(e);
-      setError("Unable to retrieve problems and solutions.");
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  {
-    Tickets !== undefined ? (
-      <>
-        {Tickets.map((ticket: Ticket) =>
-          reports.push(<TicketLayout ticket={ticket} />)
-        )}
-      </>
-    ) : (
-      reports.push("No reports available")
-    );
-  }
-
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
@@ -63,7 +27,8 @@ export function HomePage() {
             <strong className="text-2xl">New Tickets</strong>
             <Link to="../Ticket">View all tickets {">"}</Link>
           </div>
-          {reports}
+
+          {TicketFetch().reports}
         </div>
 
         <div className="w-full lg:w-1/2 px-2 sm:px-0">

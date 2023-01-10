@@ -5,7 +5,29 @@ import { Link } from "react-router-dom";
 import { Ticket } from "../Types/types";
 
 export function TicketPage() {
-  const reports = [] as any;
+  return (
+    <div className="flex dark:bg-gray-900 transition duration-300">
+      <NavSide />
+      <div className="container flex flex-col flex-wrap">
+        <div className="w-full m-2 md:m-3">
+          <strong className="text-2xl">All Tickets</strong>
+          <Link to="../AddImage">
+            <button
+              className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
+          hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2"
+            >
+              Add Report
+            </button>
+          </Link>
+        </div>
+        {TicketFetch().reports}
+      </div>
+    </div>
+  );
+}
+
+export function TicketFetch() {
+  const reports = [];
   const [_, setLoadingData] = useState<boolean>();
   const [Tickets, setTicket] = useState<Ticket[]>();
   const [__, setError] = useState<string>();
@@ -38,28 +60,10 @@ export function TicketPage() {
         )}
       </>
     ) : (
-      reports.push("No reports available")
+      reports.push(<p className="px-3">No tickets available</p>)
     );
   }
-
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
-      <NavSide />
-      <div className="container flex flex-row flex-wrap">
-        <div className="grow w-full m-2 md:m-3">
-          <strong className="text-2xl">All Tickets</strong>
-          <Link to="../AddImage">
-            <button
-              className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-          hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2"
-            >
-              Add Report
-            </button>
-          </Link>
-        </div>
-
-        {reports}
-      </div>
-    </div>
-  );
+    {reports}
+  )
 }
