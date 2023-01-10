@@ -10,5 +10,6 @@ namespace Project_C.Services
         Task<GetProblemDto?> GetProblemById(Guid id);
         Task<List<GetProblemDto>> GetAllProblems();
         Task<List<GetProblemDto>> AddProblem(AddProblemDto problem);
+        Task<List<GetProblemWithSolutionDto>> GetProblemWithSolutionById(Guid id);
     }
 }

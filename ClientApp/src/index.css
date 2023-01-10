@@ -20,11 +20,11 @@ body {
   @apply w-full h-full;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
    body {
     overflow:hidden;
   }
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -73,6 +73,10 @@ button[type=button] {
   @apply px-4 bg-gray-200 hover:bg-gray-300 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-500 dark:active:bg-gray-600 select-none;
 }
 
+span[data-slate-placeholder=true] {
+  @apply !w-fit !inline-block;
+}
+
 .shake {
   animation: shake .2s infinite ease-in-out;
 }
@@ -114,5 +118,10 @@ button[type=button] {
 }
 
 .container {
-  @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:min-h-[unset] md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto
+  @apply  md:p-20 md:pb-10
+  /* @apply grow flex flex-row flex-wrap justify-start content-start transition duration-300 dark:bg-gray-800 bg-gray-100 min-h-screen md:min-h-[unset] md:h-[89vh] md:m-10 md:rounded-xl md:overflow-auto */
+}
+
+.height {
+  height: calc(100vh - 10rem);
 }

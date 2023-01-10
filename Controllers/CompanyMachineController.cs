@@ -24,6 +24,12 @@ namespace Project_C.Controllers
             return Ok(await _companyMachineService.GetAllCompanyMachines());
         }
 
+        [HttpGet("GetByCompanyId/{id}")]
+        public async Task<ActionResult<List<GetCompanyMachineDto>>> GetCompanyMachinesByCompanyId(Guid id)
+        {
+            return Ok(await _companyMachineService.GetCompanyMachinesByCompanyId(id));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<GetCompanyMachineDto>> GetCompanyMachineById(string id)
         {

@@ -62,5 +62,19 @@ namespace Project_C.Services
                 
             return await problem.FirstOrDefaultAsync();
         }
+
+        public async Task<List<GetProblemWithSolutionDto>> GetProblemWithSolutionById(Guid id)
+        {
+            var problem = from p in _context.Problems
+                where p.MachineId == id
+                select new GetProblemWithSolutionDto
+                {
+                    Id = p.Id,
+                    MachineId = p.MachineId,
+                    Description = p.Description,
+                    Solutions = p.Solutions.Select(s => s.Description).ToList()
+                };
+            return await problem.ToListAsync();
+        }
     }
 }
