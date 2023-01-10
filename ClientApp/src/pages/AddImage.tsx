@@ -66,7 +66,7 @@ export function AddImage() {
           <strong className="text-2xl">Select images</strong>
           </div>
           <form>
-            <div className="w-full md:w-fit overflow-hidden ">
+            <div className="w-full md:w-fit overflow-hidden">
               <label htmlFor="file" className="cursor-pointer">
                 <p
                   className="border md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
