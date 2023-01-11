@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavSide } from "../components/Shared/NavSide";
-import { TicketLayout } from "../components/Shared/Ticket";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
-import { Ticket } from "../Types/types";
 import { TicketFetch } from "./Ticket";
 
 export function HomePage() {
@@ -20,7 +18,7 @@ export function HomePage() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className={(TicketFetch().reports[0].type == "p" ? "lg:flex-col" : "lg:flex-row") + " flex-col container flex lg:flex-row gap-2"}>
+      <div className="container flex flex-col lg:flex-row gap-2">
         {/* new ticket section */}
         <div className="w-full lg:w-1/2 pr-4 lg:pr-0">
           <div className="flex flex-col lg:flex-row justify-between lg:items-center m-2 md:m-3">
