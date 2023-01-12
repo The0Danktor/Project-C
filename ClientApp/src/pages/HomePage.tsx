@@ -3,7 +3,7 @@ import { NavSide } from "../components/Shared/NavSide";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
-import { TicketFetch } from "./Ticket";
+// import { TicketFetch } from "./Ticket";
 
 export function HomePage() {
   // go to knowledge base with parameters
@@ -26,7 +26,7 @@ export function HomePage() {
             <Link to="../Ticket">View all tickets {">"}</Link>
           </div>
 
-          {TicketFetch().reports}
+          {/* {TicketFetch().reports} */}
         </div>
 
         <div className="w-full lg:w-1/2 px-2 sm:px-0">
