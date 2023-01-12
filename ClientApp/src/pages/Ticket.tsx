@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
-import { Ticket } from "../components/Shared/Ticket";
+import { TicketLayout } from "../components/Shared/Ticket";
 import { Link } from "react-router-dom";
+import { Ticket } from "../Types/types";
 
 export function TicketPage() {
-  const reports = [];
-  for (var i = 0; i < 20; i++) {
-    reports.push(<Ticket />);
-  }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="container flex flex-wrap">
+      <div className="container flex flex-col flex-wrap">
+
         <div className="w-full m-2 md:m-3">
           <strong className="text-2xl">All Tickets</strong>
           <Link to="../AddImage">
@@ -23,9 +21,50 @@ export function TicketPage() {
             </button>
           </Link>
         </div>
-
-        {reports}
+        {TicketFetch().reports}
       </div>
     </div>
   );
+}
+
+export function TicketFetch() {
+  const reports = [];
+  const [_, setLoadingData] = useState<boolean>();
+  const [Tickets, setTicket] = useState<Ticket[]>();
+  const [__, setError] = useState<string>();
+
+  // loads data from database
+  const fetchData = async () => {
+    setLoadingData(true);
+    try {
+      const response = await (
+        await fetch(
+          `https://localhost:7162/api/CompanyMachine/GetByCompanyId/a7072517-250e-4582-ade2-c771d248a580`
+        )
+      ).json();
+      setTicket(response);
+    } catch (e) {
+      console.log(e);
+      setError("Unable to retrieve problems and solutions.");
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  {
+    Tickets !== undefined ? (
+      <>
+        {Tickets.map((ticket: Ticket) =>
+          reports.push(<TicketLayout ticket={ticket} />)
+        )}
+      </>
+    ) : (
+      reports.push(<p className="px-3">No tickets available</p>)
+    );
+  }
+  return (
+    {reports}
+  )
 }

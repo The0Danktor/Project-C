@@ -114,7 +114,7 @@ export const Accounts = () => {
       <NavSide />
       <div className="grow">
         {/* <Header /> */}
-        <div className="container flex flex-col w-full p-4">
+        <div className="container flex flex-col w-full">
           <div className="py-2 align-middle inline-block w-full px-2">
             <div className=" w-full m-2 pb-3 md:m-3">
               <strong className="text-2xl">Accounts</strong>
@@ -150,7 +150,7 @@ export const Accounts = () => {
                   {users.map((user) => (
                     <tr key={user.id}>
                       <td
-                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:bg-transparent"
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:!bg-transparent"
                         data-header="Name"
                       >
                         <div className="flex items-center justify-center lg:justify-start">
