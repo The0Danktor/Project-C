@@ -17,6 +17,7 @@ export type User = {
   resetPassword: boolean;
 }
 
+
 export type Machine = {
   id: string;
   name: string;
@@ -49,21 +50,7 @@ export type Ticket = {
   priority : string;
 }
 
-export type User = {
-  id : string;
-  name : string;
-  email : string;
-  passwordhash : string;
-  passwordsalt : string;
-  phone : string;
-  companyid : string;
-  // company : Company
-  // role : Role
-  resetpassword : boolean;
-  ticket : Ticket;
-  workingontickets : string[];
-  departmentemployees : string[];
-}
+
 
 export type Customer = {
   id : string;

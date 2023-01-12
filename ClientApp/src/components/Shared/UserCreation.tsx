@@ -216,7 +216,6 @@ export function UserCreation(props: { Role?: string }) {
 
   return (
     <div>
-      <p>{props.Role}</p>
       {props.Role === "Client_admin" && (
         <div>
           <form onSubmit={handleSubmit}>

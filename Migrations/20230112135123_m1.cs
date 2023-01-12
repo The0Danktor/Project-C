@@ -99,6 +99,29 @@ namespace Project_C.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Supervisor = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Customer_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -171,9 +194,13 @@ namespace Project_C.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId1 = table.Column<Guid>(type: "uuid", nullable: false),
                     CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProblemId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Note = table.Column<string>(type: "text", nullable: false)
+                    Note = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    Priority = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,6 +209,12 @@ namespace Project_C.Migrations
                         name: "FK_Tickets_CompanyMachines_Id",
                         column: x => x.Id,
                         principalTable: "CompanyMachines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Customer_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -222,6 +255,11 @@ namespace Project_C.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "Id", "CompanyId", "Email", "Name", "Phone", "ResetPassword", "Role", "passwordHash", "passwordSalt" },
+                values: new object[] { new Guid("1d368a7d-d818-4464-8fe6-f2f1d7ce7b6f"), null, "Admin@admin.com", "Admin", "12345678", false, 4, "MdPlL9gDh9ySbf7XnCc0ECNexDsnLVNU75OvHgKho5WTXhL3Tpy4E7bIQuGUueFGhoSezyZNIMSMdYrmMKlZag==", "lk4WDLceDAjsyJQWuShk1mWGeFjEblj8zlnxnLS6i/J4zAODZz3nTIqeq0a5DiobvQb80WAOww/uEBm2OwYcphvkCCXDmtQumDMvLY0ZLR4IM8KAJ2sAQi15TElyktIpeTqw35wHP+gS5AsuHWli/RDc99lEBwf6vz9YVq3pH08=" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_DepartmentId",
                 table: "Companies",
@@ -236,6 +274,11 @@ namespace Project_C.Migrations
                 name: "IX_CompanyMachines_MachineId",
                 table: "CompanyMachines",
                 column: "MachineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_CompanyId",
+                table: "Customer",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DepartmentEmployees_DepartmentId",
@@ -256,6 +299,11 @@ namespace Project_C.Migrations
                 name: "IX_Tickets_CustomerId",
                 table: "Tickets",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_CustomerId1",
+                table: "Tickets",
+                column: "CustomerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_ProblemId",
@@ -290,6 +338,9 @@ namespace Project_C.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanyMachines");
+
+            migrationBuilder.DropTable(
+                name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "Problems");

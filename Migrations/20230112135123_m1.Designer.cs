@@ -12,7 +12,7 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230110094007_m1")]
+    [Migration("20230112135123_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,6 +67,40 @@ namespace Project_C.Migrations
                     b.HasIndex("MachineId");
 
                     b.ToTable("CompanyMachines");
+                });
+
+            modelBuilder.Entity("Project_C.Models.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Supervisor")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
@@ -169,16 +203,32 @@ namespace Project_C.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("CustomerId1")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Priority")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("ProblemId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.HasIndex("ProblemId")
                         .IsUnique();
@@ -226,6 +276,19 @@ namespace Project_C.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1d368a7d-d818-4464-8fe6-f2f1d7ce7b6f"),
+                            Email = "Admin@admin.com",
+                            Name = "Admin",
+                            Phone = "12345678",
+                            ResetPassword = false,
+                            Role = 4,
+                            passwordHash = "MdPlL9gDh9ySbf7XnCc0ECNexDsnLVNU75OvHgKho5WTXhL3Tpy4E7bIQuGUueFGhoSezyZNIMSMdYrmMKlZag==",
+                            passwordSalt = "lk4WDLceDAjsyJQWuShk1mWGeFjEblj8zlnxnLS6i/J4zAODZz3nTIqeq0a5DiobvQb80WAOww/uEBm2OwYcphvkCCXDmtQumDMvLY0ZLR4IM8KAJ2sAQi15TElyktIpeTqw35wHP+gS5AsuHWli/RDc99lEBwf6vz9YVq3pH08="
+                        });
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
@@ -271,6 +334,17 @@ namespace Project_C.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Machine");
+                });
+
+            modelBuilder.Entity("Project_C.Models.Customer", b =>
+                {
+                    b.HasOne("Project_C.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Project_C.Models.DepartmentEmployee", b =>
@@ -322,6 +396,12 @@ namespace Project_C.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Project_C.Models.Customer", "Customer")
+                        .WithMany("Tickets")
+                        .HasForeignKey("CustomerId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
                         .WithOne("Ticket")
                         .HasForeignKey("Project_C.Models.Ticket", "Id")
@@ -335,6 +415,8 @@ namespace Project_C.Migrations
                         .IsRequired();
 
                     b.Navigation("CompanyMachine");
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Problem");
 
@@ -380,6 +462,11 @@ namespace Project_C.Migrations
                 {
                     b.Navigation("Ticket")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Project_C.Models.Customer", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
