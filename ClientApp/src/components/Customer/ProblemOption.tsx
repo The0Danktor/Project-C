@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Tag } from "../Shared/Tag";
 import { Problem } from "../../Types/types";
 
-export function ProblemOption({ problem, machineName }: { problem: Problem, machineName: string }) {
+export function ProblemOption({ problem, machineName }: { problem: Problem, machineName: string}) {
 
   return (
     <Disclosure>
