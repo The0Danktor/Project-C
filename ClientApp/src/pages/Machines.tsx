@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Machine } from "../components/Shared/Machine";
 import { NavSide } from "../components/Shared/NavSide";
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { CompanyMachine } from "../Types/types";
+
+interface CustomizedState {
+  value: string
+}
 
 export function Machines() {
   const [loadingData, setLoadingData] = useState<boolean>();
@@ -30,18 +34,20 @@ export function Machines() {
 
   
   // <Machine machineName="Machine 1" tekenNumber="1" type="1" page="/machineproblems/333baae5-703b-490f-a6af-e9eea762e611"/>
+  
+  const problem = useLocation();
+  const statedProblem = problem.state as CustomizedState;
 
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
-      <div>
-        <NavSide />
-      </div>
+      <NavSide />
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col gap-10 w-full h-screen p-10 lg:p-20">
           <div className="flex">
             <input
               type="string"
               placeholder="Search"
+              defaultValue={statedProblem != null ? statedProblem.value : ""}
               className="bg-gray-200 dark:bg-gray-800 dark:text-white text-black caret-black dark:caret-white py-2 rounded-xl grow lg:grow-0 pl-8"
             />
           </div>

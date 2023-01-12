@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { PopUpImage } from "./PopUp";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface information {
   src: any;
@@ -36,22 +37,9 @@ export function ImageGallery(props: information) {
             e.stopPropagation();
             props.del(element);
           }}
-          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 relative"
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 z-0 relative"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <XMarkIcon className="w-6 h-6" stroke="currentColor" />
         </button>
       )}
     </div>

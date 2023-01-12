@@ -80,7 +80,7 @@ export const AdminHistory = () => {
       <NavSide />
       <div className="grow">
         {/* <Header /> */}
-        <div className="container flex flex-col w-full p-4">
+        <div className="container flex flex-col w-full p-2">
           <div className="py-2 align-middle inline-block w-full px-2">
             <div className=" w-full m-2 pb-3 lg:m-3">
               <strong className="text-2xl">Current And Past Problems</strong>
@@ -117,7 +117,7 @@ export const AdminHistory = () => {
                   {history.map((history) => (
                     <tr key={history.id}>
                       <td
-                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:bg-transparent"
+                        className="px-2 py-4 whitespace-nowrap lg:table-cell lg:before:content-none block bg-gray-200 dark:bg-gray-700 lg:!bg-transparent"
                         data-header="ID"
                       >
                         <div className="flex items-center justify-center lg:justify-start">
