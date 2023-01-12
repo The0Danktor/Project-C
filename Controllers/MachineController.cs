@@ -39,7 +39,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost] [Authorize (Roles = "Viscon_employee")]
+        [HttpPost] [Authorize (Roles = "Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<List<GetMachineDto>>> Post(AddMachineDto machine)
         {
             return Ok(await _machineService.AddMachine(machine));

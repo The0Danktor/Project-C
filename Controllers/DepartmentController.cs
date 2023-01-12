@@ -9,7 +9,7 @@ namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize (Roles = "Viscon_employee")]
+    [Authorize (Roles = "Viscon_admin, Viscon_employee")]
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentService _departmentService;

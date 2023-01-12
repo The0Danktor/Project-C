@@ -43,7 +43,7 @@ namespace Project_C.Controllers
             return Ok(response);
         }
         
-        [HttpPost("registerClient")] [Authorize(Roles = "Client_admin")]
+        [HttpPost("registerClient")] [Authorize(Roles = "Viscon_admin, Viscon_employee, Client_admin")]
         public async Task<ActionResult<UserLoginDto>> RegisterClient(ClientUserRegistrationDto request)
         {
             var response = await _authService.RegisterClient(request);
@@ -51,7 +51,7 @@ namespace Project_C.Controllers
             return Ok(response);
         }
 
-        [HttpPost("registerClientAdmin")] [Authorize(Roles = "Viscon_employee")]
+        [HttpPost("registerClientAdmin")] [Authorize(Roles = "Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<UserLoginDto>> RegisterClientAdmin(ClientAdminRegistrationDto request)
         {
             var response = await _authService.RegisterClientAdmin(request);

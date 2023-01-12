@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Combobox, Switch, Tab, Transition, Dialog } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
@@ -23,17 +23,68 @@ const initialUser: User = {
   phone: "",
 };
 
+interface Response {
+  email: string;
+  password: string;
+}
+interface company {
+  id: string;
+  name: string;
+}
+
 export function UserCreation(props: { Role?: string }) {
+  const [query, setQuery] = useState("");
   const [user, setUser] = useState(initialUser);
   const [enabled, setEnabled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [response, setResponse] = useState<any>();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [companys, setCompanys] = useState<company[]>([
+    { id: "1", name: "empty" },
+  ]);
+  const [selectedCompany, setSelectedCompany] = useState(companys[0]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const fetchData = async () => {
+    try {
+      const response = await (
+        await fetch(`http://localhost:7162/api/Company/GetAll`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      ).json();
+      setCompanys(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const filteredCompany =
+    query === ""
+      ? companys
+      : companys.filter((company) => {
+          return company.name.toLowerCase().includes(query.toLowerCase());
+        });
+
+  useEffect(() => {
+    console.log(companys);
+  }, [companys]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    
     event.preventDefault();
     console.log(user);
     console.log(`Is admin ${setEnabled}`);
@@ -41,39 +92,49 @@ export function UserCreation(props: { Role?: string }) {
     console.log(`Role ${props.Role}`);
     if (props.Role === "Client_admin") {
       try {
-        axios.post(
-          "http://localhost:7162/api/Auth/registerClient",
-          {
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+        await setResponse(
+          await axios.post(
+            "http://localhost:7162/api/Auth/registerClient",
+            {
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
             },
-          }
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
         );
+        setEmail(response.data.email);
+        setPassword(response.data.password);
+        setIsOpen(true);
       } catch (error) {
         console.log(error);
       }
     }
     if (props.Role === "Viscon_employee") {
       try {
-        axios.post(
-          "http://localhost:7162/api/Auth/registerClientAdmin",
-          {
-            name: user.name,
-            email: user.email,
-            phone: user.phone,
-            company: user.company,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+        await setResponse(
+          await axios.post(
+            "http://localhost:7162/api/Auth/registerClientAdmin",
+            {
+              name: user.name,
+              email: user.email,
+              phone: user.phone,
+              companyId: selectedCompany.id,
             },
-          }
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          )
         );
+        setEmail(response.data.email);
+        setPassword(response.data.password);
+        setIsOpen(true);
       } catch (error) {
         console.log(error);
       }
@@ -82,66 +143,80 @@ export function UserCreation(props: { Role?: string }) {
       if (selectedIndex === 1) {
         if (enabled) {
           try {
-            axios.post(
-              "http://localhost:7162/api/Auth/registerVisconAdmin",
-              {
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+            await setResponse(
+              await axios.post(
+                "http://localhost:7162/api/Auth/registerVisconAdmin",
+                {
+                  name: user.name,
+                  email: user.email,
+                  phone: user.phone,
                 },
-              }
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              )
             );
+            setEmail(response.data.email);
+            setPassword(response.data.password);
+            setIsOpen(true);
           } catch (error) {
             console.log(error);
           }
         } else {
           try {
-            axios.post(
-              "http://localhost:7162/api/Auth/registerVisconEmployee",
-              {
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+            await setResponse(
+              await axios.post(
+                "http://localhost:7162/api/Auth/registerVisconEmployee",
+                {
+                  name: user.name,
+                  email: user.email,
+                  phone: user.phone,
                 },
-              }
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
+                }
+              )
             );
+            setIsOpen(true);
           } catch (error) {
             console.log(error);
           }
         }
       } else {
         try {
-          axios.post(
-            "http://localhost:7162/api/Auth/registerClientAdmin",
-            {
-              name: user.name,
-              email: user.email,
-              phone: user.phone,
-              company: user.company,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
+          await setResponse(
+            await axios.post(
+              "http://localhost:7162/api/Auth/registerClientAdmin",
+              {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                companyId: selectedCompany.id,
               },
-            }
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            )
           );
+          setEmail(response.data.email);
+          setPassword(response.data.password);
+          setIsOpen(true);
         } catch (error) {
           console.log(error);
         }
       }
     }
-  };
+  }
 
   return (
     <div>
+      <p>{props.Role}</p>
       {props.Role === "Client_admin" && (
         <div>
           <form onSubmit={handleSubmit}>
@@ -216,13 +291,33 @@ export function UserCreation(props: { Role?: string }) {
             />
             <br />
             <label htmlFor="company">Company:</label>
-            <input
-              type="text"
-              id="company"
-              name="company"
-              value={user.company}
-              onChange={handleChange}
-            />
+            <Combobox value={selectedCompany} onChange={setSelectedCompany}>
+              <Combobox.Input
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              <Combobox.Options>
+                {filteredCompany.map((company) => (
+                  <Combobox.Option
+                    key={company.id}
+                    value={company}
+                    as={Fragment}
+                  >
+                    {({ active, selected }) => (
+                      <li
+                        className={`${
+                          active
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-black"
+                        }`}
+                      >
+                        {selected && <CheckIcon />}
+                        {company.name}
+                      </li>
+                    )}
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            </Combobox>
             <br />
             <button type="submit">Create user</button>
           </form>
@@ -242,7 +337,6 @@ export function UserCreation(props: { Role?: string }) {
             <Tab.Panels className="">
               <Tab.Panel>
                 <div>
-      
                   <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -272,13 +366,37 @@ export function UserCreation(props: { Role?: string }) {
                     />
                     <br />
                     <label htmlFor="company">Company:</label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={user.company}
-                      onChange={handleChange}
-                    />
+                    <Combobox
+                      value={selectedCompany}
+                      onChange={setSelectedCompany}
+                    >
+                      <Combobox.Input
+                        onChange={(event) => setQuery(event.target.value)}
+                        displayValue = {(item) => selectedCompany ? selectedCompany.name : "" }
+                      />
+                      <Combobox.Options>
+                        {filteredCompany.map((company) => (
+                          <Combobox.Option
+                            key={company.id}
+                            value={company}
+                            as={Fragment}
+                          >
+                            {({ active, selected }) => (
+                              <li
+                                className={`${
+                                  active
+                                    ? "bg-blue-500 text-white"
+                                    : "bg-white text-black"
+                                }`}
+                              >
+                                {selected && <CheckIcon />}
+                                {company.name}
+                              </li>
+                            )}
+                          </Combobox.Option>
+                        ))}
+                      </Combobox.Options>
+                    </Combobox>
                     <br />
                     <button type="submit">Create user</button>
                   </form>
@@ -286,7 +404,6 @@ export function UserCreation(props: { Role?: string }) {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-      
                   <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Name:</label>
                     <input
@@ -315,7 +432,8 @@ export function UserCreation(props: { Role?: string }) {
                       onChange={handleChange}
                     />
                     <br />
-                    <Switch type="reset"
+                    <Switch
+                      type="reset"
                       checked={enabled}
                       onChange={setEnabled}
                       className={`${
@@ -337,6 +455,22 @@ export function UserCreation(props: { Role?: string }) {
           </Tab.Group>
         </div>
       )}
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="fixed z-50"
+      >
+        <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        <Dialog.Panel className="fixed inset-0 z-[60] overflow-y-auto w-96 h-36 border-2 bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 mx-auto my-auto rounded-2xl p-7 transition duration-300">
+          <Dialog.Title className="text-lg font-bold mb-1">
+            New account has been created
+          </Dialog.Title>
+          <Dialog.Description className="text-sm">
+            <p>Email: {email}</p>
+            <p>Password: {password}</p>
+          </Dialog.Description>
+        </Dialog.Panel>
+      </Dialog>
     </div>
   );
 }

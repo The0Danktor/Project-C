@@ -38,7 +38,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost] [Authorize(Roles="Viscon_employee")]
+        [HttpPost] [Authorize(Roles="Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<List<GetCompanyDto>>> AddCompany(AddCompanyDto company)
         {
             return Ok(await _companyService.AddCompany(company));

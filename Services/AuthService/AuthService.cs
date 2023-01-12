@@ -196,7 +196,7 @@ namespace Project_C.Services
                 Name = request.Name,
                 Email = request.Email,
                 Phone = request.Phone,
-                Role = Role.Client,
+                Role = Role.Client_admin,
                 CompanyId = request.CompanyId,
                 ResetPassword = true
             };
