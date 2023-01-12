@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Project_C.Services;
 
 namespace Project_C.EF
 {
@@ -14,7 +16,7 @@ namespace Project_C.EF
         public DbSet<DepartmentEmployee> DepartmentEmployees { get; set; } = null!;
         public DbSet<Machine> Machines { get; set; } = null!;
         public DbSet<CompanyMachine> CompanyMachines { get; set; } = null!;
-        public DbSet<Problem> Problems { get; set; } = null!;        
+        public DbSet<Problem> Problems { get; set; } = null!;
         public DbSet<Solutions> Solutions { get; set; } = null!;
         public DbSet<Ticket> Tickets { get; set; } = null!;
         public DbSet<WorkingOnTicket> WorkingOnTickets { get; set; } = null!;
@@ -25,7 +27,7 @@ namespace Project_C.EF
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            HashPassword("Admin", out byte[] passwordHash, out byte[] passwordSalt);
             modelBuilder.Entity<User>()
                .HasOne(c => c.Company)
                .WithMany(c => c.Users)
@@ -49,7 +51,7 @@ namespace Project_C.EF
             modelBuilder.Entity<CompanyMachine>()
                 .HasOne(c => c.Ticket)
                 .WithOne(c => c.CompanyMachine)
-                .HasForeignKey<Ticket>(c => c.Tekennummer);
+                .HasForeignKey<Ticket>(c => c.Id);
 
             modelBuilder.Entity<Problem>()
                 .HasOne(c => c.Machine)
@@ -68,12 +70,12 @@ namespace Project_C.EF
 
             modelBuilder.Entity<DepartmentEmployee>()
                 .HasKey(c => new { c.EmployeeId, c.DepartmentId });
-            
+
             modelBuilder.Entity<DepartmentEmployee>()
                 .HasOne(c => c.Department)
                 .WithMany(c => c.DepartmentEmployees)
                 .HasForeignKey(c => c.DepartmentId);
-            
+
             modelBuilder.Entity<DepartmentEmployee>()
                 .HasOne(c => c.User)
                 .WithMany(c => c.DepartmentEmployees)
@@ -81,17 +83,39 @@ namespace Project_C.EF
 
             modelBuilder.Entity<WorkingOnTicket>()
                 .HasKey(c => new { c.EmployeeId, c.TicketId });
-            
+
             modelBuilder.Entity<WorkingOnTicket>()
                 .HasOne(c => c.User)
                 .WithMany(c => c.WorkingOnTickets)
                 .HasForeignKey(c => c.EmployeeId);
-            
+
             modelBuilder.Entity<WorkingOnTicket>()
                 .HasOne(c => c.Ticket)
                 .WithMany(c => c.WorkingOnTickets)
                 .HasForeignKey(c => c.TicketId);
-            
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Admin",
+                    Email = "Admin@admin.com",
+                    Phone = "12345678",
+                    passwordHash = Convert.ToBase64String(passwordHash),
+                    passwordSalt = Convert.ToBase64String(passwordSalt),
+                    Role = Role.Viscon_admin,
+                }
+                );
+
+
+        }
+        public void HashPassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
         }
 
     }

@@ -2,7 +2,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ProblemAddButton } from "./ProblemAddButton";
 import React, { useEffect, useState } from "react";
 import { ProblemOption } from "./ProblemOption";
-import { Problem ,Machine } from "../../Types/types";
+import { Problem, Machine } from "../../Types/types";
 
 
 
@@ -42,7 +42,13 @@ export function ProblemMenu({ Id }: Prop) {
   const fetchMachine = async () => {
     try {
       const response = await (
-        await fetch(`https://localhost:7162/api/Machine/${Id}`)
+        await fetch(`http://localhost:7162/api/Machine/${Id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
       ).json();
       setMachine(response);
     } catch (e) {
@@ -55,7 +61,13 @@ export function ProblemMenu({ Id }: Prop) {
     setLoadingData(true);
     try {
       const response = await (
-        await fetch(`https://localhost:7162/api/Problem/${Id}/Solution`)
+        await fetch(`http://localhost:7162/api/Problem/${Id}/Solution`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
       ).json();
       setProblems(response);
     } catch (e) {
@@ -93,13 +105,13 @@ export function ProblemMenu({ Id }: Prop) {
         <>
           {problems !== undefined && machine !== undefined ? (
             <div>
-            {problems.map((problem: Problem) => (
-              <ProblemOption 
-                key={problem.id}
-                problem={problem}
-                machineName={machine.name}
-              />
-            ))}
+              {problems.map((problem: Problem) => (
+                <ProblemOption
+                  key={problem.id}
+                  problem={problem}
+                  machineName={machine.name}
+                />
+              ))}
             </div>
           ) : (
             <div>Als er errors zijn hier iets neerzetten {" :)"}</div>

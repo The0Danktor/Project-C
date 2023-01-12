@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class ProblemController : ControllerBase
     {
         private readonly IProblemService _problemService;
@@ -50,7 +52,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize (Roles = "Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<List<GetProblemDto>>> AddProblem(AddProblemDto problem)
         {
             return Ok(await _problemService.AddProblem(problem));

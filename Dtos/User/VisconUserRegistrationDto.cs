@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Project_C.Dtos
 {
-    public class GetMachineDto
+    public class VisconUserRegistrationDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
-        public string Tekennummer { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Phone { get; set; } = null!;
     }
 }

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize (Roles = "Viscon_admin, Viscon_employee")]
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentService _departmentService;
@@ -36,7 +38,7 @@ namespace Project_C.Controllers
             return Ok(department);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize(Roles = "Viscon_admin")]
         public async Task<ActionResult<List<GetDepartmentDto>>> AddDepartment(AddDepartmentDto department)
         {
             var newDepartment = await _departmentService.AddDepartment(department);

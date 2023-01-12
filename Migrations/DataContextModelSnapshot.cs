@@ -39,13 +39,14 @@ namespace Project_C.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("Project_C.Models.CompanyMachine", b =>
                 {
-                    b.Property<string>("Tekennummer")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
@@ -57,13 +58,13 @@ namespace Project_C.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Tekennummer");
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("CompanyMachines", (string)null);
+                    b.ToTable("CompanyMachines");
                 });
 
             modelBuilder.Entity("Project_C.Models.Department", b =>
@@ -78,7 +79,7 @@ namespace Project_C.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Project_C.Models.DepartmentEmployee", b =>
@@ -93,7 +94,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentEmployees", (string)null);
+                    b.ToTable("DepartmentEmployees");
                 });
 
             modelBuilder.Entity("Project_C.Models.Machine", b =>
@@ -106,9 +107,13 @@ namespace Project_C.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Tekennummer")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Machines", (string)null);
+                    b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("Project_C.Models.Problem", b =>
@@ -128,7 +133,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("MachineId");
 
-                    b.ToTable("Problems", (string)null);
+                    b.ToTable("Problems");
                 });
 
             modelBuilder.Entity("Project_C.Models.Solutions", b =>
@@ -148,13 +153,15 @@ namespace Project_C.Migrations
 
                     b.HasIndex("ProblemId");
 
-                    b.ToTable("Solutions", (string)null);
+                    b.ToTable("Solutions");
                 });
 
             modelBuilder.Entity("Project_C.Models.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyMachineId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CustomerId")
@@ -167,10 +174,6 @@ namespace Project_C.Migrations
                     b.Property<Guid>("ProblemId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Tekennummer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -178,10 +181,7 @@ namespace Project_C.Migrations
                     b.HasIndex("ProblemId")
                         .IsUnique();
 
-                    b.HasIndex("Tekennummer")
-                        .IsUnique();
-
-                    b.ToTable("Tickets", (string)null);
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("Project_C.Models.User", b =>
@@ -223,7 +223,20 @@ namespace Project_C.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b0b04a00-5f2d-4c37-ad53-8122b290f909"),
+                            Email = "Admin@admin.com",
+                            Name = "Admin",
+                            Phone = "12345678",
+                            ResetPassword = false,
+                            Role = 4,
+                            passwordHash = "OtffCS0hgLnyOuSQIklQq0NljqZCw1Bb9JCXCZPWaf5mHy7olWllg44uVxgBdob0NBpYfrEVYP2mpu6yq4MAYA==",
+                            passwordSalt = "qRQ80ZAzH1HNPIV243FqfLL6jR05dKxgS4Ntd7jkv+jk7Yxu7L31zn7YwmBJ9U5ejH4FrJiD00KINJCw0+605SxT2L4Crnh36qqeYmtYTIPoAPslpKeR3hv6WGf4Pq7/pkcUg/uiDLYj4tBQW8rp5fUTmQ7geO8hezbrESir0Tk="
+                        });
                 });
 
             modelBuilder.Entity("Project_C.Models.WorkingOnTicket", b =>
@@ -238,7 +251,7 @@ namespace Project_C.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("WorkingOnTickets", (string)null);
+                    b.ToTable("WorkingOnTickets");
                 });
 
             modelBuilder.Entity("Project_C.Models.Company", b =>
@@ -320,15 +333,15 @@ namespace Project_C.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project_C.Models.Problem", "Problem")
-                        .WithOne("ticket")
-                        .HasForeignKey("Project_C.Models.Ticket", "ProblemId")
+                    b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
+                        .WithOne("Ticket")
+                        .HasForeignKey("Project_C.Models.Ticket", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
-                        .WithOne("Ticket")
-                        .HasForeignKey("Project_C.Models.Ticket", "Tekennummer")
+                    b.HasOne("Project_C.Models.Problem", "Problem")
+                        .WithOne("ticket")
+                        .HasForeignKey("Project_C.Models.Ticket", "ProblemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
