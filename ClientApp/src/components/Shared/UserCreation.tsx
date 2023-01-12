@@ -218,7 +218,7 @@ export function UserCreation(props: { Role?: string }) {
     <div>
       {props.Role === "Client_admin" && (
         <div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="user-creation-form">
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -227,7 +227,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.name}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -236,7 +235,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.email}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="phone">Phone number:</label>
             <input
               type="phone"
@@ -245,7 +243,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.phone}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="company">Company:</label>
             <input
               type="text"
@@ -254,15 +251,14 @@ export function UserCreation(props: { Role?: string }) {
               value={user.company}
               onChange={handleChange}
             />
-            <br />
             <button type="submit">Create user</button>
           </form>
         </div>
       )}
       {props.Role === "Viscon_employee" && (
         <div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="name">Name:</label>
+          <form onSubmit={handleSubmit} className="user-creation-form">
+            <label htmlFor="name">Naaame:</label>
             <input
               type="text"
               id="name"
@@ -270,7 +266,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.name}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -279,7 +274,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.email}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="phone">Phone number:</label>
             <input
               type="phone"
@@ -288,7 +282,6 @@ export function UserCreation(props: { Role?: string }) {
               value={user.phone}
               onChange={handleChange}
             />
-            <br />
             <label htmlFor="company">Company:</label>
             <Combobox value={selectedCompany} onChange={setSelectedCompany}>
               <Combobox.Input
@@ -329,14 +322,15 @@ export function UserCreation(props: { Role?: string }) {
             selectedIndex={selectedIndex}
             onChange={setSelectedIndex}
           >
-            <Tab.List className="">
+            <Tab.List className="mx-auto">
               <Tab>Customer</Tab>
               <Tab>Viscon</Tab>
             </Tab.List>
             <Tab.Panels className="">
               <Tab.Panel>
                 <div>
-                  <form onSubmit={handleSubmit}>
+      
+                  <form onSubmit={handleSubmit} className="user-creation-form">
                     <label htmlFor="name">Name:</label>
                     <input
                       type="text"
@@ -345,7 +339,6 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.name}
                       onChange={handleChange}
                     />
-                    <br />
                     <label htmlFor="email">Email:</label>
                     <input
                       type="email"
@@ -354,7 +347,6 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.email}
                       onChange={handleChange}
                     />
-                    <br />
                     <label htmlFor="phone">Phone Number:</label>
                     <input
                       type="phone"
@@ -363,7 +355,6 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.phone}
                       onChange={handleChange}
                     />
-                    <br />
                     <label htmlFor="company">Company:</label>
                     <Combobox
                       value={selectedCompany}
@@ -403,7 +394,8 @@ export function UserCreation(props: { Role?: string }) {
               </Tab.Panel>
               <Tab.Panel>
                 <div>
-                  <form onSubmit={handleSubmit}>
+      
+                  <form onSubmit={handleSubmit} className="user-creation-form">
                     <label htmlFor="name">Name:</label>
                     <input
                       type="text"
@@ -412,7 +404,6 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.name}
                       onChange={handleChange}
                     />
-                    <br />
                     <label htmlFor="email">Email:</label>
                     <input
                       type="email"
@@ -421,7 +412,6 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.email}
                       onChange={handleChange}
                     />
-                    <br />
                     <label htmlFor="phone">Phone Number:</label>
                     <input
                       type="phone"
@@ -430,9 +420,8 @@ export function UserCreation(props: { Role?: string }) {
                       value={user.phone}
                       onChange={handleChange}
                     />
-                    <br />
-                    <Switch
-                      type="reset"
+                    <label>Admin:</label>
+                    <Switch type="reset"
                       checked={enabled}
                       onChange={setEnabled}
                       className={`${
@@ -445,7 +434,6 @@ export function UserCreation(props: { Role?: string }) {
                         } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                       />
                     </Switch>
-                    <br />
                     <button type="submit">Create user</button>
                   </form>
                 </div>
