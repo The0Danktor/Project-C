@@ -11,9 +11,9 @@ export function TicketPage() {
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
-      <div className="container">
-        <div className="grow w-full m-2 md:m-3">
-          <strong className="text-2xl">All tickets</strong>
+      <div className="container flex flex-wrap">
+        <div className="w-full m-2 md:m-3">
+          <strong className="text-2xl">All Tickets</strong>
           <Link to="../AddImage">
             <button
               className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
