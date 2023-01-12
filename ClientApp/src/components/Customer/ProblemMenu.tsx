@@ -1,6 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ProblemAddButton } from "./ProblemAddButton";
-import { ProblemList } from "./ProblemList";
 import React, { useEffect, useState } from "react";
 import { ProblemOption } from "./ProblemOption";
 import { Problem ,Machine } from "../../Types/types";
