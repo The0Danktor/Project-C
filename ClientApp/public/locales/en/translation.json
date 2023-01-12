@@ -2,6 +2,7 @@
   "login": {
     "title": "Login",
     "username": "username",
+    "email": "email",
     "password": "password",
     "submit": "Login",
     "success": "Successfully logged in",

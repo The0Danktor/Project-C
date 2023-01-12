@@ -1,10 +1,10 @@
-import { NavSide } from "../components/Shared/NavSide";
 import React, { useEffect, useState } from "react";
-import { User } from "../Types/types";
-import { UserCreation } from "../components/Shared/UserCreation";
-import { Tabs } from "../components/Shared/Tabs";
+import { useNavigate } from "react-router-dom";
+import { User } from "../../Types/types";
+import { PasswordReset } from "./PasswordReset";
 
-export function TestPage() {
+export function UserCheck() {
+  const navigate = useNavigate();
   const [loadingData, setLoadingData] = useState<boolean>();
   const [user, setUser] = useState<User>();
   const [error, setError] = useState<string>();
@@ -25,18 +25,16 @@ export function TestPage() {
     } catch (e) {
       console.log(e);
       setError("Unable to retrieve problems and solutions.");
+      navigate("/login");
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-  
   return (
-    <div className="bg-white dark:bg-gray-900 transition flex duration-300">
-      <NavSide />
-      <UserCreation Role={user?.role} />
-      {/* <Tabs /> */}
-    </div>
+    <>
+      {user?.resetPassword ? ( <PasswordReset /> ): null}
+    </>
   );
 }

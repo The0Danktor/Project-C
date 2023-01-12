@@ -12,14 +12,14 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221128152116_m4.1_nullable")]
-    partial class m41_nullable
+    [Migration("20230110094007_m1")]
+    partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -46,8 +46,9 @@ namespace Project_C.Migrations
 
             modelBuilder.Entity("Project_C.Models.CompanyMachine", b =>
                 {
-                    b.Property<string>("Tekennummer")
-                        .HasColumnType("text");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
@@ -55,7 +56,11 @@ namespace Project_C.Migrations
                     b.Property<Guid>("MachineId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Tekennummer");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
 
@@ -101,6 +106,10 @@ namespace Project_C.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Tekennummer")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -152,7 +161,9 @@ namespace Project_C.Migrations
             modelBuilder.Entity("Project_C.Models.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CompanyMachineId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CustomerId")
@@ -165,18 +176,11 @@ namespace Project_C.Migrations
                     b.Property<Guid>("ProblemId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Tekennummer")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("ProblemId")
-                        .IsUnique();
-
-                    b.HasIndex("Tekennummer")
                         .IsUnique();
 
                     b.ToTable("Tickets");
@@ -199,15 +203,23 @@ namespace Project_C.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("text");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("ResetPassword")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
+
+                    b.Property<string>("passwordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("passwordSalt")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -310,15 +322,15 @@ namespace Project_C.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project_C.Models.Problem", "Problem")
-                        .WithOne("ticket")
-                        .HasForeignKey("Project_C.Models.Ticket", "ProblemId")
+                    b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
+                        .WithOne("Ticket")
+                        .HasForeignKey("Project_C.Models.Ticket", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
-                        .WithOne("Ticket")
-                        .HasForeignKey("Project_C.Models.Ticket", "Tekennummer")
+                    b.HasOne("Project_C.Models.Problem", "Problem")
+                        .WithOne("ticket")
+                        .HasForeignKey("Project_C.Models.Ticket", "ProblemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

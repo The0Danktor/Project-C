@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace Project_C.Dtos
 {
-    public class GetCompanyMachineDto
+    public class ClientAdminRegistrationDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
+        public string Email { get; set; } = null!;
+        public string Phone { get; set; } = null!;
         public Guid CompanyId { get; set; }
-        public Guid MachineId { get; set; }
-        public string Type { get; set; } = null!;
     }
 }

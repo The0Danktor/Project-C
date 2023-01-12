@@ -7,6 +7,16 @@ export type Problem = {
   solutions: string[]
 }
 
+export type User = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  companyId: string;
+  role: string;
+  resetPassword: boolean;
+}
+
 export type Machine = {
   id: string;
   name: string;
@@ -20,6 +30,7 @@ export type CompanyMachine = {
   machineId: string;
   type: string;
 }
+
 
 export type Ticket = {
   id: string;
@@ -65,3 +76,9 @@ export type Customer = {
   supervisor : boolean;
   tickets : Ticket[];
 }
+
+export type LoginProps = {
+  email: string;
+  password: string;
+}
+
