@@ -14,7 +14,10 @@ export function TicketPage(Id: ticketProps) {
   const [tickets, setTickets] = useState<Ticket[]>();
   
   const getTickets = async () => {
-    (await fetch(`https://localhost:7162/api/Ticket/${Id}`))
+    (await fetch(`https://localhost:7162/api/Ticket/${Id}`, {
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    }))
     .json()
     .then(response => { 
       setTickets(response);

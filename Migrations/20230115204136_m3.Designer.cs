@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Project_C.EF;
@@ -11,9 +12,10 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230115204136_m3")]
+    partial class m3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,9 +163,6 @@ namespace Project_C.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CompanyMachineId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uuid");
 
@@ -243,14 +242,14 @@ namespace Project_C.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("360d3cf4-11af-46d3-8639-dd77ed057c0a"),
+                            Id = new Guid("67c7b07b-e49d-4567-8d2a-4a06dabc3235"),
                             Email = "Admin@admin.com",
                             Name = "Admin",
                             Phone = "12345678",
                             ResetPassword = false,
                             Role = 4,
-                            passwordHash = "B4q9ssu9FhZR2AAcmGx6sydn6Po6sBVFqMbne9Wxp1d4AhKjzlKloDYupbNZvT24HT7tq+3tekd7TGS6oqtQvA==",
-                            passwordSalt = "/qBuYUmiqM33DGkyQs3vHn+fpdfbCdq30HwOKWI5rpngEBgE256lM9NbtJfIebHMnRj2Eu856cDja7QfoVilSREZFNqw4k8B2SL+l2yLgzTAwSrzt75gPkSkaDUaeNQ++ykOI2TEX5htcuLjVWSyYakJVjITHyLFC9jdu3oBwY8="
+                            passwordHash = "NPhDuBrCeeEP/zDaYRg2sT2GbhsyMpqDVfEVpkdq8I+EaVoIvW41t53JMUZlJk9m+wshng03s3NW0OCdNq8bYg==",
+                            passwordSalt = "3hrHC/fCkT6RchxeQECKXPlJ05zMxZla8myOss5Q63y7RVuqcFwLYQlfSMllVHs7au/MLSll5XqWcOwk5WzbORzja0PmgCKWZDDvXdpYEDpbFjR9x79mEvwP7Hyk2NhgvdKHUMFXBUH6LfHPbm8E6h8ikS6WJ7kBo/ZERxe1KsY="
                         });
                 });
 

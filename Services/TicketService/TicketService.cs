@@ -21,9 +21,13 @@ namespace Project_C.Services
                 {
                     Id = x.Id,
                     CustomerId = x.CustomerId,
+                    CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note
+                    Note = x.Note,
+                    Date = x.Date,
+                    Status = x.Status,
+                    Priority = x.Priority
                 };
             return await query.ToListAsync();
         }
@@ -36,9 +40,13 @@ namespace Project_C.Services
                 {
                     Id = x.Id,
                     CustomerId = x.CustomerId,
+                    CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note
+                    Note = x.Note,
+                    Date = x.Date,
+                    Status = x.Status,
+                    Priority = x.Priority
                 };
             return await query.FirstOrDefaultAsync();
         }
@@ -49,9 +57,13 @@ namespace Project_C.Services
             {
                 Id = Guid.NewGuid(),
                 CustomerId = ticket.CustomerId,
+                CompanyMachineId = ticket.CompanyMachineId,
                 ProblemId = ticket.ProblemId,
                 Tekennummer = ticket.Tekennummer,
-                Note = ticket.Note
+                Note = ticket.Note,
+                Date = ticket.Date,
+                Status = ticket.Status,
+                Priority = ticket.Priority
             };
             _context.Tickets.Add(newTicket);
             await _context.SaveChangesAsync();
@@ -61,9 +73,13 @@ namespace Project_C.Services
                 {
                     Id = x.Id,
                     CustomerId = x.CustomerId,
+                    CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
-                    Note = x.Note
+                    Note = x.Note,
+                    Date = x.Date,
+                    Status = x.Status,
+                    Priority = x.Priority
                 };
             return await query.ToListAsync();
         }
