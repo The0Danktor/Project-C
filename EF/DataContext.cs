@@ -66,7 +66,7 @@ namespace Project_C.EF
             modelBuilder.Entity<Ticket>()
                 .HasOne(c => c.User)
                 .WithMany(c => c.Tickets)
-                .HasForeignKey(c => c.CustomerId);
+                .HasForeignKey(c => c.UserId);
 
             modelBuilder.Entity<DepartmentEmployee>()
                 .HasKey(c => new { c.EmployeeId, c.DepartmentId });

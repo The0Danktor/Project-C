@@ -20,7 +20,7 @@ namespace Project_C.Services
                 select new GetTicketDto
                 {
                     Id = x.Id,
-                    CustomerId = x.CustomerId,
+                    UserId = x.UserId,
                     CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
@@ -39,7 +39,7 @@ namespace Project_C.Services
                 select new GetTicketDto
                 {
                     Id = x.Id,
-                    CustomerId = x.CustomerId,
+                    UserId = x.UserId,
                     CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
@@ -56,7 +56,7 @@ namespace Project_C.Services
             var newTicket = new Ticket
             {
                 Id = Guid.NewGuid(),
-                CustomerId = ticket.CustomerId,
+                UserId = ticket.UserId,
                 CompanyMachineId = ticket.CompanyMachineId,
                 ProblemId = ticket.ProblemId,
                 Tekennummer = ticket.Tekennummer,
@@ -72,7 +72,7 @@ namespace Project_C.Services
                 select new GetTicketDto
                 {
                     Id = x.Id,
-                    CustomerId = x.CustomerId,
+                    UserId = x.UserId,
                     CompanyMachineId = x.CompanyMachineId,
                     ProblemId = x.ProblemId,
                     Tekennummer = x.Tekennummer,
