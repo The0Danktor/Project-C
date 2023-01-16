@@ -7,7 +7,7 @@ import { useState } from "react";
 import { UserCreation } from "../components/Shared/UserCreation";
 import { User } from "../Types/types";
 
-export const Accounts = () => {
+export const Companys = () => {
   const [loadingData, setLoadingData] = useState<boolean>();
   const [user, setUser] = useState<User>();
   const [error, setError] = useState<string>();
@@ -158,7 +158,7 @@ export const Accounts = () => {
           hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2"
                 onClick={handleClick}
               >
-                Add User
+                Add Companys
               </button>
             </div>
             <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 lg:rounded-lg">
@@ -246,7 +246,7 @@ export const Accounts = () => {
             </div>
           </div>
         </div>
-        {isShown && <UserCreation Role={user?.role} />}
+        {isShown && (<></>)}
       </div>
     </div>
   );

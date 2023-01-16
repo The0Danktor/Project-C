@@ -55,7 +55,6 @@ export function HomePage() {
           <div>
             <strong className="text-2xl font-bold">Admin Panel</strong>
             <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
-
               {/* button links */}
               <ButtonAdmin
                 linkTo="admin/accounts"
@@ -68,7 +67,7 @@ export function HomePage() {
                 bar="bar"
               />
               <ButtonAdmin linkTo="admin/problems" title="History" bar="bar" />
-              <ButtonAdmin linkTo="admin/dev" title="placeholder" bar="bar" />
+              <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="bar" />
             </div>
           </div>
         </div>

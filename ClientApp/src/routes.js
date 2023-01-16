@@ -14,6 +14,7 @@ import { Settings } from "./pages/Settings"
 import { Account } from "./pages/Account"
 import { AddImage } from "./pages/AddImage";
 import { FinalForm } from "./pages/FinalForm";
+import { Companys } from "./pages/Companys";
 
 
 export const routes = [
@@ -27,6 +28,7 @@ export const routes = [
   { path: "/admin/accounts", name: "accounts", component: <Accounts /> },
   { path: "/admin/machines", name: "Machines2", component: <Machines2 /> },
   { path: "/admin/problems", name: "history", component: <AdminHistory /> },
+  { path: "admin/companys", name: "companys", component:  <Companys/> },
   { path: "/machines", name: "machines", component: <Machines /> },
   { path: "/machineproblems/:Problem_Id", name: "machineproblems", component: <MachineProblems /> },
   { path: "/settings", name: "settings", component: <Settings /> },

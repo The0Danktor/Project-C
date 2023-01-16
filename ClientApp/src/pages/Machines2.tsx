@@ -143,7 +143,7 @@ export const Machines2 = () => {
         {/* <Header /> */}
         <div className="container flex flex-col w-full">
           <div className="py-2 align-middle inline-block w-full px-2">
-            <div className="w-full mb-2">
+            <div className="w-full mb-2 flex justify-between">
               <strong className="text-2xl">Machines</strong>
               <button
                 className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
