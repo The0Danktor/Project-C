@@ -97,7 +97,7 @@ namespace Project_C.EF
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.Parse("1d368a7d-d818-4464-8fe6-f2f1d7ce7b6f"),
                     Name = "Admin",
                     Email = "Admin@admin.com",
                     Phone = "12345678",
@@ -105,9 +105,7 @@ namespace Project_C.EF
                     passwordSalt = Convert.ToBase64String(passwordSalt),
                     Role = Role.Viscon_admin,
                 }
-                );
-
-
+            );
         }
         public void HashPassword(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {

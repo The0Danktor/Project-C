@@ -12,8 +12,8 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230116213319_m6")]
-    partial class m6
+    [Migration("20230117193852_TicketConnection")]
+    partial class TicketConnection
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -245,14 +245,14 @@ namespace Project_C.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("82458646-2fed-463d-bf8a-78a101098883"),
+                            Id = new Guid("1d368a7d-d818-4464-8fe6-f2f1d7ce7b6f"),
                             Email = "Admin@admin.com",
                             Name = "Admin",
                             Phone = "12345678",
                             ResetPassword = false,
                             Role = 4,
-                            passwordHash = "LHvWOgXfETizmoiJ2Jxlku/zfs4ptGwAN9gVJW6tuQGXQIQ6O7mMxh5TUZts9BndHGCuafMuaZvvQ2V2YHJfGA==",
-                            passwordSalt = "AvjshWMBhV9ayPaqYapzelJCZUenFy/7vl8HSV53kf10HvAXiizCIZNpjDJ3AoC7hiuZIDtTbPbEl+YrUvTvlp+7qUYx+yAal3Tt5qdDDo1DFZJjSYTFFaNz0Vt0XD832UTPQOLu1Ej5KOIAXwlZdCSzopvtbUSK5A5VjgHieD0="
+                            passwordHash = "BXtG8Y6JRNcuQ3/WKpvRrtP+K5z+KVMoUCuYzmAuCUApozZs/cIZBRN699iZN15HUo1NPu/tYVzRXBhjSzELKQ==",
+                            passwordSalt = "SVrCkvF3Xu4IOvBr/OqccTBDs10Cd/s5yCoDaiDvahf3s7e7nXnFqlF7te6L9a+k9930Dz3KkxiFz36pGeTYs66kJw/ZW4L38kgRi1pdTpAkWX5vhyOorurbQIg0G1Gs4m3MFQGOw7YrPQnohM4CFE0k2934xIQvCzXfpjwFPuk="
                         });
                 });
 
