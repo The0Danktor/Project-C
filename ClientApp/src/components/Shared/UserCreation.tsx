@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Combobox, Switch, Tab, Transition, Dialog } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 
 // combobox toevoegen voor company

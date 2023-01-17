@@ -66,7 +66,7 @@ export function HomePage() {
                 title="Our Machines"
                 bar="bar"
               />
-              <ButtonAdmin linkTo="admin/problems" title="History" bar="bar" />
+              <ButtonAdmin linkTo="admin/Departments" title="Departments" bar="bar" />
               <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="bar" />
             </div>
           </div>
