@@ -90,9 +90,9 @@ export function ProblemMenu({ Id }: Prop) {
       <input
         type="text"
         placeholder="Search"
-        className="w-96 my-6 border-2 rounded-md focus:outline-none dark:bg-gray-900 dark:border-gray-800 px-3 py-2 dark:text-gray-400 dark:placeholder:text-gray-500 transition duration-300"
+        className="w-96 my-6 border-2 rounded-md focus:outline-none dark:bg-gray-900 dark:border-gray-800 px-3 py-2 dark:text-gray-400 dark:placeholder:text-gray-500"
       />
-      <div className="border-x-2 border-t-2 dark:border-gray-800  w-full rounded-md transition duration-300">
+      <div className="border-x-2 border-t-2 dark:border-gray-800  w-full rounded-md">
         <form>
           <div>
             <input type="text" name="id" value={machineId} onChange={x => setMachineId(x.target.value)}/>

@@ -59,7 +59,7 @@ export function AddImage() {
     setImageURLs(filteredList);
   }
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="container">
         <div className="grow w-full m-2 md:m-3">

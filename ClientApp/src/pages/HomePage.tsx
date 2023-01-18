@@ -16,7 +16,7 @@ export function HomePage() {
     });
   };
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="container flex flex-col lg:flex-row gap-2">
         {/* new ticket section */}
@@ -54,7 +54,7 @@ export function HomePage() {
           </div>
           <div>
             <strong className="text-2xl font-bold">Admin Panel</strong>
-            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
+            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400">
               {/* button links */}
               <ButtonAdmin
                 linkTo="admin/accounts"

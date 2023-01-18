@@ -133,7 +133,7 @@ export function Departments() {
   }
 
   return (
-    <div className="flex dark:bg-gray-900 w-full transition duration-300">
+    <div className="flex dark:bg-gray-900 w-full">
       <NavSide />
       <div className="grow">
         <div className="container flex flex-col w-full">
