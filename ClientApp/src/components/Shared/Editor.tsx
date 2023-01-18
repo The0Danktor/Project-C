@@ -523,7 +523,7 @@ function RichTextEditor({
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
           readOnly={readOnly}
-          className={`${readOnly ? "border-transparent" : "border-gray-700"} border-2 rounded-md p-2 selection:bg-sky-500 selection:text-white cursor-text`}
+          className={`${readOnly ? "border-transparent" : "border-gray-200 dark:border-gray-700"} border-2 rounded-md p-2 selection:bg-sky-500 selection:text-white cursor-text`}
           decorate={([node, path]) => {
             const selection = editor.selection ?? { anchor: { path: [0, 0], offset: 0 }, focus: { path: [0, 0], offset: 0 } };
             return (

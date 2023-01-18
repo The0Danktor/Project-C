@@ -160,8 +160,8 @@ export function AddTicket() {
             <li>
               <p className="my-2">Select the source of the problem</p>
               <div className="flex flex-col xl:flex-row gap-2 w-full items-stretch">
-                <div onClick={() => setIsMachine(true)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-800 border-2 cursor-pointer min-w-0 ${isMachine ? "!border-sky-500" : ""}`}>
-                  <div className={`w-8 aspect-square ${isMachine ? "bg-sky-500" : "bg-gray-700"} rounded-full flex justify-center items-center`}>
+                <div onClick={() => setIsMachine(true)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-200 dark:border-gray-800 border-2 cursor-pointer min-w-0 ${isMachine ? "!border-sky-500" : ""}`}>
+                  <div className={`w-8 aspect-square ${isMachine ? "bg-sky-500" : "bg-gray-200 dark:bg-gray-700"} rounded-full flex justify-center items-center`}>
                     {isMachine && <CheckIcon className="w-6 text-gray-300" style={{ strokeWidth: 3 }} />}
                   </div>
                   <div className="flex flex-col w-full">
@@ -172,11 +172,11 @@ export function AddTicket() {
                         <Combobox.Button className="absolute !px-0 !bg-transparent -ml-6" onClick={(_: MouseEvent<HTMLButtonElement>) => setMachineQuery("")}>
                           <ChevronUpDownIcon className="w-6" />
                         </Combobox.Button>
-                        <Combobox.Options className="absolute w-full mt-1 bg-gray-800 p-1 rounded-md shadow-md z-10">
+                        <Combobox.Options className="absolute w-full mt-1 bg-gray-200 dark:bg-gray-800 p-1 rounded-md shadow-md z-10">
                           {filteredMachines.map(machine => (
                             <Combobox.Option key={machine.id} value={machine}>
                               {({ active }) => (
-                                <div className={`${active ? "bg-gray-700" : ""} p-2 rounded-md`}>
+                                <div className={`${active ? "bg-gray-300 dark:bg-gray-700" : ""} p-2 rounded-md`}>
                                   {machine.name} ({machine.tekennummer})
                                 </div>
                               )}
@@ -187,8 +187,8 @@ export function AddTicket() {
                     </Combobox>
                   </div>
                 </div>
-                <div onClick={() => setIsMachine(false)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-800 border-2 cursor-pointer min-w-0 ${!isMachine ? "!border-sky-500" : ""}`}>
-                  <div className={`w-8 aspect-square ${!isMachine ? "bg-sky-500" : "bg-gray-700"} rounded-full flex justify-center items-center`}>
+                <div onClick={() => setIsMachine(false)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-200 dark:border-gray-800 border-2 cursor-pointer min-w-0 ${!isMachine ? "!border-sky-500" : ""}`}>
+                  <div className={`w-8 aspect-square ${!isMachine ? "bg-sky-500" : "bg-gray-200 dark:bg-gray-700"} rounded-full flex justify-center items-center`}>
                     {!isMachine && <CheckIcon className="w-6 text-gray-300" style={{ strokeWidth: 3 }} />}
                   </div>
                   <div>
@@ -201,8 +201,8 @@ export function AddTicket() {
             <li>
               <p className="my-2">Describe the problem you're experiencing</p>
               <div className="flex flex-col xl:flex-row gap-2 w-full items-stretch">
-                <div onClick={() => setIsExistingProblem(true)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-800 border-2 cursor-pointer min-w-0 ${problemSource ? "!border-sky-500" : ""}`}>
-                  <div className={`w-8 aspect-square ${problemSource ? "bg-sky-500" : "bg-gray-700"} rounded-full flex justify-center items-center`}>
+                <div onClick={() => setIsExistingProblem(true)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-200 dark:border-gray-800 border-2 cursor-pointer min-w-0 ${problemSource ? "!border-sky-500" : ""}`}>
+                  <div className={`w-8 aspect-square ${problemSource ? "bg-sky-500" : "bg-gray-200 dark:bg-gray-700"} rounded-full flex justify-center items-center`}>
                     {problemSource && <CheckIcon className="w-6 text-gray-300" style={{ strokeWidth: 3 }} />}
                   </div>
                   <div className="flex flex-col w-full h-full">
@@ -214,11 +214,11 @@ export function AddTicket() {
                           <Combobox.Button className="absolute !px-0 !bg-transparent -ml-6" onClick={(_: MouseEvent<HTMLButtonElement>) => setProblemQuery("")}>
                             <ChevronUpDownIcon className="w-6" />
                           </Combobox.Button>
-                          <Combobox.Options className="absolute w-full mt-1 bg-gray-800 p-1 rounded-md shadow-md z-10">
+                          <Combobox.Options className="absolute w-full mt-1 bg-gray-200 dark:bg-gray-800 p-1 rounded-md shadow-md z-10">
                             {filteredProblems.map(problem => (
                               <Combobox.Option key={problem.id} value={problem}>
                                 {({ active }) => (
-                                  <div className={`${active ? "bg-gray-700" : ""} p-2 rounded-md`}>
+                                  <div className={`${active ? "bg-gray-300 dark:bg-gray-700" : ""} p-2 rounded-md`}>
                                     {problem.description}
                                   </div>
                                 )}
@@ -232,8 +232,8 @@ export function AddTicket() {
                     }
                   </div>
                 </div>
-                <div onClick={() => setIsExistingProblem(false)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-800 border-2 cursor-pointer min-w-0 ${!problemSource ? "!border-sky-500" : ""}`}>
-                  <div className={`w-8 aspect-square ${!problemSource ? "bg-sky-500" : "bg-gray-700"} rounded-full flex justify-center items-center`}>
+                <div onClick={() => setIsExistingProblem(false)} className={`rounded-md p-4 flex-1 flex items-center gap-4 border-gray-200 dark:border-gray-800 border-2 cursor-pointer min-w-0 ${!problemSource ? "!border-sky-500" : ""}`}>
+                  <div className={`w-8 aspect-square ${!problemSource ? "bg-sky-500" : "bg-gray-200 dark:bg-gray-700"} rounded-full flex justify-center items-center`}>
                     {!problemSource && <CheckIcon className="w-6 text-gray-300" style={{ strokeWidth: 3 }} />}
                   </div>
                   <div className="h-full w-full min-w-0">
@@ -253,7 +253,7 @@ export function AddTicket() {
                 leaveTo="scale-y-0 -translate-y-1/2 opacity-0"
                 className="flex gap-2"
               >
-                <div className="bg-gray-800 rounded-md mt-4 p-4 px-8 w-full">
+                <div className="bg-gray-200 dark:bg-gray-800 rounded-md mt-4 p-4 px-8 w-full">
                   <strong>Solutions</strong>
                   <p>Try these before continuing</p>
                   <ul className="checkboxes mt-2">
