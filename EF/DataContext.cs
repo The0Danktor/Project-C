@@ -66,6 +66,8 @@ namespace Project_C.EF
                 t.HasOne(c => c.User)
                  .WithMany(c => c.Tickets)
                  .HasForeignKey(c => c.UserId);
+
+                t.HasIndex(c => c.ProblemId).IsUnique(false);
             });
 
             modelBuilder.Entity<DepartmentEmployee>()
