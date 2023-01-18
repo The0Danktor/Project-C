@@ -5,11 +5,8 @@ using System.Threading.Tasks;
 
 namespace Project_C.Dtos
 {
-    public class GetCompanyDto
+    public class AddCompanyVisconDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
-        public Guid DepartmentId { get; set; }
-        
     }
 }

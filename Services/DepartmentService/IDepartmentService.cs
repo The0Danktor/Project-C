@@ -11,6 +11,7 @@ namespace Project_C.Services
         Task<List<GetDepartmentDto>> GetAllDepartments();
         Task<GetDepartmentDto?> GetDepartmentById(Guid id);
         Task<List<GetDepartmentDto>> AddDepartment(AddDepartmentDto department);
+        Task<GetLinkDto?> LinkDepartment(AddLinkDto link);
         
     }
 }

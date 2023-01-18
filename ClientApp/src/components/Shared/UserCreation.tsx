@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Combobox, Switch, Tab, Transition, Dialog } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { CheckIcon } from "@heroicons/react/20/solid";
 import axios from "axios";
 
 // combobox toevoegen voor company
@@ -42,7 +42,7 @@ export function UserCreation(props: { Role?: string }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [companys, setCompanys] = useState<company[]>([
-    { id: "1", name: "empty" },
+    { id: "1", name: "" },
   ]);
   const [selectedCompany, setSelectedCompany] = useState(companys[0]);
 
@@ -86,10 +86,6 @@ export function UserCreation(props: { Role?: string }) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     
     event.preventDefault();
-    console.log(user);
-    console.log(`Is admin ${setEnabled}`);
-    console.log(`Selected index ${selectedIndex}`);
-    console.log(`Role ${props.Role}`);
     if (props.Role === "Client_admin") {
       try {
         await setResponse(
@@ -181,6 +177,8 @@ export function UserCreation(props: { Role?: string }) {
                 }
               )
             );
+            setEmail(response.data.email);
+          setPassword(response.data.password);
             setIsOpen(true);
           } catch (error) {
             console.log(error);
@@ -302,7 +300,7 @@ export function UserCreation(props: { Role?: string }) {
                             : "bg-white text-black"
                         }`}
                       >
-                        {selected && <CheckIcon />}
+                        {selected && <CheckIcon className="h-6"/>}
                         {company.name}
                       </li>
                     )}
@@ -379,7 +377,7 @@ export function UserCreation(props: { Role?: string }) {
                                     : "bg-white text-black"
                                 }`}
                               >
-                                {selected && <CheckIcon />}
+                                {selected && <CheckIcon className="h-6" />}
                                 {company.name}
                               </li>
                             )}
