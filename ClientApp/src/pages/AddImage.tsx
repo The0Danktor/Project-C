@@ -102,10 +102,6 @@ export function AddImage() {
           </div>
         </form>
 
-        <button className="border-2 p-3" onClick={sendEmail}>
-          Send email
-        </button>
-
         {/* displays the images */}
         <div className="flex flex-wrap ">
           <ImageGallery
