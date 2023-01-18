@@ -12,12 +12,33 @@ namespace Project_C.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
+        private Customer customer;
+        private Ticket ticket;
+        private User user;
         [HttpPost]
         public IActionResult SendEmail()
         {
-            var user = new Customer();
-            var ticket = new Ticket();
+            // dummy data
+            customer = new Customer();
+            customer.Name = "Sisi";
+            customer.Email = "julius.carroll@ethereal.email";
+            customer.Phone = "0612345678";
+            customer.Company = new Company();
+            customer.Company.Name = "Group";
+            ticket = new Ticket();
+            ticket.Date = DateTime.Today;
             var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
+            ticket.Status = "New";
+            ticket.Priority = "High";
+            ticket.Problem = new Problem();
+            ticket.Problem.Machine = new Machine();
+            ticket.Problem.Machine.Name = "Machine 3";
+            ticket.Problem.Description = "Gewoon laa";
+            user = new User();
+            user.Name = "Viscon medewerker";
+
+
+
 
             var email = new MimeMessage();
             var builder = new BodyBuilder();
@@ -28,47 +49,57 @@ namespace Project_C.Controllers
             var password = "rmxnpgsdrgggnmky";
 
             email.From.Add(new MailboxAddress("Viscon", emailAddress));
-            email.To.Add(new MailboxAddress(user.Name, user.Email));
-            email.Subject = $"{user.Name} has made a new ticket!";
-            var multipart = new Multipart("mixed");
+            email.To.Add(new MailboxAddress(customer.Name, customer.Email));
+            email.Subject = $"{customer.Name} has made a new ticket!";
 
-            var image = @"ClientApp/src/assets/viscon.png";
-            using (StreamReader SourceReader = System.IO.File.OpenText("Files/MailTemplate.html"))
+            // email with image
+            var images = new string[] {
+                "ClientApp/src/assets/viscon.png",
+                "ClientApp/src/assets/viscon.png",
+                "ClientApp/src/assets/viscon.png",
+                "ClientApp/src/assets/viscon.png",
+                "ClientApp/src/assets/viscon.png",
+                "ClientApp/src/assets/viscon.png"
+            };
+            MimeEntity image;
+            string imageList = "";
+            for (int i = 0; i < images.Length; i++)
             {
-                // multipart.Add(new TextPart(TextFormat.Html) { Text = SourceReader.ReadToEnd() });
-                multipart.Add(new TextPart(TextFormat.Html)
-                {
-                    Text = @"
+                image = builder.LinkedResources.Add(images[i]);
+                image.ContentId = MimeUtils.GenerateMessageId();
+                imageList += $"<img src='cid:{image.ContentId}' alt='' style='height:8rem;width:8rem;margin:0.5rem'>";
+            }
+
+
+            // Set the html version of the message text
+            builder.HtmlBody = string.Format(@"
                 <div class='EmailBody'>
                     <div style='padding: 0.75rem'>
-                        <h1>Hello " + emailAddress + @"!</h1>
-                            <p>You have received a new ticket!</p>
-                            <span>This problem was reported at: " + date + @"</span>
-                            <p>Status: " + ticket.Status + @"</p>
-                            <p>Priority: " + ticket.Priority + @"</p>
-                            <br>
-                            <h2>User Information</h2>
-                            <p>User: " + user.Name + @"</p>
-                            <p>Email: " + user.Email + @"</p>
-                            <p>Phone number: " + user.Phone + @"</p>
-                            <p>Group: " + user.Supervisor + @"</p>
-                            <br>
-                            <h2>Problem</h2>
-                            <p>Problem Type: " + ticket.Problem.Machine.Name + @"</p>
-                            <p>Problem Description</p>
-                            <p>" + ticket.Problem.Description + @"</p>
-                            <div style='border-width: 2px;background-repeat: no-repeat;margin: 0.5rem;height: 8rem;width: 8rem;
-                            border-radius: 1.5rem;overflow: hidden;background-position: center;'>
-                                <img src='" + image + @"' alt=''>
-                            </div>
-                            <hr>
-                            <p><i><center>This is an automatically generated email. Replies to this email address are not monitored</center></i></p>
-                        </div>
+                        <h1>Hello " + user.Name + @"!</h1>
+                        <p>You have received a new ticket!</p>
+                        <span>This problem was reported at: " + date + @"</span>
+                        <p>Status: " + ticket.Status + @"</p>
+                        <p>Priority: " + ticket.Priority + @"</p>
+                        <br>
+                        <h2>User Information</h2>
+                        <p>User: " + customer.Name + @"</p>
+                        <p>Email: " + customer.Email + @"</p>
+                        <p>Phone number: " + customer.Phone + @"</p>
+                        <p>Group: " + customer.Company.Name + @"</p>
+                        <br>
+                        <h2>Problem</h2>
+                        <p>Problem Type: " + ticket.Problem.Machine.Name + @"</p>
+                        <p>Problem Description: " + ticket.Problem.Description + @"</p>
+                        <div>"
+                            + imageList +
+                        @"</div>
+                        <hr>
+                        <p><i><center>This is an automatically generated email. Replies to this email address are not monitored</center></i></p>
                     </div>
-                </div>"
-                });
-            }
-            email.Body = multipart;
+                </div>");
+
+            email.Body = builder.ToMessageBody();
+
             // sends email
             using var smtp = new SmtpClient();
             smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
