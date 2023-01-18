@@ -138,7 +138,7 @@ export function CompanyCreation(props: { Role?: string }) {
           </>
         )}
         <br />
-        <button type="submit">Create user</button>
+        <button type="submit">Create Company</button>
       </form>
     </div>
   );

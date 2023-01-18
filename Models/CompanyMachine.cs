@@ -13,6 +13,6 @@ namespace Project_C.Models
         public Company Company { get; set; } = null!;
         public Guid MachineId { get; set; }
         public Machine Machine { get; set; } = null!;
-        public Ticket Ticket { get; set; } = null!;
+        public List<Ticket> Ticket { get; set; } = null!;
     }
 }

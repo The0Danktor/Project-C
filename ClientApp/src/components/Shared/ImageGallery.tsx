@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { PopUpImage } from "./PopUp";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { createPortal } from "react-dom";
 
 interface information {
-  src: any;
+  src: string[];
   del?: any;
   visible?: boolean;
   video?: string[];
@@ -18,7 +19,7 @@ export function ImageGallery(props: information) {
     <div
       key={"image-" + i}
       className={
-        (props.visible ? (active ? "hidden" : "block") : null) +
+        // (props.visible ? (active ? "hidden" : "block") : null) +
         (element.includes("video_preview")
           ? " bg-[length:75px]"
           : " bg-cover") +
@@ -27,17 +28,15 @@ export function ImageGallery(props: information) {
       style={{ backgroundImage: "url(" + element + ")" }} // displays image in the box
       onClick={() => Popup(element)}
     >
-      <img
-        className="opacity-0 absolute h-32 w-32 rounded-3xl"
-      />
+      <img className="opacity-0 absolute h-32 w-32 rounded-3xl" alt={"uploaded image " + i} />
       {/* displays delete button */}
-      {props.del != undefined && (
+      {props.del !== undefined && (
         <button
           onClick={e => {
             e.stopPropagation();
             props.del(element);
           }}
-          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-600 z-0 relative"
+          className="float-right p-2 rounded-bl-2xl bg-gray-200 dark:bg-gray-800 z-0 relative"
         >
           <XMarkIcon className="w-6 h-6" stroke="currentColor" />
         </button>
@@ -46,21 +45,23 @@ export function ImageGallery(props: information) {
   ));
 
   function Popup(e: any) {
-    console.log("Popup");
     setActive(!active); // displays popup if button is clicked
     setImage(e);
   }
+
+  console.log(allImages);
+
   return (
-    <div className="flex flex-row flex-wrap justify-center md:justify-start">
+    <>
       {allImages}
-      {active && (
+      {active && createPortal(
         <PopUpImage
           image={image}
           video={props.video}
           close={Popup}
           height={props.visible}
         />
-      )}
-    </div>
+      , document.body)}
+    </>
   );
 }

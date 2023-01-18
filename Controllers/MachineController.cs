@@ -14,16 +14,31 @@ namespace Project_C.Controllers
     public class MachineController : ControllerBase
     {
         private readonly IMachineService _machineService;
+        private readonly IAuthService _authService;
 
-        public MachineController(IMachineService machineService)
+        public MachineController(IMachineService machineService, IAuthService authService)
         {
             _machineService = machineService;
+            _authService = authService;
         }
 
         [HttpGet("GetAll")]
         public async Task<ActionResult<List<GetMachineDto>>> Get()
         {
            return Ok(await _machineService.GetAllMachines());
+        }
+
+        [HttpGet("Current/{id}")]
+        public async Task<ActionResult<List<GetMachineDto>>> GetFromCurrentCompany(string id)
+        {
+            var user = await _authService.Get(Guid.Parse(id));
+
+            if (user == null)
+                return BadRequest();
+
+            if (user.CompanyId.HasValue)
+                return Ok(await _machineService.GetByCompanyId(user.CompanyId.Value));
+            return Ok(await _machineService.GetAllMachines());
         }
 
         [HttpGet("{id}")]

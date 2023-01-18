@@ -52,6 +52,19 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
+        [HttpGet("Machine/{id}")]
+        public async Task<ActionResult<List<GetProblemDto>>> GetProblemsByMachineId(Guid id)
+        {
+            var result = await _problemService.GetProblemsByMachineId(id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost] [Authorize (Roles = "Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<List<GetProblemDto>>> AddProblem(AddProblemDto problem)
         {

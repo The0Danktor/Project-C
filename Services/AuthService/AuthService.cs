@@ -52,20 +52,14 @@ namespace Project_C.Services
         public async Task<GetUserDto?> GetCurrentUser()
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
-            if (userId == null) return null;
+            if (userId == null)
+                return null;
+            
             var user = await _context.users.FindAsync(Guid.Parse(userId));
-            if (user == null) return null;
-            GetUserDto getUserDto = new GetUserDto
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Phone = user.Phone,
-                Role = user.Role,
-                CompanyId = user.CompanyId,
-                ResetPassword = user.ResetPassword
-            };
-            return getUserDto;
+            if (user == null)
+                return null;
+            
+            return new GetUserDto(user);
         }
 
         public async Task<string?> Login(UserLoginDto request)
@@ -75,7 +69,12 @@ namespace Project_C.Services
             if (!VerifyPasswordHash(request.Password, user.passwordHash, user.passwordSalt)) return null;
             string token = CreateToken(user);
             return token;
+        }
 
+        public async Task<User?> Get(Guid id)
+        {
+            var user = await _context.users.FindAsync(id);
+            return user;
         }
 
         public string CreateToken(User user)
@@ -105,9 +104,6 @@ namespace Project_C.Services
 
         public async Task<UserLoginDto?> Register(UserRegistrationDto request)
         {
-
-           
-            
             User user = new User
             {
                 Id = Guid.NewGuid(),

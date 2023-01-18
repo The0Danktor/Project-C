@@ -49,6 +49,21 @@ namespace Project_C.Services
             return await query.ToListAsync();
         }
 
+        public async Task<List<GetMachineDto>> GetByCompanyId(Guid id)
+        {
+            var machines = from m in _context.Machines
+                            join c in _context.CompanyMachines on m.Id equals c.MachineId
+                            where c.CompanyId == id
+                            select new GetMachineDto
+                            {
+                                Id = m.Id,
+                                Name = m.Name,
+                                Tekennummer = m.Tekennummer
+                            };
+
+            return await machines.ToListAsync();
+        }
+
         public async Task<GetMachineDto?> GetMachineById(Guid id)
         {
             var machine = from m in _context.Machines

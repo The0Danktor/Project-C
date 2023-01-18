@@ -26,31 +26,30 @@ export type Machine = {
 export type CompanyMachine = {
   id: string;
   name: string;
-  tekennummer: string;
   companyId: string;
   machineId: string;
   type: string;
 }
 
+export type Company = {
+  id: string;
+  name: string;
+  departmentId: string;
+}
 
 export type Ticket = {
   id: string;
-  customerid : string;
-  customer: Customer;
-  user : User;
-  availableusers : User[];
-  tekennummer : string;
-  companymachine : CompanyMachine;
-  problemid : string;
-  problem : Problem;
-  note : string;
-  workingontickets : string[];
-  date : Date;
-  status : string;
-  priority : string;
+  userId: string;
+  companyMachineId: string;
+  tekennummer: string;
+  problemId: string;
+  problemDescription: string;
+  images: string[];
+  note: string;
+  date: string;
+  status: string;
+  priority: string;
 }
-
-
 
 export type Customer = {
   id : string;
