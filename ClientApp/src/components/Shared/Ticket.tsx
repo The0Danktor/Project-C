@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { PopUp } from "./PopUp";
 import { useState } from "react";
 import "../../index.css";
 import { Priority } from "./Priority";
-import { Ticket } from "../../Types/types";
+import { CompanyMachine, Ticket, User } from "../../Types/types";
 
 export const status = ["Pending", "In Progress", "Resolved"];
 export const priority = ["High", "Middle", "Low"];
@@ -14,6 +14,36 @@ interface IInformation {
 
 export function TicketLayout({ onHomePage, ticket }: IInformation) {
   const [active, setActive] = useState(false);
+  const [companyMachine, setCompanyMachine] = useState<
+    CompanyMachine | undefined
+  >(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
+  
+  useEffect(() => {
+  fetch("http://localhost:7162/api/User/" + ticket.userId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      setUser(res);
+    });
+  fetch("http://localhost:7162/api/CompanyMachine/" + ticket.companyMachineId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      setCompanyMachine(res);
+    });
+  });
+  
 
   var color;
   // gives color based on the curent status
@@ -21,7 +51,6 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
   else if (ticket.status === "In Progress")
     color = "bg-yellow-300 text-yellow-800";
   else color = "bg-green-500 text-green-800";
-
 
   function handlePopup() {
     setActive(!active); // displays popup if button is clicked
@@ -56,12 +85,12 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
             : date.getMonth().toString().padStart(2, "0")}
           /{date.getFullYear().toString()}
         </span>
-        {/* <strong className="inline-block">{ticket.companyMachine.name}</strong> */}
+        <strong className="inline-block">{companyMachine?.name}</strong>
         {/* priority */}
         <Priority prio={ticket.priority} />
 
-        <p>user name</p>
-        <p>problem id</p>
+        <p>{user?.name}</p>
+        <p>{ticket.companyMachineId}</p>
         <button
           className={
             color +
@@ -72,12 +101,7 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
         </button>
       </button>
       {/* displays pop up message */}
-      {active && (
-        <PopUp
-          close={handlePopup}
-          ticket={ticket}
-        />
-      )}
+      {active && <PopUp close={handlePopup} ticket={ticket} />}
     </div>
   );
 }

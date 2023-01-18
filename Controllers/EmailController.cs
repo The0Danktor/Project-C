@@ -12,29 +12,15 @@ namespace Project_C.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private Customer customer;
-        private Ticket ticket;
-        private User user;
+        private Customer customer = null!;
+        private Ticket ticket = null!;
+        private User user = null!;
         [HttpPost]
-        public IActionResult SendEmail()
+        public IActionResult SendEmail(Customer _customer, Ticket _ticket, User _user)
         {
-            // dummy data
-            customer = new Customer();
-            customer.Name = "Sisi";
-            customer.Email = "julius.carroll@ethereal.email";
-            customer.Phone = "0612345678";
-            customer.Company = new Company();
-            customer.Company.Name = "Group";
-            ticket = new Ticket();
-            ticket.Date = DateTime.Today;
-            ticket.Status = "New";
-            ticket.Priority = "High";
-            ticket.Problem = new Problem();
-            ticket.Problem.Machine = new Machine();
-            ticket.Problem.Machine.Name = "Machine 3";
-            ticket.Problem.Description = "Gewoon laa";
-            user = new User();
-            user.Name = "Viscon medewerker";
+            customer = _customer;
+            ticket = _ticket;
+            user = _user;
 
             // display date pretty; do not delete
             var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
@@ -49,7 +35,7 @@ namespace Project_C.Controllers
             var password = "rmxnpgsdrgggnmky";
 
             email.From.Add(new MailboxAddress("Viscon", emailAddress));
-            email.To.Add(new MailboxAddress(customer.Name, customer.Email));
+            email.To.Add(new MailboxAddress(customer.Name, "sisi_pag@hotmail.nl"));
             email.Subject = $"{customer.Name} has made a new ticket!";
 
             // email with image
