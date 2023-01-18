@@ -10,6 +10,7 @@ namespace Project_C.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
+
     public class MachineController : ControllerBase
     {
         private readonly IMachineService _machineService;
@@ -38,7 +39,7 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize (Roles = "Viscon_admin, Viscon_employee")]
         public async Task<ActionResult<List<GetMachineDto>>> Post(AddMachineDto machine)
         {
             return Ok(await _machineService.AddMachine(machine));

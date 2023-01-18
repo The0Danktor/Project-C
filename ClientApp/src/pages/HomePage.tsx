@@ -59,7 +59,7 @@ export function HomePage(props: { Role?: string }) {
     fetchData();
   }, []);
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="container flex flex-col lg:flex-row gap-2">
         {/* new ticket section */}
@@ -102,7 +102,7 @@ export function HomePage(props: { Role?: string }) {
           </div>
           <div>
             <strong className="text-2xl font-bold">Admin Panel</strong>
-            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
+            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400">
               {/* button links */}
               <ButtonAdmin
                 linkTo="admin/accounts"
@@ -114,8 +114,8 @@ export function HomePage(props: { Role?: string }) {
                 title="Our Machines"
                 bar="bar"
               />
-              <ButtonAdmin linkTo="admin/problems" title="History" bar="bar" />
-              <ButtonAdmin linkTo="admin/dev" title="placeholder" bar="bar" />
+              <ButtonAdmin linkTo="admin/Departments" title="Departments" bar="bar" />
+              <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="bar" />
             </div>
           </div>
         </div>

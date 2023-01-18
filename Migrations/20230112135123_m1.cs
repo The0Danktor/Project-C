@@ -26,26 +26,12 @@ namespace Project_C.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Tekennummer = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Machines", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VisconEmployees",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VisconEmployees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,40 +73,17 @@ namespace Project_C.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DepartmentEmployees",
-                columns: table => new
-                {
-                    EmployeeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DepartmentEmployees", x => new { x.EmployeeId, x.DepartmentId });
-                    table.ForeignKey(
-                        name: "FK_DepartmentEmployees_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DepartmentEmployees_VisconEmployees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "VisconEmployees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CompanyMachines",
                 columns: table => new
                 {
-                    Tekennummer = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
                     MachineId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CompanyMachines", x => x.Tekennummer);
+                    table.PrimaryKey("PK_CompanyMachines", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CompanyMachines_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -136,7 +99,7 @@ namespace Project_C.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
+                name: "Customer",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -149,13 +112,37 @@ namespace Project_C.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customers", x => x.Id);
+                    table.PrimaryKey("PK_Customer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customers_Companies_CompanyId",
+                        name: "FK_Customer_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "users",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    passwordHash = table.Column<string>(type: "text", nullable: false),
+                    passwordSalt = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Role = table.Column<int>(type: "integer", nullable: false),
+                    ResetPassword = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_users_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -178,34 +165,68 @@ namespace Project_C.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DepartmentEmployees",
+                columns: table => new
+                {
+                    EmployeeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DepartmentEmployees", x => new { x.EmployeeId, x.DepartmentId });
+                    table.ForeignKey(
+                        name: "FK_DepartmentEmployees_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DepartmentEmployees_users_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tickets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Tekennummer = table.Column<string>(type: "text", nullable: false),
+                    CustomerId1 = table.Column<Guid>(type: "uuid", nullable: false),
+                    CompanyMachineId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProblemId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Note = table.Column<string>(type: "text", nullable: false)
+                    Note = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    Priority = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_CompanyMachines_Tekennummer",
-                        column: x => x.Tekennummer,
+                        name: "FK_Tickets_CompanyMachines_Id",
+                        column: x => x.Id,
                         principalTable: "CompanyMachines",
-                        principalColumn: "Tekennummer",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
+                        name: "FK_Tickets_Customer_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customer",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Problems_ProblemId",
                         column: x => x.ProblemId,
                         principalTable: "Problems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tickets_users_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -227,12 +248,17 @@ namespace Project_C.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WorkingOnTickets_VisconEmployees_EmployeeId",
+                        name: "FK_WorkingOnTickets_users_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "VisconEmployees",
+                        principalTable: "users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "users",
+                columns: new[] { "Id", "CompanyId", "Email", "Name", "Phone", "ResetPassword", "Role", "passwordHash", "passwordSalt" },
+                values: new object[] { new Guid("1d368a7d-d818-4464-8fe6-f2f1d7ce7b6f"), null, "Admin@admin.com", "Admin", "12345678", false, 4, "MdPlL9gDh9ySbf7XnCc0ECNexDsnLVNU75OvHgKho5WTXhL3Tpy4E7bIQuGUueFGhoSezyZNIMSMdYrmMKlZag==", "lk4WDLceDAjsyJQWuShk1mWGeFjEblj8zlnxnLS6i/J4zAODZz3nTIqeq0a5DiobvQb80WAOww/uEBm2OwYcphvkCCXDmtQumDMvLY0ZLR4IM8KAJ2sAQi15TElyktIpeTqw35wHP+gS5AsuHWli/RDc99lEBwf6vz9YVq3pH08=" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_DepartmentId",
@@ -250,8 +276,8 @@ namespace Project_C.Migrations
                 column: "MachineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_CompanyId",
-                table: "Customers",
+                name: "IX_Customer_CompanyId",
+                table: "Customer",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
@@ -275,16 +301,20 @@ namespace Project_C.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tickets_CustomerId1",
+                table: "Tickets",
+                column: "CustomerId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_ProblemId",
                 table: "Tickets",
                 column: "ProblemId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_Tekennummer",
-                table: "Tickets",
-                column: "Tekennummer",
-                unique: true);
+                name: "IX_users_CompanyId",
+                table: "users",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkingOnTickets_TicketId",
@@ -307,22 +337,22 @@ namespace Project_C.Migrations
                 name: "Tickets");
 
             migrationBuilder.DropTable(
-                name: "VisconEmployees");
-
-            migrationBuilder.DropTable(
                 name: "CompanyMachines");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "Problems");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "Machines");
+
+            migrationBuilder.DropTable(
+                name: "Companies");
 
             migrationBuilder.DropTable(
                 name: "Departments");

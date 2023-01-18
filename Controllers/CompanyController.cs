@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Project_C.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")][Authorize]
     public class CompanyController : ControllerBase
     {
         
@@ -37,10 +38,23 @@ namespace Project_C.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] [Authorize(Roles="Viscon_admin")]
         public async Task<ActionResult<List<GetCompanyDto>>> AddCompany(AddCompanyDto company)
         {
             return Ok(await _companyService.AddCompany(company));
+        }
+
+        [HttpPost("Admin")] [Authorize(Roles="Viscon_admin, Viscon_employee")]
+        public async Task<ActionResult> AddCompanyViscon (AddCompanyVisconDto company)
+        {
+            var result = await _companyService.AddCompanyViscon(company);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(result);
         }
     }
 }
