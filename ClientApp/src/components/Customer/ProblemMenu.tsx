@@ -8,6 +8,10 @@ import { Problem, Machine } from "../../Types/types";
 
 
 
+
+
+
+
 //https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 interface Prop {
   Id?: string;

@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
 import { TicketFetch } from "./Ticket";
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  company?: string;
+}
+const initialUser: User = {
+  name: "",
+  email: "",
+  phone: "",
+};
 
-export function HomePage() {
+interface company {
+  id: string;
+  name: string;
+}
+
+export function HomePage(props: { Role?: string }) {
   // go to knowledge base with parameters
   const navigate = useNavigate();
   const goToKnowledge = (event: any) => {
@@ -15,6 +31,33 @@ export function HomePage() {
       replace: false,
     });
   };
+
+  const [_, setLoadingData] = useState<boolean>();
+  const [companys, setCompany] = useState<company>();
+  const [user, setUser] = useState(initialUser);
+  const [__, setError] = useState<string>();
+
+  // loads data from database
+  const fetchData = async () => {
+    try {
+      const response = await (
+        await fetch(`http://localhost:7162/api/Company/GetAll`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      ).json();
+      setCompany(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="flex dark:bg-gray-900">
       <NavSide />
@@ -29,7 +72,12 @@ export function HomePage() {
           {TicketFetch().reports}
         </div>
 
-        <div className="w-full lg:w-1/2 px-2 sm:px-0">
+        <div
+          className={
+            (props.Role == "Client_admin" ? "lg:w-full" : "lg:w-1/2") +
+            " w-full px-2 sm:px-0"
+          }
+        >
           <div className="flex flex-col mb-3 lg:my-3 flex-start">
             {/* make new ticket */}
             <strong className="text-2xl mb-3">Make New Ticket</strong>
