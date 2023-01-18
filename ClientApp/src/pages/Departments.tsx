@@ -201,7 +201,7 @@ export function Departments() {
                 onChange={(e) => setName(e.target.value)}
               />
               <br />
-              <button type="submit">Create user</button>
+              <button type="submit">Create Department</button>
             </form>
           </div>
         )}
