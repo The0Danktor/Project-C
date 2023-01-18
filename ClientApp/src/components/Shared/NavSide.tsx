@@ -39,12 +39,11 @@ export function NavSide() {
       {/* menu upper part */}
       <div
         className={
-          (isOpen ? "" : "-translate-x-full md:translate-x-[unset] z-[20]") +
-          " h-screen min-h-[50vh] overflow-auto fixed md:sticky top-0 w-screen md:w-80 md:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300 z-10"
-
+          (isOpen ? "" : "-translate-x-full sm:translate-x-[unset] z-[20]") +
+          " h-screen min-h-[50vh] overflow-auto fixed sm:sticky top-0 w-screen sm:w-80 sm:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800"
         }
       >
-        <div className="flex justify-between items-center w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800 transition duration-300">
+        <div className="flex justify-between items-center w-full py-3 px-3 border-b-2 border-gray-100 dark:border-gray-800">
           <NavSideButtonLogo img={logo} page="../" />
           <div className="flex flex-row h-9">
             <DarkmodeSwitch />

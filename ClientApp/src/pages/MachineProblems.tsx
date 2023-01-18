@@ -7,7 +7,7 @@ export function MachineProblems() {
   const { Problem_Id } = useParams();
 
   return (
-    <div className="bg-white dark:bg-gray-900 transition flex duration-300 h-screen">
+    <div className="bg-white dark:bg-gray-900  flex h-screen">
       <NavSide />
       <ProblemMenu Id={Problem_Id}/>
     </div>

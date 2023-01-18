@@ -33,7 +33,7 @@ export function TicketPage() {
   }, []);
 
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <div className="hidden md:flex">
         <NavSide />
       </div>

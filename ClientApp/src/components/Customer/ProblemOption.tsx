@@ -3,15 +3,15 @@ import React, { useEffect } from "react";
 import { Tag } from "../Shared/Tag";
 import { Problem } from "../../Types/types";
 
-export function ProblemOption({ problem, machineName }: { problem: Problem, machineName: string }) {
+export function ProblemOption({ problem, machineName }: { problem: Problem, machineName: string}) {
 
   return (
     <Disclosure>
       {({ open }) => (
         <>
-          <div className="border-b-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full transition duration-300">
-            <Disclosure.Button type="submit" className="flex  justify-between w-full p-2 transition duration-300">
-              <p className="text-black dark:text-gray-400 transition duration-300">{problem.description}</p>
+          <div className="border-b-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full">
+            <Disclosure.Button type="submit" className="flex  justify-between w-full p-2 ">
+              <p className="text-black dark:text-gray-400 ">{problem.description}</p>
               <Tag text={machineName} />
             </Disclosure.Button>
             <Transition
@@ -26,7 +26,7 @@ export function ProblemOption({ problem, machineName }: { problem: Problem, mach
             >
               <Disclosure.Panel>
                 {/*ul with solutions */}
-                <div className="border-t-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full transition duration-300">
+                <div className="border-t-2 border-gray-100 dark:border-gray-800 py-4 px-4 w-full">
                   <p className="text-black dark:text-gray-400 ">
                     Mogelijke oplossingen:
                   </p>

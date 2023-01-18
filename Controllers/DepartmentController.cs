@@ -44,5 +44,12 @@ namespace Project_C.Controllers
             var newDepartment = await _departmentService.AddDepartment(department);
             return Ok(newDepartment);
         }
+
+        [HttpPost("LinkDepartment")] [Authorize(Roles = "Viscon_admin")]
+        public async Task<ActionResult<GetLinkDto>> LinkDepartment(AddLinkDto link)
+        {
+            var newLink = await _departmentService.LinkDepartment(link);
+            return Ok(newLink);
+        }
     }
 }

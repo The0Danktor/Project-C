@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Project_C.Dtos
 {
-    public class GetCompanyDto
+    public class GetLinkDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; } = null!;
+        public Guid EmployeeId { get; set; }
         public Guid DepartmentId { get; set; }
         
     }

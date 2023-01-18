@@ -66,6 +66,21 @@ export function AddImage({ setImages }: { setImages: React.Dispatch<React.SetSta
     setImageURLs(filteredList);
     setImages(filteredList);
   }
+
+  function sendEmail() {
+    fetch("https://localhost:7162/api/Email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      // body: JSON.stringify({
+      //   Customer: ,
+      //   User: ,
+      //   Ticket,
+      // }),
+    });
+  }
   return (
     <>
       {/* displays the images */}

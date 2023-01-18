@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
-// import { TicketFetch } from "./Ticket";
+import { TicketFetch } from "./Ticket";
 
-export function HomePage() {
+interface User {
+  name: string;
+  email: string;
+  phone: string;
+  company?: string;
+}
+
+const initialUser: User = {
+  name: "",
+  email: "",
+  phone: "",
+};
+
+interface company {
+  id: string;
+  name: string;
+}
+
+export function HomePage(props: { Role?: string }) {
   // go to knowledge base with parameters
   const navigate = useNavigate();
   const goToKnowledge = (event: any) => {
@@ -15,8 +33,35 @@ export function HomePage() {
       replace: false,
     });
   };
+
+  const [_, setLoadingData] = useState<boolean>();
+  const [companys, setCompany] = useState<company>();
+  const [user, setUser] = useState(initialUser);
+  const [__, setError] = useState<string>();
+
+  // loads data from database
+  const fetchData = async () => {
+    try {
+      const response = await (
+        await fetch(`http://localhost:7162/api/Company/GetAll`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+      ).json();
+      setCompany(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="container flex flex-col lg:flex-row gap-2">
         {/* new ticket section */}
@@ -29,7 +74,12 @@ export function HomePage() {
           {/* {TicketFetch().reports} */}
         </div>
 
-        <div className="w-full lg:w-1/2 px-2 sm:px-0">
+        <div
+          className={
+            (props.Role == "Client_admin" ? "lg:w-full" : "lg:w-1/2") +
+            " w-full px-2 sm:px-0"
+          }
+        >
           <div className="flex flex-col mb-3 lg:my-3 flex-start">
             {/* make new ticket */}
             <strong className="text-2xl mb-3">Make New Ticket</strong>
@@ -54,8 +104,7 @@ export function HomePage() {
           </div>
           <div>
             <strong className="text-2xl font-bold">Admin Panel</strong>
-            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400 transition duration-300">
-
+            <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400">
               {/* button links */}
               <ButtonAdmin
                 linkTo="admin/accounts"
@@ -67,8 +116,8 @@ export function HomePage() {
                 title="Our Machines"
                 bar="bar"
               />
-              <ButtonAdmin linkTo="admin/problems" title="History" bar="bar" />
-              <ButtonAdmin linkTo="admin/dev" title="placeholder" bar="bar" />
+              <ButtonAdmin linkTo="admin/Departments" title="Departments" bar="bar" />
+              <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="bar" />
             </div>
           </div>
         </div>
