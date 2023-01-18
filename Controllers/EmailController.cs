@@ -27,7 +27,6 @@ namespace Project_C.Controllers
             customer.Company.Name = "Group";
             ticket = new Ticket();
             ticket.Date = DateTime.Today;
-            var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
             ticket.Status = "New";
             ticket.Priority = "High";
             ticket.Problem = new Problem();
@@ -37,7 +36,8 @@ namespace Project_C.Controllers
             user = new User();
             user.Name = "Viscon medewerker";
 
-
+            // display date pretty; do not delete
+            var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
 
 
             var email = new MimeMessage();

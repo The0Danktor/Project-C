@@ -58,47 +58,66 @@ export function AddImage() {
     const filteredList = imageURLS.filter((element) => element != e);
     setImageURLs(filteredList);
   }
+
+  function sendEmail() {
+    fetch("https://localhost:7162/api/Email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      // body: JSON.stringify({
+      //   Customer: ,
+      //   User: ,
+      //   Ticket,
+      // }),
+    });
+  }
   return (
     <div className="flex dark:bg-gray-900 transition duration-300">
       <NavSide />
       <div className="container">
         <div className="grow w-full m-2 md:m-3">
           <strong className="text-2xl">Select images</strong>
-          </div>
-          <form>
-            <div className="w-full md:w-fit overflow-hidden">
-              <label htmlFor="file" className="cursor-pointer">
-                <p
-                  className="border md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
+        </div>
+        <form>
+          <div className="w-full md:w-fit overflow-hidden">
+            <label htmlFor="file" className="cursor-pointer">
+              <p
+                className="border md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
                 hover:bg-gray-200 dark:text-gray-400 rounded-lg ml-3 mb-2 md:mb-[unset] py-2 text-center"
-                >
-                  Browse files
-                </p>
-              </label>
-              <input
-                type="file"
-                id="file"
-                accept="image/*, video/*"
-                onChange={displayImg}
-                multiple
-                ref={inputRef}
-                hidden
-              />
-            </div>
-          </form>
-
-          {/* displays the images */}
-          <div className="flex flex-wrap ">
-            <ImageGallery
-              src={imageURLS}
-              del={delet}
-              visible={false}
-              video={videoURLS}
+              >
+                Browse files
+              </p>
+            </label>
+            <input
+              type="file"
+              id="file"
+              accept="image/*, video/*"
+              onChange={displayImg}
+              multiple
+              ref={inputRef}
+              hidden
             />
           </div>
-          {displayError != "" ? (
-            <p className="text-red-500 text-sm">{displayError}</p>
-          ) : null}
+        </form>
+
+        <button className="border-2 p-3" onClick={sendEmail}>
+          Send email
+        </button>
+
+        {/* displays the images */}
+        <div className="flex flex-wrap ">
+          <ImageGallery
+            src={imageURLS}
+            del={delet}
+            visible={false}
+            video={videoURLS}
+          />
+        </div>
+        {displayError != "" ? (
+          <p className="text-red-500 text-sm">{displayError}</p>
+        ) : null}
         {/* </div> */}
       </div>
     </div>
