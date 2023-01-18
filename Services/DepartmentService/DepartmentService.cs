@@ -22,7 +22,7 @@ namespace Project_C.Services
             };
             _context.Departments.Add(newdepartment);
             await _context.SaveChangesAsync();
-            
+
             var _ = from d in _context.Departments
                     select new GetDepartmentDto
                     {
@@ -53,6 +53,25 @@ namespace Project_C.Services
                                  Name = d.Name
                              };
             return await department.FirstOrDefaultAsync();
+        }
+
+        public async Task<GetLinkDto?> LinkDepartment(AddLinkDto link)
+        {
+            var newlink = new DepartmentEmployee
+            {
+                EmployeeId = link.EmployeeId,
+                DepartmentId = link.DepartmentId
+            };
+            _context.DepartmentEmployees.Add(newlink);
+            await _context.SaveChangesAsync();
+            var _ = from d in _context.DepartmentEmployees
+                    where d.EmployeeId == link.EmployeeId && d.DepartmentId == link.DepartmentId
+                    select new GetLinkDto
+                    {
+                        EmployeeId = d.EmployeeId,
+                        DepartmentId = d.DepartmentId
+                    };
+            return await _.FirstOrDefaultAsync();
         }
     }
 }

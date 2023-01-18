@@ -127,7 +127,7 @@ export function CompanyCreation(props: { Role?: string }) {
                             : "bg-white text-black"
                         }`}
                       >
-                        {selected && <CheckIcon />}
+                        {selected && <CheckIcon className="h-6"/>}
                         {department.name}
                       </li>
                     )}

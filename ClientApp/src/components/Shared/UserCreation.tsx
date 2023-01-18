@@ -300,7 +300,7 @@ export function UserCreation(props: { Role?: string }) {
                             : "bg-white text-black"
                         }`}
                       >
-                        {selected && <CheckIcon />}
+                        {selected && <CheckIcon className="h-6"/>}
                         {company.name}
                       </li>
                     )}
@@ -377,7 +377,7 @@ export function UserCreation(props: { Role?: string }) {
                                     : "bg-white text-black"
                                 }`}
                               >
-                                {selected && <CheckIcon />}
+                                {selected && <CheckIcon className="h-6" />}
                                 {company.name}
                               </li>
                             )}

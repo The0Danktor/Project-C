@@ -130,7 +130,7 @@ export function Layout() {
             <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="bar" />
             <ButtonAdmin linkTo="machines" title="Our Machines" bar="bar" />
             <ButtonAdmin linkTo="problems" title="History" bar="bar" />
-            <ButtonAdmin linkTo="dev" title="placeholder" bar="bar" />
+            <ButtonAdmin linkTo="companys" title="Companys" bar="bar" />
           </div>
           
           {/* recent activity */}
