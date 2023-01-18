@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronUpDownIcon, TicketIcon } from "@heroicons/react/24/outline";
 import RichTextEditor from "../components/Shared/Editor"
 import { Descendant } from "slate";
 import { AddImage } from "./AddImage";

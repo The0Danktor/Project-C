@@ -12,29 +12,13 @@ namespace Project_C.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private User customer;
-        private Ticket ticket;
-        private User user;
+        private Ticket ticket = null!;
+        private User user = null!;
         [HttpPost]
-        public IActionResult SendEmail()
+        public IActionResult SendEmail(Ticket _ticket, User _user)
         {
-            // dummy data
-            customer = new User();
-            customer.Name = "Sisi";
-            customer.Email = "julius.carroll@ethereal.email";
-            customer.Phone = "0612345678";
-            customer.Company = new Company();
-            customer.Company.Name = "Group";
-            ticket = new Ticket();
-            ticket.Date = DateTime.Today;
-            ticket.Status = "New";
-            ticket.Priority = "High";
-            ticket.Problem = new Problem();
-            ticket.Problem.Machine = new Machine();
-            ticket.Problem.Machine.Name = "Machine 3";
-            ticket.Problem.Description = "Gewoon laa";
-            user = new User();
-            user.Name = "Viscon medewerker";
+            ticket = _ticket;
+            user = _user;
 
             // display date pretty; do not delete
             var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
@@ -49,8 +33,8 @@ namespace Project_C.Controllers
             var password = "rmxnpgsdrgggnmky";
 
             email.From.Add(new MailboxAddress("Viscon", emailAddress));
-            email.To.Add(new MailboxAddress(customer.Name, customer.Email));
-            email.Subject = $"{customer.Name} has made a new ticket!";
+            email.To.Add(new MailboxAddress(user.Name, "sisi_pag@hotmail.nl"));
+            email.Subject = $"{user.Name} has made a new ticket!";
 
             // email with image
             var images = new string[] {
@@ -82,10 +66,10 @@ namespace Project_C.Controllers
                         <p>Priority: " + ticket.Priority + @"</p>
                         <br>
                         <h2>User Information</h2>
-                        <p>User: " + customer.Name + @"</p>
-                        <p>Email: " + customer.Email + @"</p>
-                        <p>Phone number: " + customer.Phone + @"</p>
-                        <p>Group: " + customer.Company.Name + @"</p>
+                        <p>User: " + user.Name + @"</p>
+                        <p>Email: " + user.Email + @"</p>
+                        <p>Phone number: " + user.Phone + @"</p>
+                        <p>Group: " + user.Company.Name + @"</p>
                         <br>
                         <h2>Problem</h2>
                         <p>Problem Type: " + ticket.Problem.Machine.Name + @"</p>
