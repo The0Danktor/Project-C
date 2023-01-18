@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Project_C.EF;
@@ -12,9 +13,10 @@ using Project_C.EF;
 namespace Project_C.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230118001802_AddTicket")]
+    partial class AddTicket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -394,7 +396,6 @@ namespace Project_C.Migrations
             modelBuilder.Entity("Project_C.Models.Ticket", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("CompanyMachineId")
@@ -432,9 +433,6 @@ namespace Project_C.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyMachineId")
-                        .IsUnique();
 
                     b.HasIndex("ProblemId")
                         .IsUnique();
@@ -494,8 +492,8 @@ namespace Project_C.Migrations
                             Phone = "12345678",
                             ResetPassword = false,
                             Role = 4,
-                            passwordHash = "akJ8osZXTZkBDF+y6ovhv/9IZ6WquWFPYakjO+A6GCzE2IUDzogF1wMfvZxotVT16nJ2bUBP8ZTZJhkJIDaTgw==",
-                            passwordSalt = "pL4Hr6fGAnivMFsvkRVWU5bd7O17LgsRvhutery+8bkWVO8YMT+Oe1PyjRwSg0bo96IiD8uUMeB7xDfWsQOsteeSRYJ5k9/n6Eb8EmHTNkjrkQLsJGqjlcUU3dW8x2mpTjM3zsZOuxXFiurDsUiAmFDGYhJkErfVOvcRJTOvv5k="
+                            passwordHash = "Z/7M6kVako2LovvB2VKq+d1MlMw1DGav6ghw8+LBWSlpp95bUuuuj5nufpntMNKkGu7qpwSzmzkAvfCAWvehgA==",
+                            passwordSalt = "5CAOTUdcafZoAmRFcTOzDsw0jQ/VO+pBnAfK66JoeoLgySdCBVUW3DzHq2y10UBTRYQ/MWxAY3AgLptSqtcPKnlYdwpAES/1xOq1hqtexiXkd/qixz+JIrq9t7LaDRr2vamloJEjEGedh1/E+VsI8ZbZIHYHaaaQWq8fr1UjCcg="
                         },
                         new
                         {
@@ -506,8 +504,8 @@ namespace Project_C.Migrations
                             Phone = "0666666666",
                             ResetPassword = false,
                             Role = 2,
-                            passwordHash = "eY2p5G7/0SxDEeGKhNKUSYwZZjiR+WqYKZl7PzAjp9CLAO8IQCRMeD44ZKXyRmoQ1JmxBU2IgOfvqsMLsNb3+g==",
-                            passwordSalt = "3gAytNJAs/cFuJBUedEdn1EHbKF7yg4NwJUxLZ5zAECphHPIbgOUSHxR5eqJenz7KE5tu0Qm4G5O0dkx7cHHCt7Cx8nhs8fLcao/zmdpznw/0NKkypMGStKXSYFrpb1xjsEH3IAjx5zVCvyg1194jlekFGFCu/PQ8AvVAT1d0tE="
+                            passwordHash = "5NqLKVXWjCY+bJYR6bHwURnEkFwgB8GeAvK/AR9Z7N/A2pE+HWnvwSpE3tUTI4ISq0t1iwJEGTJ8ovxDj0Gerg==",
+                            passwordSalt = "00QA62n85Hc3ty3r1SCXNRP2dD+AxA52LK/gi24KDBOE1fXMOa/gUqBNhygsl6Vai4rKZUeb095wpqPjnupcv4EkHpx95LrPTg/xn9sge8KAVRzK5dQu4FxJi0zQRxMYZCaFYunldT5/sQbIipXwHVJ3mQOG61T2i3StnWhR/Oo="
                         });
                 });
 
@@ -601,7 +599,9 @@ namespace Project_C.Migrations
                 {
                     b.HasOne("Project_C.Models.CompanyMachine", "CompanyMachine")
                         .WithOne("Ticket")
-                        .HasForeignKey("Project_C.Models.Ticket", "CompanyMachineId");
+                        .HasForeignKey("Project_C.Models.Ticket", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Project_C.Models.Problem", "Problem")
                         .WithOne("ticket")

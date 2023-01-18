@@ -4,12 +4,14 @@ import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
 import { TicketFetch } from "./Ticket";
+
 interface User {
   name: string;
   email: string;
   phone: string;
   company?: string;
 }
+
 const initialUser: User = {
   name: "",
   email: "",
@@ -69,7 +71,7 @@ export function HomePage(props: { Role?: string }) {
             <Link to="../Ticket">View all tickets {">"}</Link>
           </div>
 
-          {TicketFetch().reports}
+          {/* {TicketFetch().reports} */}
         </div>
 
         <div

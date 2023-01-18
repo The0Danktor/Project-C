@@ -70,7 +70,7 @@ export function DarkmodeSwitch() {
   return (
     <div>
       <button
-        className="w-10 sm:m-0 mr-16 mt-2 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800  flex items-center  transition duration-300 focus:outline-none shadow"
+        className="w-10 md:m-0 mr-16 mt-2 h5 md:w-12 md:h-6 rounded-2xl bg-gray-200 dark:bg-gray-800  flex items-center  transition duration-300 focus:outline-none shadow"
         onClick={onChange}
       >
         <div
