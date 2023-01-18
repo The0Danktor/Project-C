@@ -2,6 +2,7 @@
   "login": {
     "title": "Inloggen",
     "username": "gebruikersnaam",
+    "email": "email",
     "password": "wachtwoord",
     "submit": "Login",
     "success": "Inlog succesvol",

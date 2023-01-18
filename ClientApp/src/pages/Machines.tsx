@@ -18,7 +18,14 @@ export function Machines() {
     try {
       const response = await (
         await fetch(
-          `https://localhost:7162/api/CompanyMachine/GetByCompanyId/a7072517-250e-4582-ade2-c771d248a580`
+          `http://localhost:7162/api/CompanyMachine/GetByCompanyId/`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         )
       ).json();
       setMachine(response);
@@ -32,14 +39,13 @@ export function Machines() {
     fetchData();
   }, []);
 
-  
   // <Machine machineName="Machine 1" tekenNumber="1" type="1" page="/machineproblems/333baae5-703b-490f-a6af-e9eea762e611"/>
   
   const problem = useLocation();
   const statedProblem = problem.state as CustomizedState;
 
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col gap-10 w-full h-screen p-10 lg:p-20">

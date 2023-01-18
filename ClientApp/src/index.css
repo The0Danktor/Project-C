@@ -61,20 +61,41 @@ img.logo {
 .dark-scrollbar {
   color-scheme: dark;
 }
-input[type=text], input[type=password], button[type=button] {
+input[type=text], input[type=password], input[type=email], input[type=phone], button[type=button], button[type=submit] {
   @apply p-2 rounded-md;
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email], input[type=phone] {
   @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:bg-gray-700;
 }
 
-button[type=button] {
+button[type=button], button[type=submit] {
   @apply px-4 bg-gray-200 hover:bg-gray-300 active:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-500 dark:active:bg-gray-600 select-none;
 }
 
 span[data-slate-placeholder=true] {
   @apply !w-fit !inline-block;
+}
+
+blockquote {
+  @apply !pl-2 ml-8 border-l-4 border-gray-300 dark:border-gray-700;
+}
+
+.user-creation-form {
+  @apply grid grid-cols-2 gap-2;
+}
+
+.user-creation-form label {
+  text-align: right;
+  padding-right: 1em;
+}
+
+.user-creation-form button[type=submit] {
+  @apply col-start-2 w-fit mx-auto;
+}
+
+button[role=tab] {
+  @apply rounded-b-none mx-1;
 }
 
 .shake {

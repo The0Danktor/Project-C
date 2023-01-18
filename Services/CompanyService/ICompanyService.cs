@@ -10,5 +10,6 @@ namespace Project_C.Services
         Task<List<GetCompanyDto>> GetAllCompanies();
         Task<GetCompanyDto?> GetCompanyById(Guid id);
         Task<List<GetCompanyDto>> AddCompany(AddCompanyDto company);
+        Task<List<GetCompanyDto>?> AddCompanyViscon(AddCompanyVisconDto company);
     }
 }

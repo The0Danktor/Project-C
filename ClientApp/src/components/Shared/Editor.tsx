@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEventHandler, useCallback, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, MouseEventHandler, useCallback, useEffect, useRef, useState, forwardRef, ForwardedRef, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
 import { createEditor, BaseEditor, Descendant, Editor, Transforms, Text, Range } from "slate";
 import { withHistory } from "slate-history";
@@ -6,13 +6,15 @@ import { Slate, Editable, withReact, ReactEditor, RenderLeafProps, useSlate, Ren
 
 export type CustomEditorType = BaseEditor & ReactEditor;
 
+export type TextElement = FormattedText | MentionElement;
+
 export type ParagraphElement = {
   type: "paragraph";
-  children: CustomText[];
+  children: TextElement[];
 };
 
-export type CodeElement = {
-  type: "code";
+export type QuoteElement = {
+  type: "quote";
   children: Text[];
 };
 
@@ -28,27 +30,26 @@ export type OrderedListElement = {
 
 export type ListItemElement = {
   type: "list-item";
-  children: CustomText[];
+  children: TextElement[];
 };
 
 export type MentionElement = {
   type: "mention";
   mentionType?: "user" | "machine";
   id?: number;
-  children: CustomText[];
+  children: FormattedText[];
 }
 
-export type CustomElement = ParagraphElement | CodeElement | UnorderedListElement | OrderedListElement | ListItemElement | MentionElement;
+export type CustomElement = ParagraphElement | QuoteElement | UnorderedListElement | OrderedListElement | ListItemElement | MentionElement;
 
 export type FormattedText = {
   text: string;
   bold?: true;
   italic?: true;
   underline?: true;
+  code?: true;
   placeholder?: true;
 };
-
-export type CustomText = FormattedText;
 
 export type BlockType = CustomElement["type"]
 export type Format = keyof Omit<FormattedText, "text">;
@@ -57,7 +58,7 @@ declare module "slate" {
   interface CustomTypes {
     Editor: CustomEditorType
     Element: CustomElement
-    Text: CustomText
+    Text: FormattedText
   }
 };
 
@@ -78,7 +79,11 @@ const CustomEditor = {
       match: n => Editor.isBlock(editor, n) && n.type === format,
     });
 
-    return !!match;
+    const [otherMatch] = Editor.nodes(editor, {
+      match: n => Editor.isBlock(editor, n) && n.type !== format && n.type !== "list-item",
+    });
+
+    return !!match && !otherMatch;
   },
   toggleBlock(editor: CustomEditorType, format: BlockType) {
     const isActive = this.isBlockActive(editor, format);
@@ -105,12 +110,13 @@ const hotkeys: Record<string, (editor: CustomEditorType) => void> = {
   "b": editor => CustomEditor.toggleMark(editor, "bold"),
   "i": editor => CustomEditor.toggleMark(editor, "italic"),
   "u": editor => CustomEditor.toggleMark(editor, "underline"),
-  "/": editor => CustomEditor.toggleBlock(editor, "code"),
+  "Dead": editor => CustomEditor.toggleMark(editor, "code"),
+  "/": editor => CustomEditor.toggleBlock(editor, "quote"),
 };
 
 const renderers: Record<CustomElement["type"], (props: RenderElementProps) => JSX.Element> = {
   "paragraph": props => <p {...props.attributes}>{props.children}</p>,
-  "code": props => <pre {...props.attributes} className="pl-8" ><code>{props.children}</code></pre>,
+  "quote": props => <blockquote {...props.attributes} className="pl-8" >{props.children}</blockquote>,
   "unordered-list": props => <ul {...props.attributes} className="list-disc list-inside">{props.children}</ul>,
   "ordered-list": props => <ol {...props.attributes} className="list-decimal list-inside">{props.children}</ol>,
   "list-item": props => <li {...props.attributes} className="ml-8">{props.children}</li>,
@@ -120,9 +126,6 @@ const renderers: Record<CustomElement["type"], (props: RenderElementProps) => JS
 function Mention({ attributes, children, element }: RenderElementProps) {
   const selected = useSelected();
   const focused = useFocused();
-  const editor = useSlate();
-
-  const sel = editor.selection;
 
   const el = element as MentionElement;
 
@@ -130,19 +133,10 @@ function Mention({ attributes, children, element }: RenderElementProps) {
 
   return (
     <>
-    <span {...attributes} className={`bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
-      {children}
-      {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
-    </span>
-    {selected && focused && (sel === null || Range.isCollapsed(sel)) && (
-      <span contentEditable={false} className="float-left my-1 p-2 bg-gray-700 rounded">
-        <h1 className="text-3xl">{name}</h1>
-        <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
-        </p>
+      <span {...attributes} className={`bg-gray-300 dark:bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
+        {children}
+        {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
       </span>
-    )}
     </>
   )
 }
@@ -238,20 +232,87 @@ const machines: Machine[] = [
   { id: 4, name: "Machine 4" }
 ];
 
-export default function RichTextEditor({ initialValue = [{ type: "paragraph", children: [{ text: "" }] }] }: { initialValue?: Descendant[] }) {
+interface IEditorProps {
+  initialValue?: Descendant[];
+  readOnly?: boolean;
+}
+
+function RichTextEditor({
+  initialValue = [{ type: "paragraph", children: [{ text: "" }] }],
+  readOnly = false
+}: IEditorProps, valueRef: ForwardedRef<{ value: Descendant[] }>) {
   const [editor] = useState(() => withMergeAdjacentLists(withMentions(withReact(withHistory(createEditor())))));
-  const ref = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [target, setTarget] = useState<Range | undefined>();
   const [index, setIndex] = useState(0);
   const [searchType, setSearchType] = useState<"user" | "machine">("user");
   const [search, setSearch] = useState("");
+  const [value, setValue] = useState(initialValue);
+
+  useImperativeHandle(valueRef, () => ({
+    get value() { return value; },
+    set value(x) {
+      setValue(x);
+      Editor.withoutNormalizing(editor, () => {
+        Transforms.delete(editor, {
+          at: {
+            anchor: Editor.start(editor, []),
+            focus: Editor.end(editor, []),
+          },
+        });
+        Transforms.insertFragment(editor, x, { at: [0, 0] });
+      });
+    }
+  }));
+
+  const renderElement = useCallback((props: RenderElementProps) => {
+    const renderedElement = renderers[props.element.type](props);
+
+    const { selection } = editor;
+
+    if (selection && Range.isCollapsed(selection)) {
+
+      const [match] = Editor.nodes(editor, {
+        match: n => "type" in n && n.type === "mention",
+        at: selection,
+      });
+
+      if (match) {
+        const el = match[0] as MentionElement;
+
+        const name = (el.mentionType === "user" ? users : machines).find(e => e.id === el.id)?.name || "Unknown";
+
+        const elementPath = ReactEditor.findPath(editor, props.element);
+        const mentionPath = ReactEditor.findPath(editor, el);
+
+        if (
+          (!props.element.type.endsWith("-list") && elementPath.length === 1 && elementPath[0] === mentionPath[0]) ||
+          (props.element.type === "list-item" && elementPath.length === 2 && elementPath[0] === mentionPath[0] && elementPath[1] === mentionPath[1])
+        ) {
+          return <>
+            {renderedElement}
+            <div contentEditable={false} className="my-1 p-2 bg-gray-200 dark:bg-gray-700 rounded">
+              <h1 className="text-3xl">{name}</h1>
+              <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
+              </p>
+            </div>
+          </>
+        }
+      }
+    }
+
+    return renderedElement;
+  }, [editor]);
 
   const renderLeaf = useCallback((props: RenderLeafProps) => {
 
     const style = {
       ...(props.leaf.bold) && { fontWeight: "bold" },
       ...(props.leaf.italic) && { fontStyle: "italic" },
-      ...(props.leaf.underline) && { textDecoration: "underline" }
+      ...(props.leaf.underline) && { textDecoration: "underline" },
+      ...(props.leaf.code) && { fontFamily: "monospace" },
     };
 
     return (<span
@@ -260,6 +321,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
     >
       {props.leaf.placeholder && <span
         className="text-gray-600 absolute pointer-events-none"
+        style={{ textDecoration: "inherit" }}
         contentEditable={false}
       >
         Type @ or # to tag a user/machine
@@ -268,8 +330,8 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
     </span>);
   }, []);
 
-  const filteredUsers = users.filter(user => user.name.toLowerCase().includes(search.toLowerCase()));
-  const filteredMachines = machines.filter(machine => machine.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredUsers = search.length ? users.filter(user => user.name.toLowerCase().includes(search.toLowerCase())) : users;
+  const filteredMachines = search.length ? machines.filter(machine => machine.name.toLowerCase().includes(search.toLowerCase())) : machines;
 
   const onKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
     const parentEntry = Editor.parent(editor, editor.selection!);
@@ -292,7 +354,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
           editor.selection &&
           Editor.path(editor, editor.selection).length > 0 &&
           Editor.isBlock(editor, parent) &&
-          ["list-item", "code"].includes(parent.type) &&
+          ["list-item", "quote"].includes(parent.type) &&
           Editor.isEmpty(editor, parent)
         ) {
           e.preventDefault();
@@ -318,28 +380,28 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
           });
           Transforms.move(editor);
 
-          setTarget(undefined)
+          setTarget(undefined);
         }
         return;
 
       case "ArrowDown":
         if (target) {
-          e.preventDefault()
-          const prevIndex = (index + 1) % arr.length
-          setIndex(prevIndex)
+          e.preventDefault();
+          const prevIndex = (index + 1) % arr.length;
+          setIndex(prevIndex);
         }
         return;
 
       case "ArrowUp":
         if (target) {
-          e.preventDefault()
-          const nextIndex = (index - 1 + arr.length) % arr.length
-          setIndex(nextIndex)
+          e.preventDefault();
+          const nextIndex = (index - 1 + arr.length) % arr.length;
+          setIndex(nextIndex);
         }
         return;
 
       case "Escape":
-        e.preventDefault()
+        e.preventDefault();
         setTarget(undefined);
         return;
 
@@ -350,7 +412,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
 
           const prevParentEntry = Editor.previous(editor, { at: parentPath });
 
-          if (["list-item", "code"].includes(parent.type)) {
+          if (["list-item", "quote"].includes(parent.type)) {
             if (Editor.isStart(editor, editor.selection.anchor, parentPath)) {
               // if (prevParent && Editor.isBlock(editor, prevParent)[0] && prevParent[0].type === parent.type && !Editor.isEmpty(editor, prevParent[0])) return;
               e.preventDefault();
@@ -407,7 +469,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
   }, [editor, filteredMachines, filteredUsers, index, searchType, target]);
 
   useEffect(() => {
-    const el = ref.current;
+    const el = dropdownRef.current;
 
     if (target && users.length > 0 && el) {
       const domRange = ReactEditor.toDOMRange(editor, target);
@@ -422,6 +484,9 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
       editor={editor}
       value={initialValue}
       onChange={e => {
+        if (valueRef !== null && typeof valueRef === "object")
+          setValue(e);
+
         const { selection } = editor;
 
         if (selection && Range.isCollapsed(selection)) {
@@ -430,7 +495,7 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
           const before = wordBefore && Editor.before(editor, wordBefore);
           const beforeRange = before && Editor.range(editor, before, start);
           const beforeText = beforeRange && Editor.string(editor, beforeRange);
-          const beforeMatch = beforeText && beforeText.match(/^([@#])(\w+)$/);
+          const beforeMatch = beforeText && beforeText.match(/^([@#])(\w*)$/);
           const after = Editor.after(editor, start);
           const afterRange = Editor.range(editor, start, after);
           const afterText = Editor.string(editor, afterRange);
@@ -448,21 +513,23 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
         setTarget(undefined);
       }}
     >
-      <div className="flex flex-col w-full gap-2 p-4">
-        <div className="flex gap-2">
+      <div className="flex flex-col gap-2 py-2">
+        {!readOnly && <div className="flex gap-2 items-center">
           <FormatButton format="bold" icon="format_bold" />
           <FormatButton format="italic" icon="format_italic" />
           <FormatButton format="underline" icon="format_underline" />
-
-          <BlockButton format="code" icon="code" />
+          <FormatButton format="code" icon="code" />
+          <span className="w-[2px] h-8 bg-gray-700"></span>
           <BlockButton format="unordered-list" icon="format_list_bulleted" />
           <BlockButton format="ordered-list" icon="format_list_numbered" />
-        </div>
+          <BlockButton format="quote" icon="format_quote" />
+        </div>}
         <Editable
-          renderElement={props => renderers[props.element.type](props)}
+          renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
-          className="border border-gray-700 rounded-md p-2 selection:bg-sky-500"
+          readOnly={readOnly}
+          className={`${readOnly ? "" : "border"} border-gray-700 rounded-md p-2 selection:bg-sky-500 selection:text-white`}
           decorate={([node, path]) => (
             editor.selection != null &&
               !Editor.isEditor(node) &&
@@ -481,8 +548,8 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
         {target && (searchType === "user" ? filteredUsers.length > 0 : filteredMachines.length > 0) && (
           createPortal(
             (<div
-              ref={ref}
-              className="absolute z-10 p-1 bg-gray-800 rounded-md shadow-lg"
+              ref={dropdownRef}
+              className="absolute z-10 p-1 bg-gray-300 dark:bg-gray-800 rounded-md shadow-lg"
               data-cy="mentions-portal"
             >
               {(searchType === "user" ? filteredUsers : filteredMachines).map((user, i) => (
@@ -500,6 +567,8 @@ export default function RichTextEditor({ initialValue = [{ type: "paragraph", ch
     </Slate>
   )
 }
+
+export default forwardRef(RichTextEditor);
 
 const BlockButton = ({ format, icon }: { format: BlockType, icon?: string }) => {
   const editor = useSlate();
@@ -528,7 +597,7 @@ const EditorButton = ({ onClick, active, title, icon = "error" }: { onClick: Mou
         ReactEditor.focus(editor);
       }}
       className={`!p-0 w-10 h-10 grid items-center ${active ? "text-sky-600" : ""}`}
-      title={title}
+      title={title.split("-").join(" ")}
     >
       <span className="material-icons-round">{icon}</span>
     </button>

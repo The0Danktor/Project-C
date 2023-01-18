@@ -21,28 +21,31 @@ namespace Project_C.Services
             {
                 Id = Guid.NewGuid(),
                 Name = machine.Name,
+                Tekennummer = machine.Tekennummer
 
             };
             _context.Machines.Add(newMachine);
             await _context.SaveChangesAsync();
-            
-            var _ =from m in _context.Machines
-                select new GetMachineDto
-                {
-                    Id = m.Id,
-                    Name = m.Name
-                };
+
+            var _ = from m in _context.Machines
+                    select new GetMachineDto
+                    {
+                        Id = m.Id,
+                        Name = m.Name,
+                        Tekennummer = m.Tekennummer
+                    };
             return await _.ToListAsync();
         }
 
         public async Task<List<GetMachineDto>> GetAllMachines()
         {
             var query = from m in _context.Machines
-                       select new GetMachineDto
-                       {
-                           Id = m.Id,
-                           Name = m.Name
-                       };
+                        select new GetMachineDto
+                        {
+                            Id = m.Id,
+                            Name = m.Name,
+                            Tekennummer = m.Tekennummer
+                        };
             return await query.ToListAsync();
         }
 
@@ -53,7 +56,8 @@ namespace Project_C.Services
                           select new GetMachineDto
                           {
                               Id = m.Id,
-                              Name = m.Name
+                              Name = m.Name,
+                              Tekennummer = m.Tekennummer
                           };
             return await machine.FirstOrDefaultAsync();
         }

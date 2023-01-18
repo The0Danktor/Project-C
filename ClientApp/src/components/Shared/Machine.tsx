@@ -15,8 +15,6 @@ export function Machine({
   type,
   page,
 }: MachineProps) {
-
-
   return (
     <li key={machineName} className="w-full">
       <Link

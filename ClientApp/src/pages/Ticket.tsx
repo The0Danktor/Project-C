@@ -6,9 +6,10 @@ import { Ticket } from "../Types/types";
 
 export function TicketPage() {
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="container flex flex-col flex-wrap">
+
         <div className="w-full m-2 md:m-3">
           <strong className="text-2xl">All Tickets</strong>
           <Link to="../AddImage">
