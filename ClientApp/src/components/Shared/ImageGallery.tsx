@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { PopUpImage } from "./PopUp";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { createPortal } from "react-dom";
 
 interface information {
   src: string[];
@@ -18,7 +19,7 @@ export function ImageGallery(props: information) {
     <div
       key={"image-" + i}
       className={
-        (props.visible ? (active ? "hidden" : "block") : null) +
+        // (props.visible ? (active ? "hidden" : "block") : null) +
         (element.includes("video_preview")
           ? " bg-[length:75px]"
           : " bg-cover") +
@@ -44,21 +45,23 @@ export function ImageGallery(props: information) {
   ));
 
   function Popup(e: any) {
-    console.log("Popup");
     setActive(!active); // displays popup if button is clicked
     setImage(e);
   }
+
+  console.log(allImages);
+
   return (
     <>
       {allImages}
-      {active && (
+      {active && createPortal(
         <PopUpImage
           image={image}
           video={props.video}
           close={Popup}
           height={props.visible}
         />
-      )}
+      , document.body)}
     </>
   );
 }

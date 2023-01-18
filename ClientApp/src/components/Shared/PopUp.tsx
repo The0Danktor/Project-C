@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import { Dropdown } from "./Dropdown";
 import { ImageGallery } from "./ImageGallery";
 import { Button } from "./Button";
 import { status, priority } from "./Ticket";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { CompanyMachine, Problem, Ticket, User } from "../../Types/types";
+import Editor from "./Editor";
 
 interface IInformation {
   close: () => void;
@@ -74,7 +75,7 @@ export function PopUp({ close, ticket }: IInformation) {
   const date = new Date(Date.parse(ticket.date));
 
   return (
-    <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0">
+    <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0" onClick={(e: MouseEvent) => e.target === e.currentTarget && close()}>
       <div
         className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:max-h-[90vh] 
         md:min-h-[50%] md:min-w-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
@@ -134,9 +135,7 @@ export function PopUp({ close, ticket }: IInformation) {
           <span>{ticket.problemDescription ? "new problem" : "existing problem"}</span>
           <br />
           <strong className="">Problem Description</strong>
-          <ul className="p-[revert] list-disc">
-            <li>{ticket.problemDescription ? ticket.problemDescription : (problem ? problem.description : "Loading...")}</li>
-          </ul>
+          {ticket.problemDescription ? <Editor readOnly={true} initialValue={JSON.parse(ticket.problemDescription)} /> : <p>{problem ? problem.description : "Loading..."}</p>}
 
           {/* image gallery */}
           <ImageGallery
@@ -171,12 +170,12 @@ export function PopUpImage({ close, image, height, video }: IInformationImage) {
     <div
       className={
         (height ? " md:h-[94vh] " : "") +
-        "h-screen z-[9999]  bg-opacity-75 bg-gray-800 absolute top-0 left-0 block w-full m-0"
+        "h-screen z-[9999]  bg-opacity-75 bg-gray-800 fixed top-0 left-0 block w-full m-0"
       }
       onClick={close}
     >
       <div
-        className="absolute top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 
+        className="fixed top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 
       "
       >
         {/* displays video */}
@@ -192,9 +191,9 @@ export function PopUpImage({ close, image, height, video }: IInformationImage) {
           ))}
 
         {/* displays image */}
-        {/* {!image.includes("video_preview") && (
+        {!image.includes("video_preview") && (
           <img src={image} className="w-screen md:w-auto max-h-[80vh]" />
-        )} */}
+        )}
       </div>
     </div>
   );

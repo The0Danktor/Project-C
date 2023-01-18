@@ -40,7 +40,7 @@ export function NavSide() {
       <div
         className={
           (isOpen ? "" : "-translate-x-full md:translate-x-[unset] z-[20]") +
-          " h-screen min-h-[50vh] overflow-auto fixed md:sticky top-0 w-screen md:w-80 md:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300"
+          " h-screen min-h-[50vh] overflow-auto fixed md:sticky top-0 w-screen md:w-80 md:flex flex-col bg-white dark:bg-gray-900 border-r-2 border-gray-100 dark:border-gray-800 transition duration-300 z-10"
 
         }
       >

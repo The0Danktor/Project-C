@@ -26,7 +26,6 @@ export function TicketPage() {
       .then(res => res.json())
       .then(res => {
         setTickets(res);
-        console.log(res);
       })
       .catch(error => {
         console.log(error);
