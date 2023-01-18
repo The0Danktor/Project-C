@@ -12,19 +12,19 @@ namespace Project_C.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private Customer customer;
-        private Ticket ticket;
-        private User user;
+        private Customer customer = null!;
+        private Ticket ticket = null!;
+        private User user =  null!;
         [HttpPost]
         public IActionResult SendEmail()
         {
             // dummy data
             customer = new Customer();
-            customer.Name = "Sisi";
+            customer.Name = "Gebruiker";
             customer.Email = "julius.carroll@ethereal.email";
             customer.Phone = "0612345678";
             customer.Company = new Company();
-            customer.Company.Name = "Group";
+            customer.Company.Name = "Group x";
             ticket = new Ticket();
             ticket.Date = DateTime.Today;
             ticket.Status = "New";
@@ -32,9 +32,10 @@ namespace Project_C.Controllers
             ticket.Problem = new Problem();
             ticket.Problem.Machine = new Machine();
             ticket.Problem.Machine.Name = "Machine 3";
-            ticket.Problem.Description = "Gewoon laa";
+            ticket.Problem.Description = "The lights don't work";
             user = new User();
             user.Name = "Viscon medewerker";
+            user.Email = "Admin@admin.nl";
 
             // display date pretty; do not delete
             var date = $"{ticket.Date.Day}/{ticket.Date.Month}/{ticket.Date.Year}";
@@ -49,7 +50,14 @@ namespace Project_C.Controllers
             var password = "rmxnpgsdrgggnmky";
 
             email.From.Add(new MailboxAddress("Viscon", emailAddress));
-            email.To.Add(new MailboxAddress(customer.Name, customer.Email));
+
+            // list of all viscon workers who has to get a notification email
+            InternetAddressList list = new InternetAddressList();
+            list.Add(new MailboxAddress( "","sisi_pang@hotmail.nl"));
+            list.Add(new MailboxAddress("", "siwaipang@gmail.com"));
+            list.Add(new MailboxAddress("", "1023921@hr.nl"));
+            list.Add(new MailboxAddress(user.Name, user.Email));
+            email.To.AddRange(list);
             email.Subject = $"{customer.Name} has made a new ticket!";
 
             // email with image
