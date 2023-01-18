@@ -12,14 +12,14 @@ namespace Project_C.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private Customer customer;
+        private User customer;
         private Ticket ticket;
         private User user;
         [HttpPost]
         public IActionResult SendEmail()
         {
             // dummy data
-            customer = new Customer();
+            customer = new User();
             customer.Name = "Sisi";
             customer.Email = "julius.carroll@ethereal.email";
             customer.Phone = "0612345678";
