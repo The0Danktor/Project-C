@@ -33,7 +33,7 @@ export const routes = [
   { path: "/settings", name: "settings", component: <Settings /> },
   { path: "/account", name: "account", component: <Account /> },
   { path: "/addimage", name: "addimg", component: <AddImage /> },
-  { path: "/newticket", name: "newticket", component: <AddTicket /> }
+  { path: "/newticket", name: "newticket", component: <AddTicket /> },
   { path: "/*", name: "notFound", component: <NotFound /> }
 ];
 

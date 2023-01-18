@@ -3,7 +3,6 @@ import { NavSide } from "../components/Shared/NavSide";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
-import { TicketFetch } from "./Ticket";
 
 interface User {
   name: string;
