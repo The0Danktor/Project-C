@@ -25,12 +25,7 @@ namespace Project_C.Services
             _context.Problems.Add(newProblem);
             await _context.SaveChangesAsync();
             var query = from p in _context.Problems
-                select new GetProblemDto
-                {
-                    Id = p.Id,
-                    MachineId = p.MachineId,
-                    Description = p.Description,
-                };
+                select new GetProblemDto(p);
             return await query.ToListAsync();
 
         }
@@ -38,12 +33,7 @@ namespace Project_C.Services
         public Task<List<GetProblemDto>> GetAllProblems()
         {
             var query = from p in _context.Problems
-                select new GetProblemDto
-                {
-                    Id = p.Id,
-                    MachineId = p.MachineId,
-                    Description = p.Description,
-                };
+                select new GetProblemDto(p);
             return query.ToListAsync();
         }
 
@@ -53,12 +43,7 @@ namespace Project_C.Services
 
             var problem = from p in _context.Problems
                 where p.Id == id
-                select new GetProblemDto
-                {
-                    Id = p.Id,
-                    MachineId = p.MachineId,
-                    Description = p.Description,
-                };
+                select new GetProblemDto(p);
                 
             return await problem.FirstOrDefaultAsync();
         }

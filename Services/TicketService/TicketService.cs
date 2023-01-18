@@ -16,21 +16,23 @@ namespace Project_C.Services
 
         public async Task<List<GetTicketDto>> GetAllTickets()
         {
+            return await _context.Tickets.Select(x => new GetTicketDto(x)).ToListAsync();
+        }
+
+        public async Task<List<GetTicketDto>> GetByCompany(Guid userId)
+        {
+            var user = await _context.users.FirstOrDefaultAsync(x => x.Id == userId);
+            if (user == null)
+                return new List<GetTicketDto>();
+            
+            var company = await _context.Companies.FirstOrDefaultAsync(x => x.Id == user.CompanyId);
+            if (company == null)
+                return new List<GetTicketDto>();
+            
             var query = from x in _context.Tickets
-                select new GetTicketDto
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    CompanyMachineId = x.CompanyMachineId,
-                    Tekennummer = x.Tekennummer,
-                    ProblemId = x.ProblemId,
-                    ProblemDescription = x.ProblemDescription,
-                    Images = x.Images,
-                    Note = x.Note,
-                    Date = x.Date,
-                    Status = x.Status,
-                    Priority = x.Priority
-                };
+                where x.User.CompanyId == company.Id
+                select new GetTicketDto(x);
+            
             return await query.ToListAsync();
         }
 
@@ -38,18 +40,7 @@ namespace Project_C.Services
         {
             var query = from x in _context.Tickets
                 where x.Id == id
-                select new GetTicketDto
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    CompanyMachineId = x.CompanyMachineId,
-                    ProblemId = x.ProblemId,
-                    Tekennummer = x.Tekennummer,
-                    Note = x.Note,
-                    Date = x.Date,
-                    Status = x.Status,
-                    Priority = x.Priority
-                };
+                select new GetTicketDto(x);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -71,23 +62,11 @@ namespace Project_C.Services
                 Status = "Pending",
                 Priority = "Low"
             };
+            
             _context.Tickets.Add(newTicket);
             await _context.SaveChangesAsync();
 
-            var query = from x in _context.Tickets
-                select new GetTicketDto
-                {
-                    Id = x.Id,
-                    UserId = x.UserId,
-                    CompanyMachineId = x.CompanyMachineId,
-                    ProblemId = x.ProblemId,
-                    Tekennummer = x.Tekennummer,
-                    Note = x.Note,
-                    Date = x.Date,
-                    Status = x.Status,
-                    Priority = x.Priority
-                };
-            return await query.ToListAsync();
+            return await this.GetAllTickets();
         }
     }
 }

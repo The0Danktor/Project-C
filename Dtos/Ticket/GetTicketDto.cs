@@ -7,6 +7,21 @@ namespace Project_C.Dtos
 {
     public class GetTicketDto
     {
+        public GetTicketDto(Ticket ticket)
+        {
+            Id = ticket.Id;
+            UserId = ticket.UserId;
+            CompanyMachineId = ticket.CompanyMachineId;
+            Tekennummer = ticket.Tekennummer;
+            ProblemId = ticket.ProblemId;
+            ProblemDescription = ticket.ProblemDescription;
+            Images = ticket.Images;
+            Note = ticket.Note;
+            Date = ticket.Date;
+            Status = ticket.Status;
+            Priority = ticket.Priority;
+        }
+
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid? CompanyMachineId { get; set; }

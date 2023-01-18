@@ -25,11 +25,13 @@ const initial: RefType = {
   value: [{ type: "paragraph", children: [{ text: "" }] }]
 };
 
-function getUserId(): string | null {
+export function getUserId(): string | null {
   const token = localStorage.getItem("token");
-  if (token)
-    return JSON.parse(decodeURIComponent(window.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid"];
-  return null;
+  
+  if (!token)
+    return null;
+  
+  return JSON.parse(decodeURIComponent(window.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid"];
 }
 
 const toBase64 = (url: string) => new Promise((resolve, reject) => {
@@ -137,7 +139,7 @@ export function AddTicket() {
         machineId: isMachine ? selectedMachine?.id : undefined,
         tekennummer: isMachine ? selectedMachine?.tekennummer : undefined,
         problemId: isExistingProblem ? selectedProblem?.id : undefined,
-        problemDescription: isExistingProblem ? undefined : problemRef.current.value,
+        problemDescription: isExistingProblem ? undefined : JSON.stringify(problemRef.current.value),
         images: imgs,
         note: JSON.stringify({
           see: seeRef.current.value,

@@ -25,6 +25,12 @@ namespace Project_C.Controllers
             return Ok(await _ticketService.GetAllTickets());
         }
 
+        [HttpGet("GetAllByCompany/{userId}")]
+        public async Task<ActionResult<List<GetTicketDto>>> GetByCompany(string userId)
+        {
+            return Ok(await _ticketService.GetByCompany(Guid.Parse(userId)));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<GetTicketDto>> GetTicketById(Guid id)
         {

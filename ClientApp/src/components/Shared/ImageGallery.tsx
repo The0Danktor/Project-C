@@ -3,7 +3,7 @@ import { PopUpImage } from "./PopUp";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 interface information {
-  src: any;
+  src: string[];
   del?: any;
   visible?: boolean;
   video?: string[];
