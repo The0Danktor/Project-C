@@ -48,11 +48,6 @@ namespace Project_C.EF
                 .WithMany(c => c.CompanyMachines)
                 .HasForeignKey(c => c.MachineId);
 
-            modelBuilder.Entity<CompanyMachine>()
-                .HasOne(c => c.Ticket)
-                .WithOne(c => c.CompanyMachine)
-                .HasForeignKey<Ticket>(c => c.CompanyMachineId);
-
             modelBuilder.Entity<Problem>()
                 .HasOne(c => c.Machine)
                 .WithMany(c => c.Problems)
@@ -63,10 +58,15 @@ namespace Project_C.EF
                 .WithMany(c => c.Solutions)
                 .HasForeignKey(c => c.ProblemId);
 
-            modelBuilder.Entity<Ticket>()
-                .HasOne(c => c.User)
-                .WithMany(c => c.Tickets)
-                .HasForeignKey(c => c.UserId);
+            modelBuilder.Entity<Ticket>(t => {
+                t.HasOne(c => c.CompanyMachine)
+                 .WithMany(c => c.Ticket)
+                 .HasForeignKey(c => c.CompanyMachineId);
+                
+                t.HasOne(c => c.User)
+                 .WithMany(c => c.Tickets)
+                 .HasForeignKey(c => c.UserId);
+            });
 
             modelBuilder.Entity<DepartmentEmployee>()
                 .HasKey(c => new { c.EmployeeId, c.DepartmentId });
