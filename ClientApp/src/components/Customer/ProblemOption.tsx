@@ -30,7 +30,7 @@ export function ProblemOption({ problem, machineName }: { problem: Problem, mach
                   <p className="text-black dark:text-gray-400 ">
                     Mogelijke oplossingen:
                   </p>
-                  {problem.solutions.length > 1 ? (
+                  {problem.solutions.length > 0 ? (
                     <ul className="list-disc list-inside">
                     {problem.solutions.map((solution) => (
                       <li className="text-black dark:text-gray-400 " key={solution}>
@@ -39,7 +39,7 @@ export function ProblemOption({ problem, machineName }: { problem: Problem, mach
                     ))}
                   </ul>
                   ) : (
-                    <p>suck</p>
+                    <p>No solutions know</p>
                   )}
                 </div>
               </Disclosure.Panel>
