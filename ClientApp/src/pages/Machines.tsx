@@ -45,7 +45,7 @@ export function Machines() {
   const statedProblem = problem.state as CustomizedState;
 
   return (
-    <div className="flex dark:bg-gray-900 transition duration-300">
+    <div className="flex dark:bg-gray-900">
       <NavSide />
       <div className="flex flex-col items-center w-full">
         <div className="flex flex-col gap-10 w-full h-screen p-10 lg:p-20">

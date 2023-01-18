@@ -44,7 +44,7 @@ export function PasswordReset() {
       className="fixed z-50"
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      <Dialog.Panel className="fixed inset-0 z-[60] overflow-y-auto w-96 h-64 border-2 bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 mx-auto my-auto rounded-2xl p-7 transition duration-300">
+      <Dialog.Panel className="fixed inset-0 z-[60] overflow-y-auto w-96 h-64 border-2 bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 mx-auto my-auto rounded-2xl p-7">
         <div className="flex flex-col w-full h-full">
           <Dialog.Title className="text-lg font-bold mb-1">
             Change password
@@ -79,7 +79,7 @@ export function PasswordReset() {
     className="fixed z-50"
   >
     <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-    <Dialog.Panel className="fixed inset-0 z-[60] overflow-y-auto w-96 h-36 border-2 bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 mx-auto my-auto rounded-2xl p-7 transition duration-300">
+    <Dialog.Panel className="fixed inset-0 z-[60] overflow-y-auto w-96 h-36 border-2 bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 mx-auto my-auto rounded-2xl p-7">
         <Dialog.Title className="text-lg font-bold mb-1">
           Your password has successfully been changed
         </Dialog.Title>
