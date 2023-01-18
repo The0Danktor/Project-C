@@ -76,5 +76,19 @@ namespace Project_C.Services
                 };
             return await problem.ToListAsync();
         }
+
+        public async Task<List<GetProblemWithSolutionDto>> GetProblemsByMachineId(Guid id)
+        {
+            var problems = from p in _context.Problems
+                where p.MachineId == id
+                select new GetProblemWithSolutionDto
+                {
+                    Id = p.Id,
+                    MachineId = p.MachineId,
+                    Description = p.Description,
+                    Solutions = p.Solutions.Select(s => s.Description).ToList()
+                };
+            return await problems.ToListAsync();
+        }
     }
 }

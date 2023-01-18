@@ -13,7 +13,7 @@ import { Machines2 } from "./pages/Machines2";
 import { Settings } from "./pages/Settings"
 import { Account } from "./pages/Account"
 import { AddImage } from "./pages/AddImage";
-import { FinalForm } from "./pages/FinalForm";
+import { AddTicket } from "./pages/AddTicket";
 
 
 export const routes = [
@@ -32,6 +32,6 @@ export const routes = [
   { path: "/settings", name: "settings", component: <Settings /> },
   { path: "/account", name: "account", component: <Account /> },
   { path: "/addimage", name: "addimg", component: <AddImage /> },
-  { path: "/finalform", name: "finalform", component: <FinalForm /> }
+  { path: "/newticket", name: "newticket", component: <AddTicket /> }
 ];
 

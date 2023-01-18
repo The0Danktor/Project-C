@@ -36,13 +36,13 @@ export function TicketPage(Id: ticketProps) {
       <div className="container">
         <div className="grow w-full m-2 md:m-3">
           <strong className="text-2xl">All tickets</strong>
-          <Link to="../AddImage">
+          <Link to="../NewTicket">
             <button
               className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
           hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2"
               onClick={Redirect}
             >
-              Add Report
+              New Ticket
             </button>
           </Link>
         </div>

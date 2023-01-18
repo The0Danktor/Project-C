@@ -1,3 +1,4 @@
+import { Transition } from "@headlessui/react";
 import { KeyboardEvent, MouseEventHandler, useCallback, useEffect, useRef, useState, forwardRef, ForwardedRef, useImperativeHandle } from "react";
 import { createPortal } from "react-dom";
 import { createEditor, BaseEditor, Descendant, Editor, Transforms, Text, Range } from "slate";
@@ -133,7 +134,7 @@ function Mention({ attributes, children, element }: RenderElementProps) {
 
   return (
     <>
-      <span {...attributes} className={`bg-gray-300 dark:bg-gray-700 px-1 rounded ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
+      <span {...attributes} className={`bg-gray-300 dark:bg-gray-700 px-1 rounded cursor-pointer ${selected && focused ? "!bg-sky-500 text-white" : ""}`} contentEditable={false}>
         {children}
         {el.mentionType === "user" ? "@" : "#"}<strong>{name}</strong>
       </span>
@@ -248,6 +249,7 @@ function RichTextEditor({
   const [searchType, setSearchType] = useState<"user" | "machine">("user");
   const [search, setSearch] = useState("");
   const [value, setValue] = useState(initialValue);
+  const [focused, setFocused] = useState(false);
 
   useImperativeHandle(valueRef, () => ({
     get value() { return value; },
@@ -514,37 +516,50 @@ function RichTextEditor({
       }}
     >
       <div className="flex flex-col gap-2 py-2">
-        {!readOnly && <div className="flex gap-2 items-center">
-          <FormatButton format="bold" icon="format_bold" />
-          <FormatButton format="italic" icon="format_italic" />
-          <FormatButton format="underline" icon="format_underline" />
-          <FormatButton format="code" icon="code" />
-          <span className="w-[2px] h-8 bg-gray-700"></span>
-          <BlockButton format="unordered-list" icon="format_list_bulleted" />
-          <BlockButton format="ordered-list" icon="format_list_numbered" />
-          <BlockButton format="quote" icon="format_quote" />
-        </div>}
         <Editable
           renderElement={renderElement}
           renderLeaf={renderLeaf}
           onKeyDown={onKeyDown}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           readOnly={readOnly}
-          className={`${readOnly ? "" : "border"} border-gray-700 rounded-md p-2 selection:bg-sky-500 selection:text-white`}
-          decorate={([node, path]) => (
-            editor.selection != null &&
+          className={`${readOnly ? "border-transparent" : "border-gray-700"} border-2 rounded-md p-2 selection:bg-sky-500 selection:text-white cursor-text`}
+          decorate={([node, path]) => {
+            const selection = editor.selection ?? { anchor: { path: [0, 0], offset: 0 }, focus: { path: [0, 0], offset: 0 } };
+            return (
               !Editor.isEditor(node) &&
-              Editor.isBlock(editor, node) &&
-              Editor.isEmpty(editor, node) &&
-              Range.includes(editor.selection, path) &&
-              Range.isCollapsed(editor.selection)
-              ? [
-                {
-                  ...editor.selection,
-                  placeholder: true,
-                },
-              ] : []
-          )}
+                Editor.isBlock(editor, node) &&
+                Editor.isEmpty(editor, node) &&
+                Range.includes(selection, path) &&
+                Range.isCollapsed(selection)
+                ? [
+                  {
+                    ...selection,
+                    placeholder: true,
+                  },
+                ] : []
+            )
+          }}
         />
+        {!readOnly && <Transition
+          show={focused}
+          enter="transition-all duration-75 overflow-hidden"
+          enterFrom="h-0 opacity-0"
+          enterTo="h-12 opacity-100"
+          leave="transition-all duration-150 overflow-hidden delay-200"
+          leaveFrom="h-12 opacity-100"
+          leaveTo="h-0 opacity-0"
+          className="flex gap-2"
+        >
+          <FormatButton format="bold" icon="format_bold" />
+          <FormatButton format="italic" icon="format_italic" />
+          <FormatButton format="underline" icon="format_underline" />
+          <FormatButton format="code" icon="code" />
+          <span className="w-[2px] h-8 mt-1 bg-gray-700"></span>
+          <BlockButton format="unordered-list" icon="format_list_bulleted" />
+          <BlockButton format="ordered-list" icon="format_list_numbered" />
+          <BlockButton format="quote" icon="format_quote" />
+        </Transition>}
         {target && (searchType === "user" ? filteredUsers.length > 0 : filteredMachines.length > 0) && (
           createPortal(
             (<div

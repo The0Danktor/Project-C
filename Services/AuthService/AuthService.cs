@@ -75,7 +75,12 @@ namespace Project_C.Services
             if (!VerifyPasswordHash(request.Password, user.passwordHash, user.passwordSalt)) return null;
             string token = CreateToken(user);
             return token;
+        }
 
+        public async Task<User?> Get(Guid id)
+        {
+            var user = await _context.users.FindAsync(id);
+            return user;
         }
 
         public string CreateToken(User user)
