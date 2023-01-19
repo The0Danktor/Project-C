@@ -4,6 +4,11 @@ import { createPortal } from "react-dom";
 import { createEditor, BaseEditor, Descendant, Editor, Transforms, Text, Range } from "slate";
 import { withHistory } from "slate-history";
 import { Slate, Editable, withReact, ReactEditor, RenderLeafProps, useSlate, RenderElementProps, useSelected, useFocused } from "slate-react";
+import { User, Machine } from "../../Types/types";
+import { getUserId } from "../../pages/AddTicket"
+
+let globalUsers: User[] = [];
+let globalMachines: Machine[] = [];
 
 export type CustomEditorType = BaseEditor & ReactEditor;
 
@@ -37,7 +42,7 @@ export type ListItemElement = {
 export type MentionElement = {
   type: "mention";
   mentionType?: "user" | "machine";
-  id?: number;
+  id?: string;
   children: FormattedText[];
 }
 
@@ -130,7 +135,9 @@ function Mention({ attributes, children, element }: RenderElementProps) {
 
   const el = element as MentionElement;
 
-  const name = (el.mentionType === "user" ? users : machines).find(e => e.id === el.id)?.name || "Unknown";
+  const arr: { id: string, name: string }[] = el.mentionType === "user" ? globalUsers : globalMachines;
+
+  const name = arr.find(e => e.id === el.id)?.name || "Unknown";
 
   return (
     <>
@@ -209,30 +216,6 @@ const withMentions = (editor: CustomEditorType) => {
   return editor;
 }
 
-interface User {
-  id: number;
-  name: string;
-}
-
-const users: User[] = [
-  { id: 1, name: "Alice" },
-  { id: 2, name: "Bob" },
-  { id: 3, name: "Charlie" },
-  { id: 4, name: "Diana" }
-];
-
-interface Machine {
-  id: number;
-  name: string;
-}
-
-const machines: Machine[] = [
-  { id: 1, name: "Machine 1" },
-  { id: 2, name: "Machine 2" },
-  { id: 3, name: "Machine 3" },
-  { id: 4, name: "Machine 4" }
-];
-
 interface IEditorProps {
   initialValue?: Descendant[];
   readOnly?: boolean;
@@ -250,6 +233,42 @@ function RichTextEditor({
   const [search, setSearch] = useState("");
   const [value, setValue] = useState(initialValue);
   const [focused, setFocused] = useState(false);
+
+  const [users, setUsers] = useState<User[]>([]);
+  const [machines, setMachines] = useState<Machine[]>([]);
+
+  useEffect(() => {
+    const id = getUserId();
+
+    if (!id)
+      return;
+
+    fetch("http://localhost:7162/api/User/ByCompany/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+      .then(res => res.json())
+      .then((data: User[]) => {
+        setUsers(data);
+        globalUsers = data;
+      });
+
+    fetch("http://localhost:7162/api/Machine/Current/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+      .then(res => res.json())
+      .then((data: Machine[]) => {
+        setMachines(data);
+        globalMachines = data;
+      });
+  }, [])
 
   useImperativeHandle(valueRef, () => ({
     get value() { return value; },
@@ -282,7 +301,10 @@ function RichTextEditor({
       if (match) {
         const el = match[0] as MentionElement;
 
-        const name = (el.mentionType === "user" ? users : machines).find(e => e.id === el.id)?.name || "Unknown";
+        const arr: { id: string, name: string }[] = el.mentionType === "user" ? globalUsers : globalMachines;
+
+        const m = arr.find(e => e.id === el.id);
+        const name = m?.name || "Unknown";
 
         const elementPath = ReactEditor.findPath(editor, props.element);
         const mentionPath = ReactEditor.findPath(editor, el);
@@ -296,9 +318,17 @@ function RichTextEditor({
             <div contentEditable={false} className="my-1 p-2 bg-gray-200 dark:bg-gray-700 rounded">
               <h1 className="text-3xl">{name}</h1>
               <p className="text-sm italic">{el.mentionType === "user" ? "User" : "Machine"}</p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi voluptatem molestias magnam eum officia placeat dolorem doloribus porro iure praesentium nesciunt quod ab blanditiis, ipsam accusamus, velit alias quia vero.
-              </p>
+              {el.mentionType === "user" ?
+                <p>
+                  <strong>Email: </strong>{(m as User).email}
+                  <br />
+                  <strong>Phone: </strong>{(m as User).phone}
+                </p>
+                :
+                <p>
+                  <strong>Tekennummer: </strong>{(m as Machine).tekennummer}
+                </p>
+              }
             </div>
           </>
         }

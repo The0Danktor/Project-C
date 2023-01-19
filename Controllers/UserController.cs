@@ -5,6 +5,7 @@ namespace Project_C.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
@@ -20,6 +21,17 @@ namespace Project_C.Controllers
             var user = await _userService.Get(Guid.Parse(id));
             if (user == null) return NotFound();
             return Ok(user);
+        }
+
+        [HttpGet("ByCompany/{userId}")]
+        public async Task<ActionResult<IEnumerable<GetUserDto>>> GetByCompany(string userId)
+        {
+            var user = await _userService.Get(Guid.Parse(userId));
+            if (user == null || user.CompanyId == null) return NotFound();
+
+            var users = await _userService.GetByCompany(user.CompanyId.Value);
+
+            return Ok(users);
         }
     }
 }

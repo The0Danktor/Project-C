@@ -15,5 +15,11 @@ namespace Project_C.Services
             if (user == null) return null;
             return new GetUserDto(user);
         }
+
+        public async Task<IEnumerable<GetUserDto>> GetByCompany(Guid companyId)
+        {
+            var users = await _context.users.Where(u => u.CompanyId == companyId).ToListAsync();
+            return users.Select(u => new GetUserDto(u));
+        }
     }
 }
