@@ -125,7 +125,8 @@ export function Layout() {
       <div className="container">
         {/* <Header /> */}
         <div className="grow w-full">
-          <div className="flex flex-col md:flex-row flex-wrap gap-4 grow font-semibold text-black dark:text-gray-400">
+          <h1 className="text-2xl">Admin</h1>
+          <div className="flex flex-col md:flex-row flex-wrap mt-4 gap-4 grow font-semibold text-black dark:text-gray-400">
             {/* button links */}
             <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="0" />
             <ButtonAdmin linkTo="machines" title="Our Machines" bar="0" />
@@ -134,12 +135,10 @@ export function Layout() {
           </div>
           
           {/* recent activity */}
-          <div className="flex justify-center md:justify-start grow flex-wrap xl:flex-nowrap font-semibold text-black dark:text-gray-400">
+          {/* <div className="flex justify-center md:justify-start grow flex-wrap xl:flex-nowrap font-semibold text-black dark:text-gray-400">
             {recentActvity("Recent activity")}
             {recentActvity("Recent errors")}
-            {/* {recentActvity("Wee nie")}
-{recentActvity("Wee nie")} */}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

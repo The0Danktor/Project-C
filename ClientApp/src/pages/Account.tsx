@@ -34,8 +34,8 @@ export function Account() {
       <div className="container">
         <h1 className="text-2xl">Account</h1>
         <div className="flex items-center gap-4 my-8">
-          <div className="flex justify-center items-center w-36 aspect-square bg-slate-800 rounded-full">
-            <UserIcon className="w-24" />
+          <div className="flex justify-center items-center w-36 aspect-square bg-slate-300 dark:bg-slate-800 rounded-full">
+            <UserIcon className="w-24 text-slate-700 dark:text-slate-600" />
           </div>
           <div>
             {user && <>
