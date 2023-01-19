@@ -6,6 +6,7 @@ import { status, priority } from "./Ticket";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { CompanyMachine, Problem, Ticket, User } from "../../Types/types";
 import Editor from "./Editor";
+import { Descendant } from "slate";
 
 interface IInformation {
   close: () => void;
@@ -74,23 +75,16 @@ export function PopUp({ close, ticket }: IInformation) {
 
   const date = new Date(Date.parse(ticket.date));
 
+  const notes: { see: Descendant[], expect: Descendant[], tried: Descendant[] } = JSON.parse(ticket.note);
+
   return (
     <div className="bg-opacity-75 z-[9999] bg-gray-800 absolute top-0 left-0 w-full h-full m-0" onClick={(e: MouseEvent) => e.target === e.currentTarget && close()}>
       <div
         className="bg-gray-100 text-black dark:bg-gray-700 dark:text-white overflow-y-auto max-h-full md:max-h-[90vh] 
-        md:min-h-[50%] md:min-w-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2"
+        md:min-h-[50%] md:min-w-[50%] md:absolute md:left-1/2 md:-translate-x-1/2 md:top-1/2 md:-translate-y-1/2 p-6"
       >
-        {/* close button */}
-        <button
-          onClick={close}
-          className="float-right m-3 sticky top-4 bg-gray-100 dark:bg-gray-700 z-10"
-        >
-          <XMarkIcon className="w-6 h-6" />
-        </button>
-
-        {/* dipslays information */}
-        <div className="p-3">
-          <span className="text-gray-400 text-sm float-left w-full md:w-[unset] md:float-right">
+        <div className="flex justify-end items-center">
+          <span className="text-gray-400 text-sm">
             {/* dislays date: dd/mm/yyyy */}
             Reported: {date.getDate().toString().padStart(2, "0")}/
             {date.getMonth() === 0
@@ -98,23 +92,42 @@ export function PopUp({ close, ticket }: IInformation) {
               : date.getMonth().toString().padStart(2, "0")}
             /{date.getFullYear().toString()}
           </span>
-          <strong className="text-2xl block">
-            {companyMachine ? `${companyMachine.name}` : "Loading..."}
-          </strong>
-          <span>Associated Worker:</span>
-          <p>Nobody</p>
-          {/* dropdowns */}
-          {/* <Dropdown
+          {/* close button */}
+          <button
+            onClick={close}
+            className="m-3 bg-gray-100 dark:bg-gray-700 z-10"
+          >
+            <XMarkIcon className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* dipslays information */}
+        <div className="flex flex-col xl:flex-row">
+          <div className="flex-1">
+            <strong className="text-2xl block">
+              {companyMachine ? `${companyMachine.name}` : "Loading..."}
+            </strong>
+            <strong>Associated Worker: </strong>
+            <span>Nobody</span>
+            <br />
+            {/* dropdowns */}
+            {/* <Dropdown
             selected={ticket.user.name}
             info={ticket.availableusers.map((user: User) => user.name)}
           /> */}
-          <span>Status: </span>
-          <Dropdown selected={ticket.status} info={status} />
-          <span>Priority: </span>
-          <Dropdown selected={ticket.priority} info={priority} />
+            <span>Status: </span>
+            <Dropdown selected={ticket.status} info={status} />
+            <span>Priority: </span>
+            <Dropdown selected={ticket.priority} info={priority} />
 
+            {/* image gallery */}
+            <ImageGallery
+              src={ticket.images}
+              visible={true}
+            />
+          </div>
           {/* displays user information */}
-          <div className="xl:absolute xl:top-11 xl:right-28 my-3">
+          <div className="flex-1 p-3">
             <strong className="text-xl block">User Information</strong>
             {user ? <>
               <strong>User: </strong>
@@ -127,38 +140,45 @@ export function PopUp({ close, ticket }: IInformation) {
               :
               <p>Loading...</p>
             }
+            {/* dipslays the problem */}
+            <strong className="text-xl block mt-8">Problem</strong>
+            <strong>Problem Type</strong>
+            <p>{ticket.problemDescription ? "new problem" : "existing problem"}</p>
+            <strong className="">Problem Description</strong>
+            {ticket.problemDescription ? <Editor readOnly={true} initialValue={JSON.parse(ticket.problemDescription)} /> : <p>{problem ? problem.description : "Loading..."}</p>}
+
           </div>
-
-          {/* dipslays the problem */}
-          <strong className="text-xl block">Problem</strong>
-          <strong>Problem Type: </strong>
-          <span>{ticket.problemDescription ? "new problem" : "existing problem"}</span>
-          <br />
-          <strong className="">Problem Description</strong>
-          {ticket.problemDescription ? <Editor readOnly={true} initialValue={JSON.parse(ticket.problemDescription)} /> : <p>{problem ? problem.description : "Loading..."}</p>}
-
-          {/* image gallery */}
-          <ImageGallery
-            src={ticket.images}
-            visible={true}
-          />
-          {/* save buttons */}
-          {active ? ( // if delete button is clicked
-            <div className="flex flex-row justify-between flex-wrap pt-4">
-              <p className="text-red-500 text-sm p-3">
-                Are you sure you want to delete this ticket?
-              </p>
-
-              <Button value="Yes" fun={close} />
-              <Button value="No" fun={deleteP} />
-            </div> // if delete button is not clicked
-          ) : (
-            <div className="flex flex-row justify-between flex-wrap pt-4">
-              <Button value="Delete" fun={deleteP} />
-              <Button value="Save" fun={close} />
-            </div>
-          )}
         </div>
+        <div className="flex flex-col xl:flex-row w-full">
+            <div className="flex-1">
+              <strong className="inline-block w-full text-center">Seen</strong>
+              <Editor readOnly={true} initialValue={notes.see} />
+              </div>
+            <div className="flex-1">
+              <strong className="inline-block w-full text-center">Expected</strong>
+              <Editor readOnly={true} initialValue={notes.expect} />
+            </div>
+            <div className="flex-1">
+              <strong className="inline-block w-full text-center">Tried</strong>
+              <Editor readOnly={true} initialValue={notes.tried} />
+            </div>
+        </div>
+        {/* save buttons */}
+        {active ? ( // if delete button is clicked
+          <div className="flex flex-row justify-between flex-wrap gap-4 pt-4">
+            <p className="text-red-500 text-sm p-3">
+              Are you sure you want to delete this ticket?
+            </p>
+
+            <Button value="No" fun={deleteP} />
+            <Button value="Yes" fun={close} />
+          </div> // if delete button is not clicked
+        ) : (
+          <div className="flex flex-row justify-end flex-wrap gap-4 pt-4">
+            <Button value="Delete" fun={deleteP} />
+            <Button value="Save" fun={close} />
+          </div>
+        )}
       </div>
     </div>
   );

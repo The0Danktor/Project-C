@@ -14,10 +14,10 @@ interface IInformation {
 
 export function TicketLayout({ onHomePage, ticket }: IInformation) {
   const [active, setActive] = useState(false);
-  const [companyMachine, setCompanyMachine] = useState<
-    CompanyMachine | undefined
-  >(undefined);
+  const [companyMachine, setCompanyMachine] = useState<CompanyMachine | undefined>(undefined);
   const [user, setUser] = useState<User | undefined>(undefined);
+
+
   
   useEffect(() => {
   fetch("http://localhost:7162/api/User/" + ticket.userId, {
@@ -42,7 +42,7 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
     .then((res) => {
       setCompanyMachine(res);
     });
-  });
+  }, []);
   
 
   var color;
@@ -90,11 +90,11 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
         <Priority prio={ticket.priority} />
 
         <p>{user?.name}</p>
-        <p>{ticket.companyMachineId}</p>
+        <p>{user?.email}</p>
         <button
           className={
             color +
-            " rounded font-semibold w-40 md:float-right md:-my-12 float-left my-0"
+            " rounded font-semibold px-4 md:float-right md:-my-12 float-left my-0"
           }
         >
           {ticket.status}

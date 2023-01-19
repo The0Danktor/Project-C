@@ -73,13 +73,13 @@ export const Companys = () => {
         <div className="container flex flex-col w-full">
           <div className="py-2 align-middle inline-block w-full px-2">
             <div className=" w-full m-2 pb-3 md:m-3 flex justify-between">
-              <strong className="text-2xl">Companys</strong>
+              <strong className="text-2xl">Companies</strong>
               <button
                 className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
           hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2"
                 onClick={handleClick}
               >
-                Add Companys
+                Add Companies
               </button>
             </div>
             <div className="shadow overflow-hidden border-b border-gray-200 dark:border-gray-700 lg:rounded-lg">

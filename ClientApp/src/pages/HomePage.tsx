@@ -3,6 +3,8 @@ import { NavSide } from "../components/Shared/NavSide";
 import { Link } from "react-router-dom";
 import { ButtonAdmin } from "../components/Shared/Button";
 import { useNavigate } from "react-router-dom";
+import { TicketPage } from "./Ticket";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 interface User {
   name: string;
@@ -62,29 +64,29 @@ export function HomePage(props: { Role?: string }) {
   return (
     <div className="flex dark:bg-gray-900">
       <NavSide />
-      <div className="container flex flex-col lg:flex-row gap-2">
+      <div className="container flex flex-col xl:flex-row gap-8">
         {/* new ticket section */}
-        <div className="w-full lg:w-1/2 pr-4 lg:pr-0">
+        <div className="w-full xl:w-1/2 pr-4 lg:pr-0">
           <div className="flex flex-col lg:flex-row justify-between lg:items-center m-2 md:m-3">
             <strong className="text-2xl">New Tickets</strong>
-            <Link to="../Ticket">View all tickets {">"}</Link>
+            <Link to="../Ticket" className="text-sky-500">View all tickets {">"}</Link>
           </div>
 
-          {/* {TicketFetch().reports} */}
+          <TicketPage onHomePage={true} />
         </div>
 
         <div
           className={
-            (props.Role == "Client_admin" ? "lg:w-full" : "lg:w-1/2") +
+            (props.Role == "Client_admin" ? "lg:w-full" : "xl:w-1/2") +
             " w-full px-2 sm:px-0"
           }
         >
           <div className="flex flex-col mb-3 lg:my-3 flex-start">
             {/* make new ticket */}
-            <strong className="text-2xl mb-3">Make New Ticket</strong>
+            <strong className="text-2xl mb-3">Problem Search</strong>
             <form
               onSubmit={goToKnowledge}
-              className="flex flex-col gap-2 items-end"
+              className="flex gap-2 relative"
             >
               <input
                 type="text"
@@ -93,12 +95,9 @@ export function HomePage(props: { Role?: string }) {
                 rounded-xl grow w-full !pl-6"
                 id="value"
               />
-              <input
-                type="submit"
-                value="Search"
-                className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
-          hover:bg-gray-200 dark:text-gray-400 rounded-lg md:ml-3 py-2 cursor-pointer"
-              />
+              <button type="submit" className="text-white !bg-transparent absolute right-0 !px-2">
+                <MagnifyingGlassIcon className="w-6"/>
+              </button>
             </form>
           </div>
           <div>
@@ -108,15 +107,15 @@ export function HomePage(props: { Role?: string }) {
               <ButtonAdmin
                 linkTo="admin/accounts"
                 title="Our Accounts"
-                bar="bar"
+                bar="0"
               />
               <ButtonAdmin
                 linkTo="admin/machines"
                 title="Our Machines"
-                bar="bar"
+                bar="0"
               />
-              <ButtonAdmin linkTo="admin/Departments" title="Departments" bar="bar" />
-              <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="bar" />
+              <ButtonAdmin linkTo="admin/Departments" title="Departments" bar="0" />
+              <ButtonAdmin linkTo="admin/Companys" title="Companys" bar="0" />
             </div>
           </div>
         </div>

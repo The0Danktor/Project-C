@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 import { TicketLayout } from "../components/Shared/Ticket";
 import { getUserId } from "./AddTicket";
 
-export function TicketPage() {
+export function TicketPage({ onHomePage }: { onHomePage?: boolean }) {
   const [tickets, setTickets] = useState<Ticket[]>();
 
-  
   useEffect(() => {
 
     const id = getUserId();
-  
+
     if (!id)
       return;
-    
+
     fetch("http://localhost:7162/api/Ticket/GetAllByCompany/" + id, {
       method: "GET",
       headers: {
@@ -34,11 +33,13 @@ export function TicketPage() {
 
   return (
     <div className="flex dark:bg-gray-900">
-      <div className="hidden md:flex">
-        <NavSide />
-      </div>
-      <div className="container">
-        <div className="grow w-full m-2 md:m-3">
+      {!onHomePage &&
+        <div className="hidden md:flex">
+          <NavSide />
+        </div>
+      }
+      <div className={`container ${onHomePage ? "!p-0" : ""}`}>
+        {!onHomePage && <div className="grow w-full">
           <strong className="text-2xl">All tickets</strong>
           <Link to="../newticket">
             <button
@@ -48,7 +49,7 @@ export function TicketPage() {
               New Ticket
             </button>
           </Link>
-        </div>
+        </div>}
         <>
           {tickets !== undefined ?
             (
@@ -57,6 +58,7 @@ export function TicketPage() {
                   <TicketLayout
                     key={ticket.id}
                     ticket={ticket}
+                    onHomePage={onHomePage}
                   />
                 ))}
               </div>

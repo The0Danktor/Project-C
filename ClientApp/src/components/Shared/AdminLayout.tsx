@@ -94,7 +94,7 @@ export function Layout() {
     let items = state.items.map((item: any, index: any) => {
       return (
         <div className="flex flex-col " key={item.id}>
-          <div className="flex flex-col px-9  items-center border-4 border-gray-100 hover:bg-slate-100 dark:hover:bg-gray-800 dark:border-gray-800 shadow-lg rounded-full mt-5 dark:shadow-gray-800 justify-center font-semibold">
+          <div className="flex flex-col px-9  items-center border-2 border-gray-100 hover:bg-slate-100 dark:hover:bg-gray-800 dark:border-gray-800 rounded-md mt-5 justify-center font-semibold">
             {item.id} | {item.name} | {item.date}
           </div>
         </div>
@@ -109,7 +109,7 @@ export function Layout() {
         <div
           className="flex flex-col justify-center items-center w-60 text-2xl mt-2 h-10 font-semibold bg-white text-black dark:hover:text-white 
         dark:text-gray-400 border-2 border-gray-100 dark:border-gray-800 dark:bg-gray-900 hover:bg-slate-100 dark:hover:bg-gray-800 
-        dark:shadow-gray-600 shadow-lg rounded-full"
+          rounded-md"
         >
           <p>{title}</p>
         </div>
@@ -127,10 +127,10 @@ export function Layout() {
         <div className="grow w-full">
           <div className="flex flex-col md:flex-row flex-wrap gap-4 grow font-semibold text-black dark:text-gray-400">
             {/* button links */}
-            <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="bar" />
-            <ButtonAdmin linkTo="machines" title="Our Machines" bar="bar" />
-            <ButtonAdmin linkTo="problems" title="History" bar="bar" />
-            <ButtonAdmin linkTo="companys" title="Companys" bar="bar" />
+            <ButtonAdmin linkTo="accounts" title="Our Accounts" bar="0" />
+            <ButtonAdmin linkTo="machines" title="Our Machines" bar="0" />
+            <ButtonAdmin linkTo="problems" title="History" bar="0" />
+            <ButtonAdmin linkTo="companys" title="Companies" bar="0" />
           </div>
           
           {/* recent activity */}
