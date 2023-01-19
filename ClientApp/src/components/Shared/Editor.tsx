@@ -5,7 +5,7 @@ import { createEditor, BaseEditor, Descendant, Editor, Transforms, Text, Range }
 import { withHistory } from "slate-history";
 import { Slate, Editable, withReact, ReactEditor, RenderLeafProps, useSlate, RenderElementProps, useSelected, useFocused } from "slate-react";
 import { User, Machine } from "../../Types/types";
-import { getUserId } from "../../pages/AddTicket"
+import { parseToken } from "../../pages/AddTicket"
 
 let globalUsers: User[] = [];
 let globalMachines: Machine[] = [];
@@ -238,7 +238,7 @@ function RichTextEditor({
   const [machines, setMachines] = useState<Machine[]>([]);
 
   useEffect(() => {
-    const id = getUserId();
+    const id = parseToken()?.sid;
 
     if (!id)
       return;

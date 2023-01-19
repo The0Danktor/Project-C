@@ -2,7 +2,7 @@ import { UserIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { User } from "../Types/types";
-import { getUserId } from "./AddTicket";
+import { parseToken } from "./AddTicket";
 import { useNavigate } from "react-router-dom";
 
 export function Account() {
@@ -11,7 +11,7 @@ export function Account() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const id = getUserId();
+    const id = parseToken()?.sid;
 
     if (id === null) return;
 

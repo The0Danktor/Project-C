@@ -1,7 +1,7 @@
 import { MouseEvent, useEffect, useRef, useState } from "react";
 import { NavSide } from "../components/Shared/NavSide";
 import { Combobox, Transition } from "@headlessui/react";
-import { CheckIcon, ChevronUpDownIcon, TicketIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/24/outline";
 import RichTextEditor from "../components/Shared/Editor"
 import { Descendant } from "slate";
 import { AddImage } from "./AddImage";
@@ -25,13 +25,25 @@ const initial: RefType = {
   value: [{ type: "paragraph", children: [{ text: "" }] }]
 };
 
-export function getUserId(): string | null {
+type Token = {
+  exp: number;
+  role: string;
+  sid: string;
+}
+
+export function parseToken(): Token | null {
   const token = localStorage.getItem("token");
-  
+
   if (!token)
     return null;
-  
-  return JSON.parse(decodeURIComponent(window.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')))["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid"];
+
+  const json = JSON.parse(decodeURIComponent(window.atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+
+  return {
+    exp: json.exp,
+    role: json["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"],
+    sid: json["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/sid"]
+  };
 }
 
 const toBase64 = (url: string) => new Promise((resolve, reject) => {
@@ -70,7 +82,7 @@ export function AddTicket() {
   const problemSource = isExistingProblem && problems.length > 0;
 
   useEffect(() => {
-    const id = getUserId();
+    const id = parseToken()?.sid;
 
     if (!id)
       return;
@@ -119,7 +131,7 @@ export function AddTicket() {
 
   // submit function
   async function submit() {
-    const id = getUserId();
+    const id = parseToken()?.sid;
 
     if (!id)
       return;

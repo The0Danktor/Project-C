@@ -3,19 +3,25 @@ import { NavSide } from "../components/Shared/NavSide";
 import { Ticket } from "../Types/types";
 import { Link } from "react-router-dom";
 import { TicketLayout } from "../components/Shared/Ticket";
-import { getUserId } from "./AddTicket";
+import { parseToken } from "./AddTicket";
 
 export function TicketPage({ onHomePage }: { onHomePage?: boolean }) {
   const [tickets, setTickets] = useState<Ticket[]>();
 
   useEffect(() => {
+    const token = parseToken();
 
-    const id = getUserId();
-
-    if (!id)
+    if (token === null)
       return;
 
-    fetch("http://localhost:7162/api/Ticket/GetAllByCompany/" + id, {
+    const userId = token.sid;
+    const role = token.role;
+
+    const url = role === "Viscon_admin" ? "http://localhost:7162/api/Ticket/GetAll" : "http://localhost:7162/api/Ticket/GetAllByCompany/" + userId;
+
+    console.log(url);
+
+    fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
