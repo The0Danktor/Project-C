@@ -73,11 +73,6 @@ export function NavSide() {
               svg={<UsersIcon className="w-6 h-6 m-2" />}
               page="../admin"
             />
-            <NavSideButton
-              title="Testing Ground"
-              svg={<SwatchIcon className="w-6 h-6 m-2" />}
-              page="../test"
-            />
           </div>
           <div className="flex flex-col items-center my-4">
             <NavSideButton
@@ -94,6 +89,7 @@ export function NavSide() {
               title="Logout"
               svg={<ArrowRightOnRectangleIcon className="w-6 h-6 m-2" />}
               page="../login"
+              onClick={() => localStorage.removeItem("token")}
             />
           </div>
         </div>

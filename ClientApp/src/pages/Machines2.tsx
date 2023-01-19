@@ -84,7 +84,7 @@ function statusColor(status: any) {
     return "text-green-500";
   } else if (status === "Inactive") {
     return "text-red-500";
-  } 
+  }
 }
 
 //form to add machine and update the page
@@ -244,7 +244,6 @@ export const Machines2 = () => {
               <div className="flex flex-col w-full">
                 <label className="mb-2 font-bold">Name</label>
                 <input
-                  className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -253,7 +252,6 @@ export const Machines2 = () => {
               <div className="flex flex-col w-full mt-5">
                 <label className="mb-2 font-bold">Location</label>
                 <input
-                  className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
@@ -262,7 +260,7 @@ export const Machines2 = () => {
               <div className="flex flex-col w-full mt-5">
                 <label className="mb-2 font-bold">Status</label>
                 <select
-                  className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
+                  className="px-4 py-2 dark:bg-gray-800 dark:text-gray-400 rounded-md"
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
                 >
@@ -273,7 +271,7 @@ export const Machines2 = () => {
               <div className="flex flex-col w-full mt-5">
                 <label className="mb-2 font-bold">Date</label>
                 <input
-                  className="px-4 py-2 border dark:bg-gray-800 dark:text-gray-400 rounded-md"
+                  className="px-4 py-2 dark:bg-gray-800 dark:text-gray-400 rounded-md"
                   type="date"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
@@ -281,14 +279,14 @@ export const Machines2 = () => {
               </div>
               <div className="w-full mt-5">
                 <button
-                className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
+                  className="border w-full md:w-40 border-gray-300 dark:border-gray-700 dark:hover:bg-gray-700 
           hover:bg-gray-200 dark:text-gray-400 rounded-lg  py-2"
-                onClick={addMachine}
-              >
-                Add Machine
-              </button>
+                  onClick={addMachine}
+                >
+                  Add Machine
+                </button>
               </div>
-              
+
             </div>
           </div>
         )}

@@ -191,7 +191,7 @@ export function Departments() {
 
         {isShown && (
           <div>
-            <form onSubmit={handleSubmit} className="user-creation-form">
+            <form onSubmit={handleSubmit} className="grid-form">
               <label htmlFor="name">Name:</label>
               <input
                 type="text"

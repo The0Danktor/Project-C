@@ -147,6 +147,11 @@ export function AddTicket() {
           tried: triedRef.current.value
         })
       })
+    }).then(res => {
+      if (res.ok)
+        alert("Ticket created!");
+      else
+        alert("Something went wrong!");
     });
   }
 

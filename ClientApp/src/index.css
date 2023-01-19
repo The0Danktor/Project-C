@@ -81,16 +81,18 @@ blockquote {
   @apply !pl-2 ml-8 border-l-4 border-gray-300 dark:border-gray-700;
 }
 
-.user-creation-form {
-  @apply grid grid-cols-2 gap-2;
+.grid-form {
+  @apply grid grid-cols-2 gap-2 w-fit;
 }
 
-.user-creation-form label {
-  text-align: right;
+.grid-form label {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   padding-right: 1em;
 }
 
-.user-creation-form button[type=submit] {
+.grid-form button[type=submit] {
   @apply col-start-2 w-fit mx-auto;
 }
 

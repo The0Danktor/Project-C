@@ -216,7 +216,7 @@ export function UserCreation(props: { Role?: string }) {
     <div>
       {props.Role === "Client_admin" && (
         <div>
-          <form onSubmit={handleSubmit} className="user-creation-form">
+          <form onSubmit={handleSubmit} className="grid-form">
             <label htmlFor="name">Name:</label>
             <input
               type="text"
@@ -255,7 +255,7 @@ export function UserCreation(props: { Role?: string }) {
       )}
       {props.Role === "Viscon_employee" && (
         <div>
-          <form onSubmit={handleSubmit} className="user-creation-form">
+          <form onSubmit={handleSubmit} className="grid-form">
             <label htmlFor="name">Naaame:</label>
             <input
               type="text"
@@ -328,7 +328,7 @@ export function UserCreation(props: { Role?: string }) {
               <Tab.Panel>
                 <div>
       
-                  <form onSubmit={handleSubmit} className="user-creation-form">
+                  <form onSubmit={handleSubmit} className="grid-form">
                     <label htmlFor="name">Name:</label>
                     <input
                       type="text"
@@ -393,7 +393,7 @@ export function UserCreation(props: { Role?: string }) {
               <Tab.Panel>
                 <div>
       
-                  <form onSubmit={handleSubmit} className="user-creation-form">
+                  <form onSubmit={handleSubmit} className="grid-form">
                     <label htmlFor="name">Name:</label>
                     <input
                       type="text"
@@ -423,13 +423,13 @@ export function UserCreation(props: { Role?: string }) {
                       checked={enabled}
                       onChange={setEnabled}
                       className={`${
-                        enabled ? "bg-blue-600" : "bg-gray-200"
-                      } relative inline-flex h-6 w-11 items-center rounded-full transition-all`}
+                        enabled ? "bg-blue-600" : "bg-gray-200 dark:bg-gray-700"
+                      } relative inline-flex h-6 w-11 items-center rounded-full`}
                     >
                       <span
                         className={`${
                           enabled ? "translate-x-6" : "translate-x-1"
-                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                        } inline-block h-4 w-4 transform rounded-full bg-white`}
                       />
                     </Switch>
                     <button type="submit">Create user</button>

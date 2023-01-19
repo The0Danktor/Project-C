@@ -93,7 +93,7 @@ export function CompanyCreation(props: { Role?: string }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="user-creation-form w-fit">
+      <form onSubmit={handleSubmit} className="grid-form w-fit">
         <label htmlFor="name">Name:</label>
         <input
           type="text"

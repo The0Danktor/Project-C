@@ -105,7 +105,7 @@ export function PopUp({ close, ticket }: IInformation) {
         <div className="flex flex-col xl:flex-row">
           <div className="flex-1">
             <strong className="text-2xl block">
-              {companyMachine ? `${companyMachine.name}` : "Loading..."}
+              {companyMachine ? `${companyMachine.name ?? "Software"}` : "Loading..."}
             </strong>
             <strong>Associated Worker: </strong>
             <span>Nobody</span>

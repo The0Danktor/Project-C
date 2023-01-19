@@ -85,12 +85,12 @@ export function TicketLayout({ onHomePage, ticket }: IInformation) {
             : date.getMonth().toString().padStart(2, "0")}
           /{date.getFullYear().toString()}
         </span>
-        <strong className="inline-block">{companyMachine?.name}</strong>
+        <strong className="inline-block">{companyMachine?.name ?? "Software"}</strong>
         {/* priority */}
         <Priority prio={ticket.priority} />
 
-        <p>{user?.name}</p>
-        <p>{user?.email}</p>
+        <p>{user?.name ?? "......"}</p>
+        <p>{user?.email ?? "......"}</p>
         <button
           className={
             color +

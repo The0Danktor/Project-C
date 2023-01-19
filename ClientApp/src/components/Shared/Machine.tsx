@@ -4,14 +4,12 @@ import { Tag } from "./Tag";
 
 type MachineProps = {
   machineName: string;
-  tekenNumber: string;
   type: string;
   page: LinkProps["to"];
 };
 
 export function Machine({
   machineName,
-  tekenNumber,
   type,
   page,
 }: MachineProps) {
@@ -25,7 +23,6 @@ export function Machine({
           {machineName}
         </div>
         <div className="flex gap-2">
-          <Tag text={`TekenNummer:${tekenNumber}`} />
           <Tag text={`Type: ${type}`} />
         </div>
       </Link>

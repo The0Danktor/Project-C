@@ -12,7 +12,6 @@ import { Problem, Machine } from "../../Types/types";
 
 
 
-//https://plainenglish.io/blog/how-to-implement-a-search-bar-in-react-js
 interface Prop {
   Id?: string;
 }
@@ -23,24 +22,24 @@ export function ProblemMenu({ Id }: Prop) {
   const [error, setError] = useState<string>();
 
   const [machine, setMachine] = useState<Machine>();
-  
+
   const [machineId, setMachineId] = useState("");
   const [description, setDescription] = useState("");
 
   const postProblem = async () => {
-    const problemInfo = {machineId, description};
+    const problemInfo = { machineId, description };
 
     await fetch("https://localhost:7162/api/Problem", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(problemInfo)
     })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   const fetchMachine = async () => {
@@ -97,15 +96,6 @@ export function ProblemMenu({ Id }: Prop) {
         className="w-96 my-6 border-2 rounded-md focus:outline-none dark:bg-gray-900 dark:border-gray-800 px-3 py-2 dark:text-gray-400 dark:placeholder:text-gray-500"
       />
       <div className="border-x-2 border-t-2 dark:border-gray-800  w-full rounded-md">
-        <form>
-          <div>
-            <input type="text" name="id" value={machineId} onChange={x => setMachineId(x.target.value)}/>
-          </div>
-          <div>
-            <input type="text" name="description" value={description} onChange={x => setDescription(x.target.value)}/>
-          </div>
-        </form>
-        <ProblemAddButton onclick={() => postProblem()}/>
         <>
           {problems !== undefined && machine !== undefined ? (
             <div>
@@ -121,8 +111,16 @@ export function ProblemMenu({ Id }: Prop) {
             <div>Als er errors zijn hier iets neerzetten {" :)"}</div>
           )}
         </>
-
       </div>
+      <form className="flex flex-col gap-4 m-4">
+        <div>
+          <input type="text" name="id" value={machineId} onChange={x => setMachineId(x.target.value)} placeholder="machineId" />
+        </div>
+        <div>
+          <input type="text" name="description" value={description} onChange={x => setDescription(x.target.value)} placeholder="description" />
+        </div>
+      </form>
+      <ProblemAddButton onclick={() => postProblem()} />
     </div>
   );
 }

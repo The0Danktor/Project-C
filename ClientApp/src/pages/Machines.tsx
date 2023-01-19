@@ -64,7 +64,6 @@ export function Machines() {
                   <Machine
                     key={machine.id}
                     machineName={machine.name}
-                    tekenNumber={"asdf"}
                     type={machine.type}
                     page={`/machineproblems/${machine.machineId}`}
                   />

@@ -52,7 +52,7 @@ namespace Project_C.Services
             {
                 Id = Guid.NewGuid(),
                 UserId = ticket.UserId,
-                CompanyMachineId = companyMachine!.Id,
+                CompanyMachineId = companyMachine == null ? null : companyMachine.Id,
                 Tekennummer = ticket.Tekennummer,
                 ProblemId = ticket.ProblemId,
                 ProblemDescription = ticket.ProblemDescription,

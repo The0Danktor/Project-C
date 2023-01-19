@@ -35,32 +35,6 @@ export function HomePage(props: { Role?: string }) {
     });
   };
 
-  const [_, setLoadingData] = useState<boolean>();
-  const [companys, setCompany] = useState<company>();
-  const [user, setUser] = useState(initialUser);
-  const [__, setError] = useState<string>();
-
-  // loads data from database
-  const fetchData = async () => {
-    try {
-      const response = await (
-        await fetch(`http://localhost:7162/api/Company/GetAll`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-      ).json();
-      setCompany(response);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
   return (
     <div className="flex dark:bg-gray-900">
       <NavSide />
@@ -83,7 +57,7 @@ export function HomePage(props: { Role?: string }) {
         >
           <div className="flex flex-col mb-3 lg:my-3 flex-start">
             {/* make new ticket */}
-            <strong className="text-2xl mb-3">Problem Search</strong>
+            <strong className="text-2xl mb-3">Problem search</strong>
             <form
               onSubmit={goToKnowledge}
               className="flex gap-2 relative"
@@ -101,7 +75,7 @@ export function HomePage(props: { Role?: string }) {
             </form>
           </div>
           <div>
-            <strong className="text-2xl font-bold">Admin Panel</strong>
+            <strong className="text-2xl font-bold">Admin panel</strong>
             <div className="flex grow flex-row flex-wrap gap-2 lg:my-3 font-semibold text-black dark:text-gray-400">
               {/* button links */}
               <ButtonAdmin
